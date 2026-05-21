@@ -5,10 +5,16 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, Message
 from sqlalchemy import select
 from app.bot.keyboards import main_menu, subscription_keyboard
+from app.bot.keyboards.integrations import (
+    integration_categories_keyboard,
+    integration_setup_keyboard,
+    integrations_list_keyboard,
+)
 from app.bot.states import AddSiteState
 from app.config import get_settings
 from app.database import SessionLocal
 from app.models import Report, TrafficSource, Website
+from app.integrations.registry import CATEGORY_TITLES, get_integration
 from app.services.ai_service import explain_sources, recommendations_from_audit
 from app.services.audit_service import audit_domain
 from app.services.growth_intelligence_service import (
@@ -19,6 +25,10 @@ from app.services.growth_intelligence_service import (
     generate_today_actions,
 )
 from app.services.infographic_service import render_traffic_map_html
+from app.services.integration_connection_service import (
+    category_summary,
+    prepare_integration_setup,
+)
 from app.services.pdf_service import generate_pdf_report
 from app.services.subscription_service import PLANS, get_or_create_user, trial_status_text
 from app.services.traffic_service import aggregate_sources
@@ -130,9 +140,53 @@ async def competitors_handler(query: CallbackQuery) -> None:
 async def integrations_handler(query: CallbackQuery) -> None:
     await query.message.answer(
         "Интеграции\n\n"
-        "План подключения: GA4, Search Console, Яндекс Метрика, Google Ads, Meta Ads, TikTok Ads, HubSpot, Bitrix, AmoCRM, соцсети, email и пиксели.\n\n"
-        "Все источники приводятся к единой модели прибыли, лидов и потерь.",
-        reply_markup=main_menu(),
+        "Выберите тип источника. Я покажу самый короткий путь подключения: вход через аккаунт, API-ключ, пиксель, GTM или webhook.\n\n"
+        "После подключения данные будут приводиться к единой модели: прибыль, лиды, продажи, ROI, ROAS и потери.",
+        reply_markup=integration_categories_keyboard(),
+    )
+    await query.answer()
+
+
+@router.callback_query(F.data.startswith("int_cat:"))
+async def integration_category_handler(query: CallbackQuery) -> None:
+    category = query.data.split(":", 1)[1]
+    if category not in CATEGORY_TITLES:
+        await query.answer("Категория не найдена", show_alert=True)
+        return
+    await query.message.answer(category_summary(category), reply_markup=integrations_list_keyboard(category))
+    await query.answer()
+
+
+@router.callback_query(F.data.startswith("int_svc:"))
+async def integration_service_handler(query: CallbackQuery) -> None:
+    code = query.data.split(":", 1)[1]
+    item = get_integration(code)
+    if not item:
+        await query.answer("Сервис не найден", show_alert=True)
+        return
+    async with SessionLocal() as session:
+        user = await get_or_create_user(session, query.from_user, get_settings().admin_ids)
+        setup = await prepare_integration_setup(session, user, code)
+    await query.message.answer(
+        setup.text,
+        reply_markup=integration_setup_keyboard(code, setup.connect_url, setup.docs_url),
+        disable_web_page_preview=True,
+    )
+    await query.answer()
+
+
+@router.callback_query(F.data.startswith("int_check:"))
+async def integration_check_handler(query: CallbackQuery) -> None:
+    code = query.data.split(":", 1)[1]
+    item = get_integration(code)
+    if not item:
+        await query.answer("Сервис не найден", show_alert=True)
+        return
+    await query.message.answer(
+        f"{item.title}\n\n"
+        "Проверка подключения добавлена в сценарий. Для OAuth сервисов она начнет работать после настройки callback endpoint и client secret в .env. "
+        "Для API-ключей и пикселей бот проверит наличие ключа/событий после первого sync.",
+        reply_markup=integration_setup_keyboard(code, None, item.docs_url),
     )
     await query.answer()
 
@@ -210,10 +264,15 @@ async def connect_handler(message: Message) -> None:
         f'data-token="{website.tracking_token}" data-endpoint="{get_settings().public_base_url}/tracker/event"></script>'
     )
     await message.answer(
-        "Можно подключить GA4, CRM и рекламные кабинеты позже или сразу поставить скрипт отслеживания TrafficMind.\n\n"
-        f"<code>{script}</code>",
+        "Самый простой старт:\n"
+        "1. Поставьте скрипт TrafficMind на сайт.\n"
+        "2. Подключите GA4 или Яндекс Метрику.\n"
+        "3. Подключите CRM, чтобы считать деньги, а не только заявки.\n\n"
+        "Скрипт TrafficMind:\n"
+        f"<code>{script}</code>\n\n"
+        "Ниже можно выбрать сервис и получить короткую инструкцию подключения.",
         parse_mode="HTML",
-        reply_markup=main_menu(),
+        reply_markup=integration_categories_keyboard(),
     )
 
 

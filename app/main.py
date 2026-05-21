@@ -5,7 +5,7 @@ from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.config import get_settings
 from app.database import get_db, init_db
-from app.models import Event, Report, Subscription, User, Website
+from app.models import Event, IntegrationAccount, Report, Subscription, User, Website
 from app.services.growth_intelligence_service import (
     build_profit_map,
     demo_metrics,
@@ -13,7 +13,8 @@ from app.services.growth_intelligence_service import (
     forecast_revenue,
     generate_today_actions,
 )
-from app.integrations.registry import grouped_integrations
+from app.integrations.registry import get_integration, required_env_vars
+from app.services.integration_connection_service import catalog_payload, setup_text
 from app.tracker.tracker_api import router as tracker_router
 
 settings = get_settings()
@@ -78,4 +79,56 @@ async def growth_demo() -> dict:
 
 @app.get("/api/integrations")
 async def integrations_catalog() -> dict:
-    return {"integrations": grouped_integrations()}
+    return catalog_payload()
+
+
+@app.get("/api/integrations/{code}/setup")
+async def integration_setup(code: str) -> dict:
+    item = get_integration(code)
+    if not item:
+        raise HTTPException(status_code=404, detail="Интеграция не найдена.")
+    return {
+        "integration": item.code,
+        "title": item.title,
+        "auth_type": item.auth_type,
+        "setup_time": item.setup_time,
+        "required_env": required_env_vars(item),
+        "instructions": setup_text(item, has_oauth_url=False, missing_env=required_env_vars(item)),
+    }
+
+
+@app.get("/oauth/{provider}/callback")
+async def oauth_callback(provider: str, code: str | None = None, state: str | None = None, db: AsyncSession = Depends(get_db)) -> dict:
+    if not code or not state or ":" not in state:
+        raise HTTPException(status_code=400, detail="OAuth callback без code/state.")
+    user_id_raw, integration_code = state.split(":", 1)
+    if not user_id_raw.isdigit():
+        raise HTTPException(status_code=400, detail="Некорректный OAuth state.")
+    item = get_integration(integration_code)
+    if not item:
+        raise HTTPException(status_code=404, detail="Интеграция не найдена.")
+    account = await db.scalar(
+        select(IntegrationAccount).where(
+            IntegrationAccount.user_id == int(user_id_raw),
+            IntegrationAccount.provider == integration_code,
+        )
+    )
+    if not account:
+        account = IntegrationAccount(
+            user_id=int(user_id_raw),
+            provider=integration_code,
+            category=item.category,
+            status="authorized_pending_token_exchange",
+            scopes=list(item.scopes),
+        )
+        db.add(account)
+    else:
+        account.status = "authorized_pending_token_exchange"
+    await db.commit()
+    return {
+        "ok": True,
+        "provider": provider,
+        "integration": integration_code,
+        "status": "authorized_pending_token_exchange",
+        "message": "Авторизация получена. Следующий production-шаг: обменять code на access/refresh token и сохранить токены в зашифрованном хранилище.",
+    }
