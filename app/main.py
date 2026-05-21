@@ -1,4 +1,4 @@
-from fastapi import Depends, FastAPI, Header, HTTPException
+from fastapi import Depends, FastAPI, Header, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy import func, select
@@ -17,6 +17,7 @@ from app.services.growth_intelligence_service import (
 )
 from app.integrations.registry import get_integration, required_env_vars
 from app.services.integration_connection_service import catalog_payload, setup_text
+from app.services.link_only_report_service import link_only_report_payload
 from app.tracker.tracker_api import router as tracker_router
 
 settings = get_settings()
@@ -130,6 +131,11 @@ async def account_demo() -> dict:
         },
         "integrations": catalog_payload()["integrations"],
     }
+
+
+@app.get("/api/reports/link-only-demo")
+async def link_only_report_demo(domain: str = Query(default="example.com", min_length=3, max_length=255)) -> dict:
+    return link_only_report_payload(domain)
 
 
 @app.get("/api/account/{telegram_id}")

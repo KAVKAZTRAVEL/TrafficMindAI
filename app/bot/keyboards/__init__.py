@@ -20,6 +20,9 @@ def main_menu() -> InlineKeyboardMarkup:
             InlineKeyboardButton(text="Отчеты", callback_data="report"),
         ],
         [
+            InlineKeyboardButton(text="Отчет по ссылке", callback_data="link_only_report"),
+        ],
+        [
             InlineKeyboardButton(text="Интеграции", callback_data="integrations"),
             InlineKeyboardButton(text="Подписка", callback_data="subscription"),
         ],

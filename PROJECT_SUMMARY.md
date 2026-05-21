@@ -6,9 +6,12 @@
 - `demo/traffic_map_demo.html` - локальный визуальный демо-макет.
 - `demo/account.html` - личный кабинет пользователя.
 - `demo/admin.html` - админ-панель владельца.
+- `demo/link_only_report.html` - полный предварительный отчет по одной ссылке без подключений.
+- `demo/telegram_report_mockup.html` - визуальная имитация отчета в Telegram-боте.
 - `materials/TrafficMind_AI_Master.docx` - исходное техническое задание.
 - `materials/visual_reference.png` - референс визуального стиля.
 - `README.md` - инструкция по запуску и архитектуре.
+- `docs/OPENAI_CODEX_USE_CASES_NOTES.md` - заметки по официальному ресурсу OpenAI Codex use cases для будущего развития бота.
 - `docs/` - enterprise blueprint, UX/UI структура, база данных и roadmap.
 - `.env.example` - пример переменных окружения.
 - `docker-compose.yml` - запуск API, бота, PostgreSQL, Redis, worker и beat.

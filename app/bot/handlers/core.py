@@ -29,6 +29,7 @@ from app.services.integration_connection_service import (
     category_summary,
     prepare_integration_setup,
 )
+from app.services.link_only_report_service import link_only_report_payload
 from app.services.pdf_service import generate_pdf_report
 from app.services.subscription_service import PLANS, get_or_create_user, trial_status_text
 from app.services.traffic_service import aggregate_sources
@@ -337,6 +338,43 @@ async def report_handler(event) -> None:
         await event.answer()
 
 
+@router.message(Command("link_report"))
+@router.callback_query(F.data == "link_only_report")
+async def link_only_report_handler(event) -> None:
+    message = event.message if isinstance(event, CallbackQuery) else event
+    async with SessionLocal() as session:
+        user = await get_or_create_user(session, event.from_user, get_settings().admin_ids)
+        website = await session.scalar(select(Website).where(Website.user_id == user.id).order_by(Website.id.desc()))
+    report = link_only_report_payload(website.domain if website else "example.com")
+    top_findings = "\n\n".join(
+        f"- {item['title']}\n"
+        f"Почему важно: {item['why']}\n"
+        f"Что сделать: {item['recommendation']}"
+        for item in report["findings"][:3]
+    )
+    actions = "\n".join(
+        f"{item['priority']}. {item['title']} - {item['effect']} ({item['time']})"
+        for item in report["today_actions"]
+    )
+    missing = ", ".join(report["missing_data"][:4])
+    await message.answer(
+        f"Полный отчет по ссылке: {report['domain']}\n\n"
+        f"{report['executive_summary']['headline']}\n\n"
+        f"Уверенность: {report['confidence']['score']}/100 - {report['confidence']['label']}\n"
+        f"Оценочные потери: {report['executive_summary']['estimated_revenue_leak']}\n"
+        f"Первое действие: {report['executive_summary']['next_best_action']}\n\n"
+        "Что найдено:\n"
+        f"{top_findings}\n\n"
+        "Что делать сегодня:\n"
+        f"{actions}\n\n"
+        "Важно: без подключений я не вижу реальные продажи и рекламные расходы. "
+        f"Для точной карты прибыли нужны: {missing}.",
+        reply_markup=main_menu(),
+    )
+    if isinstance(event, CallbackQuery):
+        await event.answer()
+
+
 @router.message(Command("subscription"))
 @router.callback_query(F.data == "subscription")
 async def subscription_handler(event) -> None:
@@ -356,6 +394,6 @@ async def check_all_handler(query: CallbackQuery) -> None:
 @router.message(Command("help"))
 async def help_handler(message: Message) -> None:
     await message.answer(
-        "/add_site, /audit, /connect, /traffic_map, /report, /recommendations, /subscription",
+        "/add_site, /audit, /connect, /traffic_map, /report, /link_report, /recommendations, /subscription",
         reply_markup=main_menu(),
     )

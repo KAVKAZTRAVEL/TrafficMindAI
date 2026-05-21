@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Отчет по ссылке TrafficMind AI</title>
+  <style>
+    :root{color-scheme:dark;--text:rgba(255,255,255,.94);--muted:rgba(255,255,255,.66);--blue:#2f8cff;--blue2:#7cc7ff;--green:#5df28a;--amber:#ffd056;--red:#ff6a5f}
+    *{box-sizing:border-box} body{margin:0;min-height:100vh;font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--text);background:radial-gradient(circle at 12% -10%,rgba(116,168,72,.58),transparent 25%),radial-gradient(circle at 36% -12%,rgba(255,98,54,.58),transparent 24%),radial-gradient(circle at 96% 3%,rgba(0,117,255,.43),transparent 28%),radial-gradient(circle at 54% 88%,rgba(47,140,255,.24),transparent 38%),linear-gradient(180deg,#08111f 0%,#02050b 48%,#04070d 100%)}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(circle at 50% 44%,black,transparent 72%)}
+    a{color:inherit;text-decoration:none} button,input{font:inherit}.page{min-height:100vh;padding:34px clamp(16px,4vw,58px);display:grid;grid-template-columns:280px 1fr;gap:24px}.glass{border:1px solid rgba(255,255,255,.13);background:linear-gradient(180deg,rgba(255,255,255,.13),rgba(255,255,255,.055));box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 18px 50px rgba(0,0,0,.35);backdrop-filter:blur(22px)}
+    aside{border-radius:30px;padding:22px;display:flex;flex-direction:column;justify-content:space-between;min-height:calc(100vh - 68px);position:sticky;top:34px}.brand{display:flex;gap:12px;align-items:center;font-weight:850;font-size:21px}.logo{width:38px;height:38px;border-radius:14px;background:linear-gradient(135deg,#7cc7ff,#2f8cff 58%,#5df28a);box-shadow:0 0 28px rgba(47,140,255,.42)}nav{display:grid;gap:10px;margin-top:28px}nav a,.pill{min-height:42px;padding:0 14px;border-radius:999px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;background:rgba(255,255,255,.055);color:var(--muted)}nav a.active{color:white;border-color:rgba(124,199,255,.6);background:linear-gradient(90deg,rgba(47,140,255,.27),rgba(255,255,255,.06))}
+    main{display:grid;gap:18px}.hero{display:grid;grid-template-columns:1fr 360px;gap:18px;align-items:end}.hero h1{font-size:clamp(38px,6vw,82px);line-height:.98;margin:0;letter-spacing:0}.hero p{color:var(--muted);font-size:18px;max-width:760px;line-height:1.45}.urlbox{border-radius:26px;padding:18px}.urlbox label{display:grid;gap:10px;color:var(--muted)}.urlrow{display:flex;gap:10px}input{min-width:0;width:100%;height:44px;border-radius:999px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.07);color:white;padding:0 14px}.primary{height:44px;border:0;border-radius:999px;background:linear-gradient(90deg,#7cc7ff,#2f8cff);color:#03101f;font-weight:850;padding:0 18px;cursor:pointer;box-shadow:0 0 24px rgba(76,161,255,.42);white-space:nowrap}
+    .notice{border-radius:24px;padding:17px;color:rgba(255,255,255,.78);line-height:1.5;border:1px solid rgba(255,208,86,.32);background:rgba(255,208,86,.08)}.grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px}.score{border-radius:24px;padding:18px;min-height:128px}.score b{font-size:30px;display:block;margin-bottom:8px}.score span{color:var(--muted);line-height:1.35}.wide{display:grid;grid-template-columns:1.18fr .82fr;gap:14px}.panel{border-radius:30px;padding:22px}.panel h2{margin:0 0 14px;font-size:28px}.muted{color:var(--muted);line-height:1.5}.summary{display:grid;grid-template-columns:1fr 230px;gap:16px;align-items:center}.risk{border-radius:24px;padding:18px;background:rgba(255,106,95,.11);border:1px solid rgba(255,106,95,.28)}.risk b{font-size:26px;display:block;margin-bottom:6px}.list{display:grid;gap:12px}.item{padding:15px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)}.item strong{display:block;margin-bottom:6px}.high{color:var(--red)}.medium{color:var(--amber)}.ok{color:var(--green)}
+    .roadmap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.step{padding:16px;border-radius:20px;background:rgba(47,140,255,.09);border:1px solid rgba(124,199,255,.2);min-height:150px}.step small{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:rgba(124,199,255,.2);margin-bottom:12px;font-weight:850}.table{display:grid;gap:10px}.row{display:grid;grid-template-columns:1fr 1.2fr;gap:12px;padding:13px;border-radius:16px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.08)}.foot{font-size:13px;color:rgba(255,255,255,.54)}
+    @media(max-width:1120px){.page,.hero,.wide{grid-template-columns:1fr}aside{position:static;min-height:auto}.grid{grid-template-columns:repeat(3,1fr)}.roadmap{grid-template-columns:1fr 1fr}}@media(max-width:640px){.grid,.roadmap,.summary{grid-template-columns:1fr}.urlrow{display:grid}.hero h1{font-size:42px}}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <aside class="glass">
+      <div>
+        <div class="brand"><span class="logo"></span><span>TrafficMind AI</span></div>
+        <nav>
+          <a href="traffic_map_demo.html">Dashboard</a>
+          <a class="active" href="link_only_report.html">Отчет по ссылке</a>
+          <a href="account.html">Личный кабинет</a>
+          <a href="admin.html">Админ-панель</a>
+        </nav>
+      </div>
+      <div class="pill">Без подключений: только URL сайта</div>
+    </aside>
+
+    <main>
+      <section class="hero">
+        <div>
+          <h1>Полный отчет по сайту</h1>
+          <p>Сценарий для клиента, который ничего не подключает и просто отправляет ссылку. TrafficMind AI показывает предварительный аудит, риски, гипотезы потерь и план действий.</p>
+        </div>
+        <form class="urlbox glass" id="domain-form">
+          <label>Ссылка на сайт
+            <span class="urlrow">
+              <input id="domain-input" value="kavkaztravel.example" aria-label="Домен сайта">
+              <button class="primary" type="submit">Собрать отчет</button>
+            </span>
+          </label>
+        </form>
+      </section>
+
+      <section class="notice">
+        Это честный предварительный отчет. Без GA4, CRM, рекламных кабинетов и пикселей система не показывает реальные продажи, ROAS и источники денег. Вместо этого она анализирует публичные признаки сайта и дает гипотезы, что проверить первым.
+      </section>
+
+      <section class="wide">
+        <article class="panel glass summary">
+          <div>
+            <h2 id="report-domain">kavkaztravel.example</h2>
+            <p class="muted"><b>Главный вывод:</b> сайт может терять заявки из-за слабого измерения, неочевидного CTA и неполной воронки. Первый шаг: проверить первый экран, форму заявки и подключить базовый трекинг.</p>
+          </div>
+          <div class="risk">
+            <b>35 000-120 000 ₽</b>
+            <span class="muted">оценочный диапазон возможных потерь в месяц</span>
+          </div>
+        </article>
+        <article class="panel glass">
+          <h2>Уверенность отчета</h2>
+          <p class="muted"><b>64/100:</b> предварительная оценка. Данных достаточно для первого плана улучшений, но недостаточно для точного расчета прибыли по каналам.</p>
+        </article>
+      </section>
+
+      <section class="grid">
+        <div class="score glass"><b>62</b><span>готовность к заявкам<br><em>нужно усилить</em></span></div>
+        <div class="score glass"><b>38</b><span>измеримость маркетинга<br><em>высокий риск</em></span></div>
+        <div class="score glass"><b>71</b><span>SEO-база<br><em>нормально</em></span></div>
+        <div class="score glass"><b>66</b><span>доверие и оффер<br><em>есть потенциал</em></span></div>
+        <div class="score glass"><b>58</b><span>мобильный путь<br><em>проверить</em></span></div>
+        <div class="score glass"><b>54</b><span>скорость решения<br><em>много трения</em></span></div>
+      </section>
+
+      <section class="wide">
+        <article class="panel glass">
+          <h2>Что найдено</h2>
+          <div class="list">
+            <div class="item"><strong class="high">Нельзя точно понять, какие каналы приводят деньги</strong><span class="muted">Без GA4/Метрики/CRM система видит сайт, но не видит продажи, CPL, ROAS и качество лидов. Рекламный бюджет может перераспределяться вслепую.</span></div>
+            <div class="item"><strong class="high">Путь до заявки нужно сократить</strong><span class="muted">У холодного посетителя должно быть 1-2 очевидных действия: оставить заявку, написать в мессенджер или позвонить.</span></div>
+            <div class="item"><strong class="medium">Недостаточно данных для качества трафика</strong><span class="muted">Без UTM и пикселей нельзя понять, какие объявления дают заявки, а какие просто клики.</span></div>
+            <div class="item"><strong class="medium">SEO может давать больше бесплатных заявок</strong><span class="muted">Нужны страницы под спрос, сильные title/description и структура ответа на вопросы клиента.</span></div>
+          </div>
+        </article>
+        <article class="panel glass">
+          <h2>Чего отчет не знает без подключений</h2>
+          <div class="table">
+            <div class="row"><span>Источники трафика</span><span class="muted">нет реальных каналов и UTM</span></div>
+            <div class="row"><span>Расходы рекламы</span><span class="muted">нет бюджета, CPL и ROAS</span></div>
+            <div class="row"><span>CRM-продажи</span><span class="muted">нет выручки и статусов сделок</span></div>
+            <div class="row"><span>Поведение пользователей</span><span class="muted">нет событий, скролла и кликов</span></div>
+            <div class="row"><span>Повторные касания</span><span class="muted">нет multi-touch attribution</span></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel glass">
+        <h2>Что делать сегодня</h2>
+        <div class="roadmap">
+          <div class="step"><small>1</small><strong>Поставить цели формы и мессенджеров</strong><p class="muted">Эффект: +15-30% точности в понимании заявок. Сложность: низкая. Время: 30-60 минут.</p></div>
+          <div class="step"><small>2</small><strong>Переписать первый экран</strong><p class="muted">Сделать конкретное обещание, понятный CTA и быстрый путь к заявке. Потенциал: +5-12% к конверсии.</p></div>
+          <div class="step"><small>3</small><strong>Добавить блок доверия перед формой</strong><p class="muted">Отзывы, гарантии, кейсы, фото результата, условия и быстрые ответы на страхи клиента.</p></div>
+          <div class="step"><small>4</small><strong>Настроить UTM-шаблон</strong><p class="muted">После первых кликов появится понятная карта источников и база для полноценной карты прибыли.</p></div>
+        </div>
+      </section>
+
+      <section class="wide">
+        <article class="panel glass">
+          <h2>Прогноз развития</h2>
+          <div class="list">
+            <div class="item"><strong>Если ничего не подключать</strong><span class="muted">Через 7 дней можно видеть только технический прогресс и косвенные признаки улучшения сайта.</span></div>
+            <div class="item"><strong>Если установить трекинг</strong><span class="muted">Появятся источники, события, качество визитов, проблемные страницы и первые аномалии.</span></div>
+            <div class="item"><strong>Если подключить CRM</strong><span class="muted">Станет возможна карта прибыли: лиды, продажи, доход, ROI и реальные потери по каналам.</span></div>
+          </div>
+        </article>
+        <article class="panel glass">
+          <h2>Что увидит клиент в конце</h2>
+          <p class="muted">TrafficMind AI не заставляет клиента разбираться в метриках. Он получает короткий вывод, список проблем по критичности, план действий, ожидаемый эффект и честное объяснение, какие данные нужны для более точного отчета.</p>
+          <p class="foot">Demo endpoint для backend: <code>GET /api/reports/link-only-demo?domain=example.com</code></p>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const form = document.querySelector("#domain-form");
+    const input = document.querySelector("#domain-input");
+    const title = document.querySelector("#report-domain");
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const value = input.value.replace("https://", "").replace("http://", "").replaceAll("/", "").trim() || "example.com";
+      title.textContent = value;
+    });
+  </script>
+</body>
+</html>
