@@ -31,7 +31,12 @@ async def current_user(message_or_query):
 async def start(message: Message) -> None:
     user = await current_user(message)
     await message.answer(
-        "TrafficMind AI уже готов следить за трафиком простым языком.\n"
+        "TrafficMind AI - ваш ИИ-аналитик трафика в Telegram.\n\n"
+        "Я помогу быстро понять:\n"
+        "- откуда приходят посетители;\n"
+        "- какие источники дают заявки;\n"
+        "- где пользователи уходят;\n"
+        "- что улучшить на сайте первым.\n\n"
         f"{trial_status_text(user)}\n\nВыберите действие:",
         reply_markup=main_menu(),
     )
