@@ -6,6 +6,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.config import get_settings
 from app.database import get_db, init_db
 from app.models import Event, IntegrationAccount, Report, Subscription, User, Website
+from app.schemas.account import WorkspaceSettingsIn
+from app.services.account_service import account_payload, update_workspace_settings
 from app.services.growth_intelligence_service import (
     build_profit_map,
     demo_metrics,
@@ -94,6 +96,102 @@ async def integration_setup(code: str) -> dict:
         "setup_time": item.setup_time,
         "required_env": required_env_vars(item),
         "instructions": setup_text(item, has_oauth_url=False, missing_env=required_env_vars(item)),
+    }
+
+
+@app.get("/api/account/demo")
+async def account_demo() -> dict:
+    metrics = demo_metrics()
+    forecast = forecast_revenue(metrics)
+    return {
+        "profile": {
+            "name": "Владелец бизнеса",
+            "telegram_id": "demo",
+            "role": "owner",
+            "trial_days_left": 7,
+            "plan": "BUSINESS",
+        },
+        "websites": [
+            {"domain": "example.com", "status": "active", "health_score": 82, "tracking": "TrafficMind Script"},
+        ],
+        "subscription": {
+            "plan": "BUSINESS",
+            "price": 299,
+            "max_websites": 3,
+            "used_websites": 1,
+            "status": "trial",
+        },
+        "growth": {
+            "revenue": forecast.current,
+            "forecast": forecast.__dict__,
+            "profit_map": build_profit_map(metrics),
+            "today_actions": [item.__dict__ for item in generate_today_actions(metrics)[:3]],
+            "insights": [item.__dict__ for item in detect_insights(metrics)[:4]],
+        },
+        "integrations": catalog_payload()["integrations"],
+    }
+
+
+@app.get("/api/account/{telegram_id}")
+async def account_get(telegram_id: int, db: AsyncSession = Depends(get_db)) -> dict:
+    user = await db.scalar(select(User).where(User.telegram_id == telegram_id))
+    if not user:
+        raise HTTPException(status_code=404, detail="Пользователь не найден.")
+    return await account_payload(db, user)
+
+
+@app.post("/api/account/settings")
+async def account_settings_save(payload: WorkspaceSettingsIn, db: AsyncSession = Depends(get_db)) -> dict:
+    settings = await update_workspace_settings(db, payload)
+    return {
+        "ok": True,
+        "settings": {
+            "business_name": settings.business_name,
+            "business_niche": settings.business_niche,
+            "goal": settings.goal,
+            "report_frequency": settings.report_frequency,
+            "alert_level": settings.alert_level,
+            "timezone": settings.timezone,
+            "onboarding_completed": settings.onboarding_completed,
+            "preferences": settings.preferences or {},
+        },
+    }
+
+
+@app.get("/admin/dashboard-data", dependencies=[Depends(require_admin)])
+async def admin_dashboard_data(db: AsyncSession = Depends(get_db)) -> dict:
+    users = await db.scalar(select(func.count(User.id)))
+    websites = await db.scalar(select(func.count(Website.id)))
+    subscriptions = await db.scalar(select(func.count(Subscription.id)))
+    events = await db.scalar(select(func.count(Event.id)))
+    reports = await db.scalar(select(func.count(Report.id)))
+    integrations = await db.scalar(select(func.count(IntegrationAccount.id)))
+    return {
+        "platform": {
+            "users": users or 0,
+            "websites": websites or 0,
+            "subscriptions": subscriptions or 0,
+            "events": events or 0,
+            "reports": reports or 0,
+            "integrations": integrations or 0,
+        },
+        "billing": {
+            "mrr_demo": 29900,
+            "trial_users_demo": 18,
+            "active_subscriptions_demo": subscriptions or 0,
+            "churn_risk_demo": 3,
+        },
+        "operations": {
+            "failed_integrations_demo": 0,
+            "pending_oauth_demo": 0,
+            "tracker_events_24h_demo": events or 0,
+            "reports_generated_demo": reports or 0,
+        },
+        "growth_demo": {
+            "profit_map": build_profit_map(demo_metrics()),
+            "insights": [item.__dict__ for item in detect_insights(demo_metrics())],
+            "actions": [item.__dict__ for item in generate_today_actions(demo_metrics())],
+        },
     }
 
 

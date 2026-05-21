@@ -15,6 +15,7 @@ from app.models.core import (
     Subscription,
     TrafficSource,
     User,
+    UserWorkspaceSettings,
     Website,
 )
 
@@ -35,5 +36,6 @@ __all__ = [
     "Subscription",
     "TrafficSource",
     "User",
+    "UserWorkspaceSettings",
     "Website",
 ]

@@ -60,6 +60,24 @@ class IntegrationAccount(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
 
 
+class UserWorkspaceSettings(Base):
+    __tablename__ = "user_workspace_settings"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), unique=True, index=True)
+    default_website_id: Mapped[int | None] = mapped_column(ForeignKey("websites.id"), index=True)
+    business_name: Mapped[str | None] = mapped_column(String(255))
+    business_niche: Mapped[str | None] = mapped_column(String(255))
+    goal: Mapped[str] = mapped_column(String(64), default="leads")
+    report_frequency: Mapped[str] = mapped_column(String(32), default="daily")
+    alert_level: Mapped[str] = mapped_column(String(32), default="important")
+    timezone: Mapped[str] = mapped_column(String(64), default="Europe/Moscow")
+    onboarding_completed: Mapped[bool] = mapped_column(default=False)
+    preferences: Mapped[dict | None] = mapped_column(JSON)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow, onupdate=utcnow)
+
+
 class Subscription(Base):
     __tablename__ = "subscriptions"
 

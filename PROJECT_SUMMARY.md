@@ -4,6 +4,8 @@
 
 - `app/` - backend, Telegram-бот, модели, сервисы, tracker, jobs и шаблоны.
 - `demo/traffic_map_demo.html` - локальный визуальный демо-макет.
+- `demo/account.html` - личный кабинет пользователя.
+- `demo/admin.html` - админ-панель владельца.
 - `materials/TrafficMind_AI_Master.docx` - исходное техническое задание.
 - `materials/visual_reference.png` - референс визуального стиля.
 - `README.md` - инструкция по запуску и архитектуре.

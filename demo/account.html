@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Личный кабинет TrafficMind AI</title>
+  <style>
+    :root{color-scheme:dark;--text:rgba(255,255,255,.94);--muted:rgba(255,255,255,.66);--blue:#2f8cff;--green:#5df28a;--amber:#ffd056;--red:#ff6a5f}
+    *{box-sizing:border-box} body{margin:0;min-height:100vh;font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--text);background:radial-gradient(circle at 12% -10%,rgba(116,168,72,.62),transparent 25%),radial-gradient(circle at 35% -14%,rgba(255,98,54,.62),transparent 24%),radial-gradient(circle at 96% 4%,rgba(0,117,255,.42),transparent 28%),linear-gradient(180deg,#08111f 0%,#02050b 48%,#04070d 100%)}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(circle at 50% 44%,black,transparent 72%)}
+    a{color:inherit;text-decoration:none}.page{min-height:100vh;padding:34px clamp(16px,4vw,56px);display:grid;grid-template-columns:280px 1fr;gap:24px}
+    .glass{border:1px solid rgba(255,255,255,.13);background:linear-gradient(180deg,rgba(255,255,255,.13),rgba(255,255,255,.055));box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 18px 50px rgba(0,0,0,.35);backdrop-filter:blur(22px)}
+    aside{border-radius:30px;padding:22px;display:flex;flex-direction:column;justify-content:space-between}.brand{display:flex;gap:12px;align-items:center;font-weight:850;font-size:21px}.logo{width:38px;height:38px;border-radius:14px;background:linear-gradient(135deg,#7cc7ff,#2f8cff 58%,#5df28a);box-shadow:0 0 28px rgba(47,140,255,.42)}
+    nav{display:grid;gap:10px;margin-top:28px}nav a,.pill{min-height:42px;padding:0 14px;border-radius:999px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;background:rgba(255,255,255,.055);color:var(--muted)}nav a.active{color:white;border-color:rgba(124,199,255,.6);background:linear-gradient(90deg,rgba(47,140,255,.27),rgba(255,255,255,.06))}
+    main{display:grid;gap:18px}.hero{display:flex;align-items:end;justify-content:space-between;gap:20px}.hero h1{font-size:clamp(36px,6vw,76px);line-height:.98;margin:0;letter-spacing:0}.hero p{color:var(--muted);font-size:18px;max-width:560px;line-height:1.45}
+    .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.card{border-radius:26px;padding:20px;min-height:120px}.card b{display:block;font-size:26px;margin-bottom:8px}.card span,.muted{color:var(--muted);line-height:1.45}
+    .wide{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}.panel{border-radius:30px;padding:22px}.panel h2{margin:0 0 14px;font-size:28px}.list{display:grid;gap:12px}.item{padding:14px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)}.item strong{display:block;margin-bottom:5px}.ok{color:var(--green)}.warn{color:var(--amber)}
+    form{display:grid;grid-template-columns:1fr 1fr;gap:12px}label{display:grid;gap:7px;color:var(--muted);font-size:14px}input,select{width:100%;min-height:42px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07);color:white;padding:0 12px}button.save{min-height:44px;border:0;border-radius:999px;color:#04111e;font-weight:850;background:linear-gradient(90deg,#7cc7ff,#2f8cff);box-shadow:0 0 24px rgba(76,161,255,.45);cursor:pointer}.saved{color:var(--green);min-height:22px}
+    @media(max-width:980px){.page{grid-template-columns:1fr}.grid,.wide{grid-template-columns:1fr 1fr}}@media(max-width:620px){.grid,.wide{grid-template-columns:1fr}.hero{display:block}}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <aside class="glass">
+      <div>
+        <div class="brand"><span class="logo"></span><span>TrafficMind AI</span></div>
+        <nav>
+          <a href="traffic_map_demo.html">Dashboard</a>
+          <a class="active" href="account.html">Личный кабинет</a>
+          <a href="admin.html">Админ-панель</a>
+          <a href="https://github.com/KAVKAZTRAVEL/TrafficMindAI" target="_blank" rel="noreferrer">GitHub</a>
+        </nav>
+      </div>
+      <div class="pill">BUSINESS trial: 7 дней</div>
+    </aside>
+    <main>
+      <section class="hero">
+        <div><h1>Личный кабинет</h1><p>Все данные владельца бизнеса: сайты, подписка, интеграции, прибыль, задачи и прогнозы.</p></div>
+      </section>
+      <section class="grid">
+        <div class="card glass"><b>example.com</b><span>Основной сайт активен</span></div>
+        <div class="card glass"><b>82/100</b><span>Оценка здоровья сайта</span></div>
+        <div class="card glass"><b>532 000 ₽</b><span>Доход за период</span></div>
+        <div class="card glass"><b>2.9x</b><span>Средний ROAS</span></div>
+      </section>
+      <section class="wide">
+        <div class="panel glass">
+          <h2>Настройки, которые сохраняются</h2>
+          <form id="settings-form">
+            <label>Telegram ID<input name="telegram_id" value="100001" inputmode="numeric"></label>
+            <label>Название бизнеса<input name="business_name" value="Kavkaz Travel"></label>
+            <label>Ниша<input name="business_niche" value="Туры и впечатления"></label>
+            <label>Главная цель<select name="goal"><option value="leads">Больше заявок</option><option value="sales">Больше продаж</option><option value="revenue">Рост дохода</option></select></label>
+            <label>Отчеты<select name="report_frequency"><option value="daily">Каждый день</option><option value="weekly">Раз в неделю</option><option value="monthly">Раз в месяц</option></select></label>
+            <label>Уведомления<select name="alert_level"><option value="important">Только важное</option><option value="all">Все события</option><option value="critical">Только критичное</option></select></label>
+            <button class="save" type="submit">Сохранить настройки</button>
+            <div class="saved" id="save-status"></div>
+          </form>
+        </div>
+        <div class="panel glass">
+          <h2>Что сохраняется</h2>
+          <p class="muted">Профиль, бизнес-контекст, сайты, выбранный сайт по умолчанию, подключенные интеграции, частота отчетов, уровень уведомлений и onboarding-статус. Пользователь настраивает один раз, дальше бот работает на этих данных.</p>
+        </div>
+      </section>
+      <section class="wide">
+        <div class="panel glass">
+          <h2>Что делать сегодня</h2>
+          <div class="list">
+            <div class="item"><strong>Остановить потери в Instagram</strong><span class="muted">Канал тратит бюджет и возвращает меньше денег, чем вложено. Потенциал: ~68 000 ₽.</span></div>
+            <div class="item"><strong>Масштабировать партнерский блог</strong><span class="muted">Меньше трафика, но выше ROI и качество лидов.</span></div>
+            <div class="item"><strong>Проверить форму заявки</strong><span class="muted">Есть лиды без продаж. Вероятна проблема в форме, оффере или CRM-этапе.</span></div>
+          </div>
+        </div>
+        <div class="panel glass">
+          <h2>Интеграции</h2>
+          <div class="list">
+            <div class="item"><strong class="ok">TrafficMind Script</strong><span>Подключен</span></div>
+            <div class="item"><strong class="warn">Google Analytics 4</strong><span>Ожидает OAuth credentials</span></div>
+            <div class="item"><strong class="warn">CRM</strong><span>Рекомендуется подключить для расчета прибыли</span></div>
+            <div class="item"><strong class="warn">Meta Pixel / TikTok Pixel</strong><span>Нужны для ретаргетинга и рекламы</span></div>
+          </div>
+        </div>
+      </section>
+      <section class="wide">
+        <div class="panel glass"><h2>Прогноз</h2><p class="muted">Если увеличить бюджет TikTok Ads на 20%, ожидается +18-25 лидов за следующий период при сохранении текущей конверсии.</p></div>
+        <div class="panel glass"><h2>Подписка</h2><p class="muted">Тариф BUSINESS: 299 ₽/мес, до 3 сайтов, AI-маркетолог, отчеты, сравнение сайтов и расширенные рекомендации.</p></div>
+      </section>
+    </main>
+  </div>
+  <script>
+    const form = document.querySelector("#settings-form");
+    const status = document.querySelector("#save-status");
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+      const payload = {
+        telegram_id: Number(data.telegram_id),
+        business_name: data.business_name,
+        business_niche: data.business_niche,
+        goal: data.goal,
+        report_frequency: data.report_frequency,
+        alert_level: data.alert_level,
+        timezone: "Europe/Moscow",
+        onboarding_completed: true,
+        preferences: { show_money_first: true, language: "ru" }
+      };
+      try {
+        const response = await fetch("/api/account/settings", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        status.textContent = response.ok ? "Настройки сохранены" : "Демо-страница сохранит эти данные после запуска backend";
+      } catch (error) {
+        status.textContent = "В GitHub Pages это демо формы. В backend endpoint уже добавлен: POST /api/account/settings";
+      }
+    });
+  </script>
+</body>
+</html>
