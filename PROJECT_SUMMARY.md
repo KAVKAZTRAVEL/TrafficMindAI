@@ -7,6 +7,7 @@
 - `materials/TrafficMind_AI_Master.docx` - исходное техническое задание.
 - `materials/visual_reference.png` - референс визуального стиля.
 - `README.md` - инструкция по запуску и архитектуре.
+- `docs/` - enterprise blueprint, UX/UI структура, база данных и roadmap.
 - `.env.example` - пример переменных окружения.
 - `docker-compose.yml` - запуск API, бота, PostgreSQL, Redis, worker и beat.
 

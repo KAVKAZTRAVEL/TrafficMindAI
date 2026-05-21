@@ -417,14 +417,17 @@
   <main class="page">
     <section class="hero">
       <h1>TrafficMind AI</h1>
-      <p>Главное меню бота, которое сразу показывает ценность: трафик, заявки, проблемы сайта и понятные действия</p>
+      <p>AI-платформа роста: показывает, откуда приходят деньги, где они теряются и что делать сегодня</p>
     </section>
 
     <section class="chips" aria-label="Сильные стороны">
-      <button class="chip active" type="button" data-target="map">Карта трафика</button>
+      <button class="chip active" type="button" data-target="dashboard">Dashboard</button>
+      <button class="chip" type="button" data-target="profit">Карта прибыли</button>
       <button class="chip" type="button" data-target="audit">Бесплатный аудит</button>
-      <button class="chip" type="button" data-target="ai">Спросить ИИ</button>
-      <button class="chip" type="button" data-target="problem">Найти проблему</button>
+      <button class="chip" type="button" data-target="losses">Потери</button>
+      <button class="chip" type="button" data-target="ai">AI-маркетолог</button>
+      <button class="chip" type="button" data-target="content">Content AI</button>
+      <button class="chip" type="button" data-target="competitors">Конкуренты</button>
       <button class="chip" type="button" data-target="report">Отчеты</button>
     </section>
 
@@ -433,26 +436,30 @@
         <div>
           <div class="brand"><span class="logo"></span><span>TrafficMind AI</span></div>
           <nav class="nav" aria-label="Навигация">
-            <button class="active" type="button" data-target="map">Главное меню</button>
+            <button class="active" type="button" data-target="dashboard">Dashboard</button>
+            <button type="button" data-target="profit">Карта прибыли</button>
             <button type="button" data-target="audit">Аудит сайта</button>
-            <button type="button" data-target="map">Карта трафика</button>
-            <button type="button" data-target="ai">ИИ-рекомендации</button>
+            <button type="button" data-target="losses">Потери</button>
+            <button type="button" data-target="ai">AI-маркетолог</button>
+            <button type="button" data-target="content">Content AI</button>
+            <button type="button" data-target="competitors">Конкуренты</button>
             <button type="button" data-target="report">Отчеты и PDF</button>
+            <button type="button" data-target="integrations">Интеграции</button>
             <button type="button" data-target="admin">Статистика владельца</button>
           </nav>
         </div>
         <div class="trial">
           <b>Пробный период: 7 дней</b>
-          1 сайт, карта трафика, аудит, ИИ-чат, отчеты и умные уведомления.
+          1 сайт, карта прибыли, аудит, AI-маркетолог, отчеты, Content AI и умные уведомления.
         </div>
       </aside>
 
       <section class="content">
         <div class="topline">
-          <div class="stat"><b>4 820</b><span>посетителей за неделю</span></div>
-          <div class="stat"><b>173</b><span>заявки и целевые действия</span></div>
-          <div class="stat"><b>74/100</b><span>качество трафика</span></div>
-          <div class="stat"><b>+18%</b><span>рост после подсказок ИИ</span></div>
+          <div class="stat"><b>532 000 ₽</b><span>доход за период</span></div>
+          <div class="stat"><b>313</b><span>лиды и целевые действия</span></div>
+          <div class="stat"><b>2.9x</b><span>средний ROAS</span></div>
+          <div class="stat"><b>+18-25</b><span>прогноз лидов при масштабировании</span></div>
         </div>
 
         <div class="main-grid">
@@ -460,21 +467,24 @@
             <div class="phone-screen">
               <div class="bot-header">
                 <div>
-                  <b>Главное меню</b>
-                  <span>Все ключевые действия в 1-2 нажатия</span>
+                  <b>Dashboard</b>
+                  <span>Деньги, потери и действия в 1-2 нажатия</span>
                 </div>
                 <span class="status">активен</span>
               </div>
 
               <div class="message" id="bot-message">
-                Я уже вижу первые источники трафика. Самый сильный канал дает меньше посетителей, но больше заявок. Хотите посмотреть карту?
+                Сегодня главный рост дает TikTok Ads, а Instagram почти не окупает бюджет. Я подготовил 3 действия, которые могут вернуть до 68 000 ₽.
               </div>
 
               <div class="bot-menu">
-                <button class="bot-action active" type="button" data-target="map"><b>Карта трафика</b><span>Кто приводит посетителей и заявки</span></button>
+                <button class="bot-action active" type="button" data-target="dashboard"><b>Dashboard</b><span>Деньги, риски и рост</span></button>
+                <button class="bot-action" type="button" data-target="profit"><b>Карта прибыли</b><span>Откуда приходят деньги</span></button>
                 <button class="bot-action" type="button" data-target="audit"><b>Бесплатный аудит</b><span>Формы, SEO, пиксели, скорость</span></button>
-                <button class="bot-action" type="button" data-target="ai"><b>Спросить ИИ</b><span>Ответы простым языком</span></button>
-                <button class="bot-action" type="button" data-target="problem"><b>Найти проблему</b><span>Где теряются заявки</span></button>
+                <button class="bot-action" type="button" data-target="losses"><b>Потери</b><span>Где теряются деньги</span></button>
+                <button class="bot-action" type="button" data-target="ai"><b>AI-маркетолог</b><span>Причины и решения</span></button>
+                <button class="bot-action" type="button" data-target="content"><b>Content AI</b><span>Посты, Reels, объявления</span></button>
+                <button class="bot-action" type="button" data-target="competitors"><b>Конкуренты</b><span>Почему они растут</span></button>
                 <button class="bot-action" type="button" data-target="report"><b>Мой отчет</b><span>PDF и выводы за период</span></button>
                 <button class="bot-action" type="button" data-target="subscription"><b>Подписка</b><span>Тарифы и лимиты сайтов</span></button>
               </div>
@@ -483,17 +493,17 @@
 
           <article class="panel">
             <div>
-              <h2 id="panel-title">Карта трафика</h2>
-              <p id="panel-text">Главный визуальный экран: в центре сайт, вокруг реальные источники. Размер круга показывает объем трафика, цвет - качество, линии - вовлеченность.</p>
+              <h2 id="panel-title">Dashboard</h2>
+              <p id="panel-text">Главный экран отвечает без ручного анализа: что произошло, почему важно, где теряются деньги, что делать первым и какой эффект ожидается.</p>
             </div>
             <div class="visual" aria-hidden="true"><span class="center"></span></div>
-            <button class="primary" type="button" id="panel-button">Показать в Telegram</button>
+            <button class="primary" type="button" id="panel-button">Показать план на сегодня</button>
           </article>
         </div>
 
         <div class="features">
-          <button class="feature" type="button" data-target="audit"><b>Понимание за 5 секунд</b><span>Бот не грузит таблицами: сразу показывает, что хорошо, где проблема и что делать.</span></button>
-          <button class="feature" type="button" data-target="map"><b>Реальные источники</b><span>Не только Google и соцсети: учитываются любые рефералы, UTM, мессенджеры и партнеры.</span></button>
+          <button class="feature" type="button" data-target="dashboard"><b>Что делать сегодня</b><span>Список задач с приоритетом, сложностью, прогнозом роста и влиянием на доход.</span></button>
+          <button class="feature" type="button" data-target="profit"><b>Деньги вместо трафика</b><span>Система показывает не просто посетителей, а прибыль, лиды, продажи, ROI и потери.</span></button>
           <button class="feature" type="button" data-target="admin"><b>Будущая админ-панель</b><span>Для владельца сервиса уже предусмотрены пользователи, сайты, события, отчеты и подписки.</span></button>
         </div>
       </section>
@@ -502,11 +512,17 @@
 
   <script>
     const states = {
-      map: {
-        title: "Карта трафика",
-        text: "Главный визуальный экран: в центре сайт, вокруг реальные источники. Размер круга показывает объем трафика, цвет - качество, линии - вовлеченность.",
-        message: "Я уже вижу первые источники трафика. Самый сильный канал дает меньше посетителей, но больше заявок. Хотите посмотреть карту?",
-        button: "Показать карту"
+      dashboard: {
+        title: "Dashboard",
+        text: "Главный экран отвечает без ручного анализа: что произошло, почему важно, где теряются деньги, что делать первым и какой эффект ожидается.",
+        message: "Сегодня главный рост дает TikTok Ads, а Instagram почти не окупает бюджет. Я подготовил 3 действия, которые могут вернуть до 68 000 ₽.",
+        button: "Показать план на сегодня"
+      },
+      profit: {
+        title: "Карта прибыли",
+        text: "В центре не трафик, а деньги: доход, лиды, продажи, ROI, ROAS и путь клиента от первого касания до заявки.",
+        message: "Карта прибыли показывает: партнерский блог дает меньше трафика, но выше ROI. Его стоит масштабировать первым.",
+        button: "Открыть карту прибыли"
       },
       audit: {
         title: "Бесплатный аудит",
@@ -514,17 +530,29 @@
         message: "Я проверю сайт и покажу, что мешает заявкам: формы, кнопки связи, аналитику, SEO и базовые технические ошибки.",
         button: "Запустить аудит"
       },
-      ai: {
-        title: "Спросить ИИ",
-        text: "Пользователь может спросить: почему мало заявок, какой источник лучший, что улучшить на странице и какие действия сделать первыми.",
-        message: "Спросите меня: почему просели заявки, откуда лучший трафик или что исправить на странице входа.",
-        button: "Задать вопрос"
+      losses: {
+        title: "Потери",
+        text: "Система находит страницы, каналы, формы и этапы CRM, где бизнес теряет деньги, лиды и продажи.",
+        message: "Я нашел потерю: Instagram тратит 68 000 ₽, но продажи ниже нормы. Проверьте оффер и посадочную страницу.",
+        button: "Показать потери"
       },
-      problem: {
-        title: "Найти проблему",
-        text: "Автоматический анализ слабых мест: страницы, где уходят пользователи, источники с низким качеством и каналы без заявок.",
-        message: "Я нашел слабое место: пользователи часто уходят со страницы меню. Проверьте кнопку действия и форму заявки.",
-        button: "Найти проблему"
+      ai: {
+        title: "AI-маркетолог",
+        text: "ИИ ищет закономерности, аномалии и корреляции, объясняет причины и ранжирует решения по влиянию на доход.",
+        message: "Спросите: почему вырос CPL, почему TikTok сильнее Instagram или какие каналы масштабировать.",
+        button: "Спросить AI-маркетолога"
+      },
+      content: {
+        title: "Content AI",
+        text: "Генерирует контент-планы, Reels идеи, посты, объявления, email, SEO-тексты и CTA на основе аналитики и аудитории.",
+        message: "Я подготовлю 7 идей Reels и 3 объявления для канала, который уже дает самые качественные заявки.",
+        button: "Создать контент"
+      },
+      competitors: {
+        title: "Конкуренты",
+        text: "Показывает, почему конкурент растет: популярные страницы, ключевые слова, объявления, соцсети и контент.",
+        message: "Конкурент растет за счет SEO-страниц и коротких видео. Я покажу, что можно использовать у себя.",
+        button: "Сравнить конкурентов"
       },
       report: {
         title: "Отчеты и PDF",
@@ -537,6 +565,12 @@
         text: "7 дней бесплатно, затем тарифы START, BUSINESS и AGENCY. Лимиты сайтов и доступ к функциям привязаны к Telegram ID.",
         message: "Пробный период активен. После окончания останутся старые отчеты и последняя карта, новые проверки включаются по подписке.",
         button: "Смотреть тарифы"
+      },
+      integrations: {
+        title: "Интеграции",
+        text: "GA4, Search Console, Яндекс Метрика, Ads, CRM, соцсети, email, пиксели и call tracking подключаются через единый слой данных.",
+        message: "Подключите GA4, CRM и рекламные кабинеты, чтобы я считал не трафик, а прибыль и потери.",
+        button: "Открыть интеграции"
       },
       admin: {
         title: "Статистика владельца",
@@ -553,7 +587,7 @@
     const controls = document.querySelectorAll("[data-target]");
 
     function activate(key) {
-      const state = states[key] || states.map;
+      const state = states[key] || states.dashboard;
       title.textContent = state.title;
       text.textContent = state.text;
       message.textContent = state.message;

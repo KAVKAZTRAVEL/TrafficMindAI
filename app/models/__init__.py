@@ -1,6 +1,13 @@
 from app.models.core import (
     Conversion,
+    ActionItem,
+    ChannelMetric,
+    CompetitorSnapshot,
+    ContentBrief,
     Event,
+    Forecast,
+    Insight,
+    IntegrationAccount,
     PageView,
     Recommendation,
     Report,
@@ -13,7 +20,14 @@ from app.models.core import (
 
 __all__ = [
     "Conversion",
+    "ActionItem",
+    "ChannelMetric",
+    "CompetitorSnapshot",
+    "ContentBrief",
     "Event",
+    "Forecast",
+    "Insight",
+    "IntegrationAccount",
     "PageView",
     "Recommendation",
     "Report",

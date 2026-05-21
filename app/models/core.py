@@ -45,6 +45,21 @@ class Website(Base):
     __table_args__ = (UniqueConstraint("user_id", "domain", name="uq_user_domain"),)
 
 
+class IntegrationAccount(Base):
+    __tablename__ = "integration_accounts"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), index=True)
+    website_id: Mapped[int | None] = mapped_column(ForeignKey("websites.id"), index=True)
+    provider: Mapped[str] = mapped_column(String(64), index=True)
+    category: Mapped[str] = mapped_column(String(64))
+    status: Mapped[str] = mapped_column(String(32), default="disconnected")
+    external_account_id: Mapped[str | None] = mapped_column(String(255))
+    scopes: Mapped[list | None] = mapped_column(JSON)
+    last_sync_at: Mapped[datetime | None] = mapped_column(DateTime)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
+
+
 class Subscription(Base):
     __tablename__ = "subscriptions"
 
@@ -105,6 +120,102 @@ class TrafficSource(Base):
     bounce_rate: Mapped[float] = mapped_column(Float, default=0)
     quality_score: Mapped[int] = mapped_column(Integer, default=0)
     period: Mapped[str] = mapped_column(String(32), default="daily")
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
+
+
+class ChannelMetric(Base):
+    __tablename__ = "channel_metrics"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    website_id: Mapped[int] = mapped_column(ForeignKey("websites.id"), index=True)
+    source: Mapped[str] = mapped_column(String(255), index=True)
+    medium: Mapped[str] = mapped_column(String(128), default="unknown")
+    campaign: Mapped[str | None] = mapped_column(String(255))
+    period: Mapped[str] = mapped_column(String(32), default="daily")
+    spend: Mapped[float] = mapped_column(Float, default=0)
+    revenue: Mapped[float] = mapped_column(Float, default=0)
+    leads: Mapped[int] = mapped_column(Integer, default=0)
+    sales: Mapped[int] = mapped_column(Integer, default=0)
+    clicks: Mapped[int] = mapped_column(Integer, default=0)
+    impressions: Mapped[int] = mapped_column(Integer, default=0)
+    cpl: Mapped[float] = mapped_column(Float, default=0)
+    roas: Mapped[float] = mapped_column(Float, default=0)
+    roi: Mapped[float] = mapped_column(Float, default=0)
+    conversion_rate: Mapped[float] = mapped_column(Float, default=0)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
+
+
+class Insight(Base):
+    __tablename__ = "insights"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    website_id: Mapped[int | None] = mapped_column(ForeignKey("websites.id"), index=True)
+    type: Mapped[str] = mapped_column(String(64), default="growth")
+    severity: Mapped[str] = mapped_column(String(32), default="medium")
+    confidence: Mapped[float] = mapped_column(Float, default=0)
+    title: Mapped[str] = mapped_column(String(255))
+    explanation: Mapped[str] = mapped_column(Text)
+    evidence: Mapped[dict | None] = mapped_column(JSON)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
+
+
+class ActionItem(Base):
+    __tablename__ = "action_items"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    website_id: Mapped[int | None] = mapped_column(ForeignKey("websites.id"), index=True)
+    title: Mapped[str] = mapped_column(String(255))
+    why: Mapped[str] = mapped_column(Text)
+    expected_effect: Mapped[str] = mapped_column(Text)
+    revenue_impact: Mapped[float] = mapped_column(Float, default=0)
+    complexity: Mapped[str] = mapped_column(String(64), default="medium")
+    time_to_execute: Mapped[str] = mapped_column(String(64), default="1 hour")
+    priority: Mapped[int] = mapped_column(Integer, default=50)
+    status: Mapped[str] = mapped_column(String(32), default="open")
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
+
+
+class Forecast(Base):
+    __tablename__ = "forecasts"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    website_id: Mapped[int | None] = mapped_column(ForeignKey("websites.id"), index=True)
+    metric: Mapped[str] = mapped_column(String(64))
+    current_value: Mapped[float] = mapped_column(Float, default=0)
+    predicted_value: Mapped[float] = mapped_column(Float, default=0)
+    lower_bound: Mapped[float] = mapped_column(Float, default=0)
+    upper_bound: Mapped[float] = mapped_column(Float, default=0)
+    horizon_days: Mapped[int] = mapped_column(Integer, default=30)
+    explanation: Mapped[str | None] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
+
+
+class ContentBrief(Base):
+    __tablename__ = "content_briefs"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    website_id: Mapped[int | None] = mapped_column(ForeignKey("websites.id"), index=True)
+    channel: Mapped[str] = mapped_column(String(64))
+    content_type: Mapped[str] = mapped_column(String(64))
+    title: Mapped[str] = mapped_column(String(255))
+    brief: Mapped[str] = mapped_column(Text)
+    source_insight: Mapped[str | None] = mapped_column(Text)
+    status: Mapped[str] = mapped_column(String(32), default="draft")
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
+
+
+class CompetitorSnapshot(Base):
+    __tablename__ = "competitor_snapshots"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    website_id: Mapped[int | None] = mapped_column(ForeignKey("websites.id"), index=True)
+    competitor_domain: Mapped[str] = mapped_column(String(255), index=True)
+    estimated_traffic: Mapped[int] = mapped_column(Integer, default=0)
+    top_pages: Mapped[list | None] = mapped_column(JSON)
+    keywords: Mapped[list | None] = mapped_column(JSON)
+    ads: Mapped[list | None] = mapped_column(JSON)
+    social_activity: Mapped[dict | None] = mapped_column(JSON)
+    ai_summary: Mapped[str | None] = mapped_column(Text)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
 
 

@@ -4,20 +4,28 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 def main_menu() -> InlineKeyboardMarkup:
     rows = [
         [
+            InlineKeyboardButton(text="Dashboard", callback_data="dashboard"),
+            InlineKeyboardButton(text="Карта прибыли", callback_data="profit_map"),
+        ],
+        [
+            InlineKeyboardButton(text="Что делать сегодня", callback_data="today_actions"),
+            InlineKeyboardButton(text="Потери", callback_data="losses"),
+        ],
+        [
+            InlineKeyboardButton(text="AI-маркетолог", callback_data="ask_ai"),
+            InlineKeyboardButton(text="Content AI", callback_data="content_ai"),
+        ],
+        [
+            InlineKeyboardButton(text="Конкуренты", callback_data="competitors"),
+            InlineKeyboardButton(text="Отчеты", callback_data="report"),
+        ],
+        [
+            InlineKeyboardButton(text="Интеграции", callback_data="integrations"),
+            InlineKeyboardButton(text="Подписка", callback_data="subscription"),
+        ],
+        [
             InlineKeyboardButton(text="Добавить сайт", callback_data="add_site"),
             InlineKeyboardButton(text="Бесплатный аудит", callback_data="audit"),
-        ],
-        [
-            InlineKeyboardButton(text="Карта трафика", callback_data="traffic_map"),
-            InlineKeyboardButton(text="Мой отчет", callback_data="report"),
-        ],
-        [
-            InlineKeyboardButton(text="Спросить ИИ", callback_data="ask_ai"),
-            InlineKeyboardButton(text="Проверить всё", callback_data="check_all"),
-        ],
-        [
-            InlineKeyboardButton(text="Найти проблему", callback_data="find_problem"),
-            InlineKeyboardButton(text="Подписка", callback_data="subscription"),
         ],
     ]
     return InlineKeyboardMarkup(inline_keyboard=rows)

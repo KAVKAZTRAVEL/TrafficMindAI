@@ -5,12 +5,19 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, Message
 from sqlalchemy import select
 from app.bot.keyboards import main_menu, subscription_keyboard
-from app.bot.states import AddSiteState, AskAIState
+from app.bot.states import AddSiteState
 from app.config import get_settings
 from app.database import SessionLocal
 from app.models import Report, TrafficSource, Website
 from app.services.ai_service import explain_sources, recommendations_from_audit
 from app.services.audit_service import audit_domain
+from app.services.growth_intelligence_service import (
+    build_profit_map,
+    demo_metrics,
+    detect_insights,
+    forecast_revenue,
+    generate_today_actions,
+)
 from app.services.infographic_service import render_traffic_map_html
 from app.services.pdf_service import generate_pdf_report
 from app.services.subscription_service import PLANS, get_or_create_user, trial_status_text
@@ -21,25 +28,113 @@ router = Router()
 
 
 async def current_user(message_or_query):
-    tg_user = message_or_query.from_user
+    telegram_user = message_or_query.from_user
     settings = get_settings()
     async with SessionLocal() as session:
-        return await get_or_create_user(session, tg_user, settings.admin_ids)
+        return await get_or_create_user(session, telegram_user, settings.admin_ids)
 
 
 @router.message(Command("start"))
 async def start(message: Message) -> None:
     user = await current_user(message)
     await message.answer(
-        "TrafficMind AI - ваш ИИ-аналитик трафика в Telegram.\n\n"
-        "Я помогу быстро понять:\n"
-        "- откуда приходят посетители;\n"
-        "- какие источники дают заявки;\n"
-        "- где пользователи уходят;\n"
-        "- что улучшить на сайте первым.\n\n"
-        f"{trial_status_text(user)}\n\nВыберите действие:",
+        "TrafficMind AI - AI-платформа роста для бизнеса.\n\n"
+        "Я отвечаю не только на вопрос «сколько было трафика», а на главное:\n"
+        "- откуда приходят деньги;\n"
+        "- где теряются лиды и бюджет;\n"
+        "- что сделать сегодня;\n"
+        "- какой эффект ожидается дальше.\n\n"
+        f"{trial_status_text(user)}\n\nВыберите раздел:",
         reply_markup=main_menu(),
     )
+
+
+@router.callback_query(F.data == "dashboard")
+async def dashboard_handler(query: CallbackQuery) -> None:
+    metrics = demo_metrics()
+    forecast = forecast_revenue(metrics)
+    insights = detect_insights(metrics)
+    await query.message.answer(
+        "Dashboard\n\n"
+        f"Доход сейчас: {forecast.current:,.0f} ₽\n"
+        f"Прогноз на {forecast.horizon_days} дней: {forecast.lower_bound:,.0f}-{forecast.upper_bound:,.0f} ₽\n"
+        f"Главный вывод: {insights[0].title}\n\n"
+        "Следующий шаг: откройте «Что делать сегодня», чтобы увидеть приоритетные действия.",
+        reply_markup=main_menu(),
+    )
+    await query.answer()
+
+
+@router.callback_query(F.data == "profit_map")
+async def profit_map_handler(query: CallbackQuery) -> None:
+    profit_map = build_profit_map(demo_metrics())
+    rows = "\n".join(
+        f"- {item['source']}: {item['size']:,.0f} ₽, ROI {item['roi']}, статус: {item['status']}"
+        for item in profit_map["nodes"][:4]
+    )
+    await query.message.answer(
+        "Карта прибыли\n\n"
+        "Показывает не посетителей, а источники денег: доход, лиды, продажи, ROI и ROAS.\n\n"
+        f"{rows}",
+        reply_markup=main_menu(),
+    )
+    await query.answer()
+
+
+@router.callback_query(F.data == "today_actions")
+async def today_actions_handler(query: CallbackQuery) -> None:
+    actions = generate_today_actions(demo_metrics())[:3]
+    text = "\n\n".join(
+        f"{index}. {item.title}\n"
+        f"Почему: {item.why}\n"
+        f"Эффект: {item.expected_effect}\n"
+        f"Влияние: ~{item.revenue_impact:,.0f} ₽\n"
+        f"Сложность: {item.complexity}, время: {item.time_to_execute}"
+        for index, item in enumerate(actions, start=1)
+    )
+    await query.message.answer(f"Что делать сегодня\n\n{text}", reply_markup=main_menu())
+    await query.answer()
+
+
+@router.callback_query(F.data == "losses")
+async def losses_handler(query: CallbackQuery) -> None:
+    insights = [item for item in detect_insights(demo_metrics()) if item.severity in {"high", "critical"}]
+    text = "\n\n".join(f"- {item.title}\n{item.explanation}\nДанные: {item.evidence}" for item in insights)
+    await query.message.answer(f"Потери\n\n{text or 'Критичных потерь сейчас не найдено.'}", reply_markup=main_menu())
+    await query.answer()
+
+
+@router.callback_query(F.data == "content_ai")
+async def content_ai_handler(query: CallbackQuery) -> None:
+    await query.message.answer(
+        "Content AI\n\n"
+        "Генерирует контент-планы, Reels идеи, рекламные объявления, email-кампании, CTA и SEO-страницы на основе аналитики.\n\n"
+        "Пример: 7 Reels для TikTok Ads, потому что этот канал уже показывает высокий ROI.",
+        reply_markup=main_menu(),
+    )
+    await query.answer()
+
+
+@router.callback_query(F.data == "competitors")
+async def competitors_handler(query: CallbackQuery) -> None:
+    await query.message.answer(
+        "Конкуренты\n\n"
+        "Раздел покажет популярные страницы, ключевые слова, объявления, соцсети и частоту публикаций конкурентов.\n\n"
+        "Главная задача: объяснить, почему конкурент растет и что можно применить у себя.",
+        reply_markup=main_menu(),
+    )
+    await query.answer()
+
+
+@router.callback_query(F.data == "integrations")
+async def integrations_handler(query: CallbackQuery) -> None:
+    await query.message.answer(
+        "Интеграции\n\n"
+        "План подключения: GA4, Search Console, Яндекс Метрика, Google Ads, Meta Ads, TikTok Ads, HubSpot, Bitrix, AmoCRM, соцсети, email и пиксели.\n\n"
+        "Все источники приводятся к единой модели прибыли, лидов и потерь.",
+        reply_markup=main_menu(),
+    )
+    await query.answer()
 
 
 @router.message(Command("add_site"))
@@ -73,7 +168,7 @@ async def receive_domain(message: Message, state: FSMContext) -> None:
         f"Сайт {website.domain} добавлен.\n\n"
         "Скрипт отслеживания для установки на сайт:\n"
         f"<code>{script}</code>\n\n"
-        "Теперь можно запустить бесплатный аудит.",
+        "Теперь можно запустить бесплатный аудит и начать строить карту прибыли.",
         parse_mode="HTML",
         reply_markup=main_menu(),
     )
@@ -95,7 +190,7 @@ async def audit_handler(event) -> None:
     await message.answer(
         f"Аудит {website.domain}\n\n"
         f"{audit['summary']}\n\n"
-        "Что сделать дальше:\n" + "\n".join(f"• {item}" for item in recs),
+        "Что сделать дальше:\n" + "\n".join(f"- {item}" for item in recs),
         reply_markup=main_menu(),
     )
     if isinstance(event, CallbackQuery):
@@ -115,7 +210,7 @@ async def connect_handler(message: Message) -> None:
         f'data-token="{website.tracking_token}" data-endpoint="{get_settings().public_base_url}/tracker/event"></script>'
     )
     await message.answer(
-        "Можно подключить Google Analytics 4 позже или сразу поставить скрипт отслеживания TrafficMind.\n\n"
+        "Можно подключить GA4, CRM и рекламные кабинеты позже или сразу поставить скрипт отслеживания TrafficMind.\n\n"
         f"<code>{script}</code>",
         parse_mode="HTML",
         reply_markup=main_menu(),
@@ -136,7 +231,7 @@ async def traffic_map_handler(event) -> None:
         html_path = f"storage/maps/traffic_map_{website.id}.html"
         render_traffic_map_html(website, sources, html_path)
     await message.answer(
-        "Карта трафика построена по реальным источникам.\n"
+        "Карта прибыли построена по реальным источникам.\n"
         f"HTML-файл карты: {Path(html_path).resolve()}\n\n"
         f"{explain_sources(sources)}",
         reply_markup=main_menu(),
@@ -178,10 +273,7 @@ async def report_handler(event) -> None:
         report = Report(website_id=website.id, period="daily", status="created", pdf_path=pdf_path, ai_summary=summary)
         session.add(report)
         await session.commit()
-    await message.answer(
-        f"Отчет готов.\n\n{summary}\n\nPDF: {Path(pdf_path).resolve()}",
-        reply_markup=main_menu(),
-    )
+    await message.answer(f"Отчет готов.\n\n{summary}\n\nPDF: {Path(pdf_path).resolve()}", reply_markup=main_menu())
     if isinstance(event, CallbackQuery):
         await event.answer()
 
@@ -204,4 +296,7 @@ async def check_all_handler(query: CallbackQuery) -> None:
 
 @router.message(Command("help"))
 async def help_handler(message: Message) -> None:
-    await message.answer("/add_site, /audit, /connect, /traffic_map, /report, /recommendations, /subscription", reply_markup=main_menu())
+    await message.answer(
+        "/add_site, /audit, /connect, /traffic_map, /report, /recommendations, /subscription",
+        reply_markup=main_menu(),
+    )
