@@ -1,0 +1,60 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: trafficmind
+      POSTGRES_USER: trafficmind
+      POSTGRES_PASSWORD: trafficmind
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  api:
+    build: .
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    env_file: .env
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./storage:/app/storage
+
+  bot:
+    build: .
+    command: python -m app.bot.main
+    env_file: .env
+    depends_on:
+      - api
+      - postgres
+      - redis
+    volumes:
+      - ./storage:/app/storage
+
+  worker:
+    build: .
+    command: celery -A app.jobs.celery_app.celery_app worker --loglevel=INFO
+    env_file: .env
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ./storage:/app/storage
+
+  beat:
+    build: .
+    command: celery -A app.jobs.celery_app.celery_app beat --loglevel=INFO
+    env_file: .env
+    depends_on:
+      - postgres
+      - redis
+
+volumes:
+  postgres_data:

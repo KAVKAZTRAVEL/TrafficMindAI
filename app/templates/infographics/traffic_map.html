@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Traffic Map {{ website.domain }}</title>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <style>
+    :root {
+      color-scheme: dark;
+      --text: rgba(255,255,255,.94);
+      --muted: rgba(255,255,255,.66);
+      --blue: #2f8cff;
+      --green: #5df28a;
+      --amber: #ffd056;
+      --red: #ff6a5f;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, Segoe UI, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% -10%, rgba(116,168,72,.62), transparent 25%),
+        radial-gradient(circle at 35% -14%, rgba(255,98,54,.62), transparent 24%),
+        radial-gradient(circle at 66% -12%, rgba(94,87,255,.48), transparent 26%),
+        radial-gradient(circle at 96% 4%, rgba(0,117,255,.42), transparent 28%),
+        radial-gradient(circle at 50% 82%, rgba(32,108,255,.3), transparent 36%),
+        linear-gradient(180deg, #08111f 0%, #02050b 42%, #04070d 100%);
+      overflow: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(circle at 50% 44%, black, transparent 72%);
+    }
+    .page {
+      height: 100vh;
+      padding: 38px 54px 34px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      gap: 20px;
+    }
+    .hero { text-align: center; }
+    h1 {
+      margin: 0;
+      font-size: clamp(46px, 7vw, 92px);
+      line-height: .98;
+      letter-spacing: 0;
+      font-weight: 750;
+      color: rgba(255,255,255,.9);
+      text-shadow: 0 0 44px rgba(115,159,255,.24);
+    }
+    .subtitle {
+      margin-top: 14px;
+      font-size: clamp(18px, 2vw, 25px);
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .chips {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 0 18px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.08));
+      border: 1px solid rgba(255,255,255,.16);
+      color: rgba(255,255,255,.82);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 10px 30px rgba(0,0,0,.28);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+    .stage {
+      position: relative;
+      min-height: 0;
+      perspective: 1400px;
+    }
+    .orbit {
+      position: absolute;
+      inset: 4% 17% 2%;
+      border-radius: 50%;
+      border: 1px solid rgba(79,154,255,.18);
+      box-shadow: inset 0 0 70px rgba(38,124,255,.12), 0 0 80px rgba(38,124,255,.1);
+      transform: rotateX(64deg);
+    }
+    .orbit::before,
+    .orbit::after {
+      content: "";
+      position: absolute;
+      inset: 14%;
+      border-radius: 50%;
+      border: 1px dashed rgba(110,181,255,.18);
+    }
+    .orbit::after { inset: 28%; border-style: solid; opacity: .5; }
+    .label {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 25px;
+      padding: 0 18px;
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #7cc7ff, #2f8cff);
+      color: #04111e;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.3px;
+      box-shadow: 0 0 24px rgba(76,161,255,.55);
+      z-index: 3;
+    }
+    .label.top { top: 3%; }
+    .label.bottom { bottom: 2%; }
+    .glass {
+      position: absolute;
+      border-radius: 24px;
+      border: 1px solid rgba(111,178,255,.28);
+      background:
+        linear-gradient(135deg, rgba(20,92,211,.34), rgba(7,17,34,.9)),
+        radial-gradient(circle at 20% 10%, rgba(91,178,255,.36), transparent 38%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.18),
+        0 26px 70px rgba(0,0,0,.62),
+        0 0 54px rgba(43,139,255,.32);
+      backdrop-filter: blur(22px);
+      overflow: hidden;
+    }
+    .insight {
+      left: 8%;
+      top: 18%;
+      width: 31%;
+      height: 52%;
+      padding: 28px;
+      transform: rotateY(18deg) rotateZ(-4deg);
+      opacity: .78;
+    }
+    .insight h2 {
+      margin: 0 0 18px;
+      font-size: 22px;
+      letter-spacing: 0;
+    }
+    .row {
+      display: grid;
+      grid-template-columns: 38px 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      color: rgba(156,203,255,.85);
+      font-family: Consolas, monospace;
+      font-size: 15px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .row span:first-child { color: rgba(255,255,255,.34); }
+    .map-card {
+      right: 7%;
+      top: 12%;
+      width: 52%;
+      height: 68%;
+      transform: rotateY(-13deg) rotateZ(3deg);
+      background: linear-gradient(135deg, rgba(218,237,255,.88), rgba(83,120,160,.72));
+      border-color: rgba(255,255,255,.4);
+      z-index: 2;
+    }
+    #map {
+      width: 100%;
+      height: 100%;
+      min-height: 410px;
+      display: block;
+    }
+    .link {
+      stroke: rgba(47,140,255,.38);
+      stroke-linecap: round;
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      50% { stroke-opacity: .72; filter: drop-shadow(0 0 12px rgba(47,140,255,.65)); }
+    }
+    .node text {
+      fill: #07111e;
+      font-size: 12px;
+      text-anchor: middle;
+      pointer-events: none;
+      font-weight: 760;
+    }
+    .summary {
+      max-width: 1040px;
+      width: 100%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.45fr .75fr;
+      gap: 14px;
+    }
+    .metric {
+      min-height: 88px;
+      padding: 18px 20px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,.055));
+      border: 1px solid rgba(255,255,255,.13);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 18px 50px rgba(0,0,0,.35);
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .metric b {
+      display: block;
+      color: white;
+      margin-bottom: 7px;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <h1>TrafficMind AI</h1>
+      <div class="subtitle">{{ website.domain }} — визуальная карта трафика</div>
+    </section>
+
+    <section class="chips">
+      <span class="chip">AI-рекомендации</span>
+      <span class="chip">Dynamic Traffic Map</span>
+      <span class="chip">Quality Score</span>
+      <span class="chip">Smart alerts</span>
+      <span class="chip">PDF reports</span>
+    </section>
+
+    <section class="stage">
+      <div class="orbit"></div>
+      <div class="label top">TRAFFIC MAP</div>
+      <div class="label bottom">AI SUMMARY</div>
+
+      <article class="glass insight">
+        <h2>Live sources</h2>
+        {% for item in sources[:6] %}
+        <div class="row"><span>{{ loop.index + 7 }}</span><span>{{ item.domain }}</span><strong>{{ item.quality }}</strong></div>
+        {% endfor %}
+      </article>
+
+      <article class="glass map-card">
+        <svg id="map" role="img" aria-label="Traffic Map"></svg>
+      </article>
+    </section>
+
+    <section class="summary">
+      <div class="metric"><b>AI Summary</b>{{ ai_summary }}</div>
+      <div class="metric"><b>Следующее действие</b>Проверьте слабые источники, CTA на входных страницах и UTM-разметку рекламных ссылок.</div>
+    </section>
+  </main>
+
+  <script>
+    const sources = {{ sources_json | safe }};
+    const svg = d3.select("#map");
+    const width = 760;
+    const height = 500;
+    svg.attr("viewBox", `0 0 ${width} ${height}`);
+    const center = { x: width / 2, y: height / 2, r: 76, domain: "{{ website.domain }}", visitors: d3.sum(sources, d => d.visitors) };
+    const radius = Math.min(width, height) * .34;
+    const color = q => q >= 70 ? "#5df28a" : q >= 40 ? "#ffd056" : "#ff6a5f";
+    const nodes = sources.map((d, i) => {
+      const angle = (Math.PI * 2 / Math.max(sources.length, 1)) * i - Math.PI / 2;
+      return Object.assign(d, {
+        x: center.x + Math.cos(angle) * radius,
+        y: center.y + Math.sin(angle) * radius,
+        r: Math.max(34, Math.min(68, 26 + d.visitors * 2))
+      });
+    });
+    svg.selectAll(".link").data(nodes).enter().append("line")
+      .attr("class", "link").attr("x1", center.x).attr("y1", center.y).attr("x2", d => d.x).attr("y2", d => d.y)
+      .attr("stroke-width", d => Math.max(2, d.quality / 17));
+    const centerNode = svg.append("g").attr("class", "node");
+    centerNode.append("circle").attr("cx", center.x).attr("cy", center.y).attr("r", center.r).attr("fill", "#2f8cff").attr("stroke", "rgba(255,255,255,.9)").attr("stroke-width", 5);
+    centerNode.append("text").attr("x", center.x).attr("y", center.y - 7).style("font-size", "17px").text(center.domain);
+    centerNode.append("text").attr("x", center.x).attr("y", center.y + 18).style("font-size", "12px").text(`${center.visitors} visits`);
+    const node = svg.selectAll(".source").data(nodes).enter().append("g").attr("class", "node source");
+    node.append("circle").attr("cx", d => d.x).attr("cy", d => d.y).attr("r", d => d.r).attr("fill", d => color(d.quality)).attr("fill-opacity", .9).attr("stroke", "rgba(255,255,255,.95)").attr("stroke-width", 5);
+    node.append("text").attr("x", d => d.x).attr("y", d => d.y - 9).text(d => d.domain.slice(0, 16));
+    node.append("text").attr("x", d => d.x).attr("y", d => d.y + 12).text(d => `${d.visitors} / Q ${d.quality}`);
+  </script>
+</body>
+</html>
