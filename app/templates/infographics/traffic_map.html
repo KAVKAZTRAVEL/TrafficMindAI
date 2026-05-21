@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Traffic Map {{ website.domain }}</title>
+  <title>Карта трафика {{ website.domain }}</title>
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
   <style>
     :root {
@@ -41,6 +41,7 @@
       background-size: 72px 72px;
       mask-image: radial-gradient(circle at 50% 44%, black, transparent 72%);
     }
+    button { font: inherit; }
     .page {
       height: 100vh;
       padding: 38px 54px 34px;
@@ -76,12 +77,19 @@
       min-height: 38px;
       padding: 0 18px;
       border-radius: 999px;
-      background: linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.08));
       border: 1px solid rgba(255,255,255,.16);
+      background: linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.08));
       color: rgba(255,255,255,.82);
       box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 10px 30px rgba(0,0,0,.28);
-      font-size: 14px;
+      cursor: pointer;
+      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
       white-space: nowrap;
+    }
+    .chip:hover,
+    .chip.active {
+      transform: translateY(-2px);
+      border-color: rgba(124,199,255,.75);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.22), 0 0 34px rgba(47,140,255,.32);
     }
     .stage {
       position: relative;
@@ -147,11 +155,7 @@
       transform: rotateY(18deg) rotateZ(-4deg);
       opacity: .78;
     }
-    .insight h2 {
-      margin: 0 0 18px;
-      font-size: 22px;
-      letter-spacing: 0;
-    }
+    .insight h2 { margin: 0 0 18px; font-size: 22px; letter-spacing: 0; }
     .row {
       display: grid;
       grid-template-columns: 38px 1fr auto;
@@ -174,20 +178,13 @@
       border-color: rgba(255,255,255,.4);
       z-index: 2;
     }
-    #map {
-      width: 100%;
-      height: 100%;
-      min-height: 410px;
-      display: block;
-    }
+    #map { width: 100%; height: 100%; min-height: 410px; display: block; }
     .link {
       stroke: rgba(47,140,255,.38);
       stroke-linecap: round;
       animation: pulse 2.4s ease-in-out infinite;
     }
-    @keyframes pulse {
-      50% { stroke-opacity: .72; filter: drop-shadow(0 0 12px rgba(47,140,255,.65)); }
-    }
+    @keyframes pulse { 50% { stroke-opacity: .72; filter: drop-shadow(0 0 12px rgba(47,140,255,.65)); } }
     .node text {
       fill: #07111e;
       font-size: 12px;
@@ -213,11 +210,7 @@
       color: var(--muted);
       line-height: 1.45;
     }
-    .metric b {
-      display: block;
-      color: white;
-      margin-bottom: 7px;
-    }
+    .metric b { display: block; color: white; margin-bottom: 7px; }
   </style>
 </head>
 <body>
@@ -228,33 +221,33 @@
     </section>
 
     <section class="chips">
-      <span class="chip">AI-рекомендации</span>
-      <span class="chip">Dynamic Traffic Map</span>
-      <span class="chip">Quality Score</span>
-      <span class="chip">Smart alerts</span>
-      <span class="chip">PDF reports</span>
+      <button class="chip active" type="button">ИИ-рекомендации</button>
+      <button class="chip" type="button">Карта трафика</button>
+      <button class="chip" type="button">Оценка качества</button>
+      <button class="chip" type="button">Умные уведомления</button>
+      <button class="chip" type="button">PDF-отчеты</button>
     </section>
 
     <section class="stage">
       <div class="orbit"></div>
-      <div class="label top">TRAFFIC MAP</div>
-      <div class="label bottom">AI SUMMARY</div>
+      <div class="label top">КАРТА ТРАФИКА</div>
+      <div class="label bottom">ВЫВОД ИИ</div>
 
       <article class="glass insight">
-        <h2>Live sources</h2>
+        <h2>Источники трафика</h2>
         {% for item in sources[:6] %}
         <div class="row"><span>{{ loop.index + 7 }}</span><span>{{ item.domain }}</span><strong>{{ item.quality }}</strong></div>
         {% endfor %}
       </article>
 
       <article class="glass map-card">
-        <svg id="map" role="img" aria-label="Traffic Map"></svg>
+        <svg id="map" role="img" aria-label="Карта трафика"></svg>
       </article>
     </section>
 
     <section class="summary">
-      <div class="metric"><b>AI Summary</b>{{ ai_summary }}</div>
-      <div class="metric"><b>Следующее действие</b>Проверьте слабые источники, CTA на входных страницах и UTM-разметку рекламных ссылок.</div>
+      <div class="metric"><b>Вывод ИИ</b>{{ ai_summary }}</div>
+      <div class="metric"><b>Следующее действие</b>Проверьте слабые источники, призыв к действию на входных страницах и UTM-разметку рекламных ссылок.</div>
     </section>
   </main>
 
@@ -281,11 +274,18 @@
     const centerNode = svg.append("g").attr("class", "node");
     centerNode.append("circle").attr("cx", center.x).attr("cy", center.y).attr("r", center.r).attr("fill", "#2f8cff").attr("stroke", "rgba(255,255,255,.9)").attr("stroke-width", 5);
     centerNode.append("text").attr("x", center.x).attr("y", center.y - 7).style("font-size", "17px").text(center.domain);
-    centerNode.append("text").attr("x", center.x).attr("y", center.y + 18).style("font-size", "12px").text(`${center.visitors} visits`);
+    centerNode.append("text").attr("x", center.x).attr("y", center.y + 18).style("font-size", "12px").text(`${center.visitors} посетителей`);
     const node = svg.selectAll(".source").data(nodes).enter().append("g").attr("class", "node source");
     node.append("circle").attr("cx", d => d.x).attr("cy", d => d.y).attr("r", d => d.r).attr("fill", d => color(d.quality)).attr("fill-opacity", .9).attr("stroke", "rgba(255,255,255,.95)").attr("stroke-width", 5);
     node.append("text").attr("x", d => d.x).attr("y", d => d.y - 9).text(d => d.domain.slice(0, 16));
-    node.append("text").attr("x", d => d.x).attr("y", d => d.y + 12).text(d => `${d.visitors} / Q ${d.quality}`);
+    node.append("text").attr("x", d => d.x).attr("y", d => d.y + 12).text(d => `${d.visitors} / К ${d.quality}`);
+
+    document.querySelectorAll(".chip").forEach((chip) => {
+      chip.addEventListener("click", () => {
+        document.querySelectorAll(".chip").forEach((item) => item.classList.remove("active"));
+        chip.classList.add("active");
+      });
+    });
   </script>
 </body>
 </html>

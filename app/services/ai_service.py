@@ -10,7 +10,7 @@ def explain_sources(sources: list[TrafficSource]) -> str:
     return (
         f"Лучший источник сейчас: {best.source_domain}. Качество {best.quality_score}/100 "
         f"({quality_label(best.quality_score)}). Слабое место: {weak.source_domain}, "
-        f"там качество {weak.quality_score}/100. Проверьте страницу входа и CTA для этого канала."
+        f"там качество {weak.quality_score}/100. Проверьте страницу входа и призыв к действию для этого канала."
     )
 
 

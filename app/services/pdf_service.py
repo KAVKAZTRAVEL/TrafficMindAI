@@ -23,7 +23,7 @@ def generate_pdf_report(path: str, title: str, summary: str, recommendations: li
     pdf.drawString(48, height - 64, title)
     pdf.setFont(font, 11)
     y = height - 100
-    for line in [summary, "", "Recommendations:"] + [f"- {item}" for item in recommendations]:
+    for line in [summary, "", "Рекомендации:"] + [f"- {item}" for item in recommendations]:
         pdf.drawString(48, y, line[:110])
         y -= 18
     pdf.save()

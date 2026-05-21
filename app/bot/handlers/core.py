@@ -66,7 +66,7 @@ async def receive_domain(message: Message, state: FSMContext) -> None:
     )
     await message.answer(
         f"Сайт {website.domain} добавлен.\n\n"
-        "AI Tracking Script для установки на сайт:\n"
+        "Скрипт отслеживания для установки на сайт:\n"
         f"<code>{script}</code>\n\n"
         "Теперь можно запустить бесплатный аудит.",
         parse_mode="HTML",
@@ -110,7 +110,7 @@ async def connect_handler(message: Message) -> None:
         f'data-token="{website.tracking_token}" data-endpoint="{get_settings().public_base_url}/tracker/event"></script>'
     )
     await message.answer(
-        "Можно подключить GA4 OAuth позже или сразу поставить AI Tracking Script.\n\n"
+        "Можно подключить Google Analytics 4 позже или сразу поставить скрипт отслеживания TrafficMind.\n\n"
         f"<code>{script}</code>",
         parse_mode="HTML",
         reply_markup=main_menu(),
@@ -131,7 +131,7 @@ async def traffic_map_handler(event) -> None:
         html_path = f"storage/maps/traffic_map_{website.id}.html"
         render_traffic_map_html(website, sources, html_path)
     await message.answer(
-        "Traffic Map построена по реальным источникам.\n"
+        "Карта трафика построена по реальным источникам.\n"
         f"HTML-файл карты: {Path(html_path).resolve()}\n\n"
         f"{explain_sources(sources)}",
         reply_markup=main_menu(),

@@ -16,8 +16,8 @@ class Plan:
 
 
 PLANS = {
-    "START": Plan("START", "START", 199, 1, ("Ежедневные отчеты", "Traffic Map", "AI-рекомендации", "PDF")),
-    "BUSINESS": Plan("BUSINESS", "BUSINESS", 299, 3, ("Все START", "AI-чат", "Сравнение сайтов")),
+    "START": Plan("START", "START", 199, 1, ("Ежедневные отчеты", "Карта трафика", "ИИ-рекомендации", "PDF-отчеты")),
+    "BUSINESS": Plan("BUSINESS", "BUSINESS", 299, 3, ("Все START", "ИИ-чат", "Сравнение сайтов")),
     "AGENCY": Plan("AGENCY", "AGENCY", 999, 10, ("Все BUSINESS", "White Label", "Агентский режим")),
 }
 

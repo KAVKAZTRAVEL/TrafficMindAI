@@ -14,6 +14,6 @@
 
 `C:\Users\Lenovo\Documents\New project\TrafficMindAI\demo\traffic_map_demo.html`
 
-Основной шаблон Traffic Map, который генерирует бот:
+Основной шаблон карты трафика, который генерирует бот:
 
 `C:\Users\Lenovo\Documents\New project\TrafficMindAI\app\templates\infographics\traffic_map.html`
