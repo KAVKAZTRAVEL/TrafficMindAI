@@ -23,7 +23,8 @@
       --amber: #b8c7d7;
       --red: #d7dde6;
       --shadow: 0 28px 90px rgba(0, 0, 0, .62);
-      --display-font: "Aptos Display", "Segoe UI Variable Display", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      --display-font: "Bahnschrift", "Aptos Display", "Segoe UI Variable Display", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      --read-font: "Aptos", "Segoe UI Variable Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Arial, sans-serif;
       --tech-font: "Cascadia Code", "SF Mono", "Roboto Mono", Consolas, monospace;
     }
     * { box-sizing: border-box; }
@@ -378,8 +379,11 @@
       padding: 22px;
       border-radius: 30px;
       background:
-        linear-gradient(145deg, rgba(255,255,255,.11), rgba(255,255,255,.035) 42%, rgba(0,0,0,.18)),
-        radial-gradient(circle at 80% 12%, color-mix(in srgb, var(--metric-color) 26%, transparent), transparent 38%);
+        linear-gradient(145deg, rgba(255,255,255,.13), rgba(255,255,255,.035) 42%, rgba(0,0,0,.20)),
+        radial-gradient(circle at 18% 10%, rgba(255,255,255,.16), transparent 26%),
+        radial-gradient(circle at 82% 16%, color-mix(in srgb, var(--metric-color) 42%, transparent), transparent 38%),
+        linear-gradient(115deg, rgba(94,182,255,.20), rgba(215,221,230,.08) 42%, rgba(125,220,255,.18) 70%, rgba(0,0,0,0));
+      background-size: 100% 100%, 100% 100%, 100% 100%, 220% 220%;
       border: 1px solid rgba(255,255,255,.10);
       box-shadow:
         inset 0 1px 0 rgba(255,255,255,.14),
@@ -390,6 +394,7 @@
       transform: rotateX(0deg) rotateY(0deg) translateZ(0);
       transform-style: preserve-3d;
       transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+      animation: metricAurora 13s ease-in-out infinite alternate;
     }
     .metric-row:nth-child(odd) { transform: rotateY(-2deg) translateZ(0); }
     .metric-row:nth-child(even) { transform: rotateY(2deg) translateZ(0); }
@@ -424,38 +429,12 @@
       opacity: .34;
       pointer-events: none;
     }
-    .metric-row small {
-      width: fit-content;
-      min-height: 34px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 0 12px;
-      border-radius: 12px;
-      color: rgba(245,245,247,.88);
-      background:
-        linear-gradient(145deg, rgba(255,255,255,.18), rgba(255,255,255,.04)),
-        var(--metric-color, #111);
-      border: 1px solid rgba(255,255,255,.18);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.22), 0 0 26px rgba(94,182,255,.16);
-      font-family: var(--tech-font);
-      font-size: 12px;
-      font-weight: 700;
-      font-variant-numeric: tabular-nums;
-      position: relative;
-      z-index: 1;
-      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+    @keyframes metricAurora {
+      from { background-position: 0 0, 0 0, 0 0, 0% 30%; }
+      to { background-position: 0 0, 0 0, 0 0, 100% 70%; }
     }
-    .metric-row small:after {
-      content: "";
-      position: absolute;
-      inset: 6px;
-      border: 1px solid rgba(255,255,255,.20);
-      clip-path: polygon(0 0, 65% 0, 65% 1px, 1px 1px, 1px 65%, 0 65%);
-      opacity: .8;
-    }
-    .metric-row strong { display: block; margin-bottom: 8px; font-family: var(--display-font); font-size: 24px; line-height: 1.08; }
-    .metric-row span { display: block; color: var(--muted); line-height: 1.38; font-size: 15px; }
+    .metric-row strong { display: block; margin-bottom: 10px; font-family: var(--read-font); font-size: 25px; font-weight: 780; line-height: 1.16; }
+    .metric-row span { display: block; color: rgba(245,245,247,.72); font-family: var(--read-font); line-height: 1.48; font-size: 16px; }
     .metric-row strong, .metric-row span { position: relative; z-index: 1; }
     .metric-pairs { display: flex; flex-wrap: wrap; gap: 8px; position: relative; z-index: 1; }
     .metric-pairs b {
@@ -732,28 +711,23 @@
         </div>
         <div class="metrics-list">
           <div class="metric-row" data-type="traffic">
-            <small>01 / SIGNAL</small>
-            <div><strong>Откуда приходит аудитория</strong><span><span class="source-tag">GA4 / Метрика</span> показывает, какие каналы реально приводят людей и как часто они возвращаются.</span></div>
+            <div><strong>Откуда приходят люди</strong><span><span class="source-tag">GA4 / Метрика</span> показывает, какие каналы приводят аудиторию и возвращаются ли посетители повторно.</span></div>
             <div class="metric-pairs"><b>Пользователи</b><b>Сессии</b></div>
           </div>
           <div class="metric-row" data-type="conversion">
-            <small>02 / ACTION</small>
-            <div><strong>Где человек становится заявкой</strong><span><span class="source-tag">GA4 / GTM / CRM</span> связывает формы, клики, мессенджеры и конверсию в понятный путь до лида.</span></div>
+            <div><strong>Где появляется заявка</strong><span><span class="source-tag">GA4 / GTM / CRM</span> показывает путь от клика до формы, мессенджера, звонка или покупки.</span></div>
             <div class="metric-pairs"><b>События</b><b>Conversion Rate</b></div>
           </div>
           <div class="metric-row" data-type="money">
-            <small>03 / MONEY</small>
-            <div><strong>Какие каналы дают деньги</strong><span><span class="source-tag">CRM / Ads / ecommerce</span> сравнивает выручку, продажи и стоимость привлечения, чтобы видеть прибыльность.</span></div>
+            <div><strong>Где зарабатываются деньги</strong><span><span class="source-tag">CRM / Ads / ecommerce</span> связывает выручку, продажи и стоимость привлечения в одну картину.</span></div>
             <div class="metric-pairs"><b>Доход</b><b>CPL / CPA / CAC</b><b>ROAS / ROI</b></div>
           </div>
           <div class="metric-row" data-type="ads">
-            <small>04 / MEDIA</small>
-            <div><strong>Что происходит с рекламой</strong><span><span class="source-tag">Google Ads / Meta / TikTok / LinkedIn</span> показывает расходы и качество трафика без ручной сверки кабинетов.</span></div>
+            <div><strong>Куда уходит бюджет</strong><span><span class="source-tag">Google Ads / Meta / TikTok / LinkedIn</span> показывает расходы и качество рекламного трафика без ручной сверки кабинетов.</span></div>
             <div class="metric-pairs"><b>Расход</b><b>CTR / CPC / CPM</b></div>
           </div>
           <div class="metric-row" data-type="seo">
-            <small>05 / DEMAND</small>
-            <div><strong>Где уже есть спрос</strong><span><span class="source-tag">Search Console / Call Tracking</span> показывает поисковые запросы, страницы входа и звонки, которые можно довести до продаж.</span></div>
+            <div><strong>Где уже есть спрос</strong><span><span class="source-tag">Search Console / Call Tracking</span> показывает поисковые запросы, входные страницы и звонки, которые можно довести до продаж.</span></div>
             <div class="metric-pairs"><b>SEO клики</b><b>Показы</b><b>Позиция</b><b>Звонки</b></div>
           </div>
         </div>
