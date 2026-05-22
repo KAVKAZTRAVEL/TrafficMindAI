@@ -8,6 +8,8 @@
 - `demo/admin.html` - админ-панель владельца.
 - `demo/link_only_report.html` - полный предварительный отчет по одной ссылке без подключений.
 - `demo/telegram_report_mockup.html` - визуальная имитация отчета в Telegram-боте.
+- `demo/xnebo_telegram_report.html` - персонализированная имитация отчета по ссылке xnebo.com.
+- `demo/sales_report_artifact.html` - продающий HTML/PDF-артефакт первого отчета.
 - `materials/TrafficMind_AI_Master.docx` - исходное техническое задание.
 - `materials/visual_reference.png` - референс визуального стиля.
 - `README.md` - инструкция по запуску и архитектуре.

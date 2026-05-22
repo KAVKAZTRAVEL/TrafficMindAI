@@ -356,6 +356,12 @@ async def link_only_report_handler(event) -> None:
         f"{item['priority']}. {item['title']} - {item['effect']} ({item['time']})"
         for item in report["today_actions"]
     )
+    visible = "\n".join(f"- {item['label']}: {item['value']}" for item in report["observability"]["visible"][:3])
+    not_visible = "\n".join(f"- {item['label']} (нужно: {item['needed']})" for item in report["observability"]["not_visible"][:3])
+    leaks = "\n".join(
+        f"- {item['title']}: {item['estimated_loss']}. {item['fix']}"
+        for item in report["money_leaks"][:3]
+    )
     missing = ", ".join(report["missing_data"][:4])
     await message.answer(
         f"Полный отчет по ссылке: {report['domain']}\n\n"
@@ -367,6 +373,12 @@ async def link_only_report_handler(event) -> None:
         f"{top_findings}\n\n"
         "Что делать сегодня:\n"
         f"{actions}\n\n"
+        "Что я вижу:\n"
+        f"{visible}\n\n"
+        "Что я не вижу без подключений:\n"
+        f"{not_visible}\n\n"
+        "Потери денег:\n"
+        f"{leaks}\n\n"
         "Важно: без подключений я не вижу реальные продажи и рекламные расходы. "
         f"Для точной карты прибыли нужны: {missing}.",
         reply_markup=main_menu(),

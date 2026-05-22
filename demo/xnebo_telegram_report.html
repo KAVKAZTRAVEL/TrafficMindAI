@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>xnebo.com - Telegram-отчет TrafficMind AI</title>
+  <style>
+    :root{color-scheme:dark;--text:rgba(255,255,255,.94);--muted:rgba(255,255,255,.66);--blue:#2f8cff;--blue2:#7cc7ff;--green:#5df28a;--amber:#ffd056;--red:#ff6a5f}
+    *{box-sizing:border-box} body{margin:0;min-height:100vh;font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--text);background:radial-gradient(circle at 12% -10%,rgba(116,168,72,.58),transparent 25%),radial-gradient(circle at 36% -12%,rgba(255,98,54,.58),transparent 24%),radial-gradient(circle at 96% 3%,rgba(0,117,255,.43),transparent 28%),radial-gradient(circle at 54% 88%,rgba(47,140,255,.24),transparent 38%),linear-gradient(180deg,#08111f 0%,#02050b 48%,#04070d 100%);overflow-x:hidden}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(circle at 50% 44%,black,transparent 72%)}
+    a{color:inherit;text-decoration:none}.page{min-height:100vh;padding:34px clamp(16px,4vw,58px);display:grid;grid-template-columns:280px 1fr;gap:24px}.glass{border:1px solid rgba(255,255,255,.13);background:linear-gradient(180deg,rgba(255,255,255,.13),rgba(255,255,255,.055));box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 18px 50px rgba(0,0,0,.35);backdrop-filter:blur(22px)}
+    aside{border-radius:30px;padding:22px;display:flex;flex-direction:column;justify-content:space-between;min-height:calc(100vh - 68px);position:sticky;top:34px}.brand{display:flex;gap:12px;align-items:center;font-weight:850;font-size:21px}.logo{width:38px;height:38px;border-radius:14px;background:linear-gradient(135deg,#7cc7ff,#2f8cff 58%,#5df28a);box-shadow:0 0 28px rgba(47,140,255,.42)}nav{display:grid;gap:10px;margin-top:28px}nav a,.pill{min-height:42px;padding:0 14px;border-radius:999px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;background:rgba(255,255,255,.055);color:var(--muted)}nav a.active{color:white;border-color:rgba(124,199,255,.6);background:linear-gradient(90deg,rgba(47,140,255,.27),rgba(255,255,255,.06))}
+    main{display:grid;gap:18px}.hero{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:end}.hero h1{font-size:clamp(38px,6vw,82px);line-height:.98;margin:0;letter-spacing:0}.hero p{color:var(--muted);font-size:18px;max-width:800px;line-height:1.45}.badge{min-height:42px;border-radius:999px;padding:0 16px;display:flex;align-items:center;border:1px solid rgba(93,242,138,.24);background:rgba(93,242,138,.09);color:rgba(255,255,255,.84);white-space:nowrap}
+    .layout{display:grid;grid-template-columns:minmax(360px,430px) 1fr;gap:18px;align-items:start}.phone{border-radius:42px;padding:16px;background:linear-gradient(145deg,rgba(22,89,203,.42),rgba(5,12,25,.95));box-shadow:0 30px 80px rgba(0,0,0,.55),0 0 54px rgba(43,139,255,.32);border:1px solid rgba(255,255,255,.14)}.screen{min-height:820px;border-radius:32px;background:linear-gradient(180deg,rgba(5,15,31,.92),rgba(3,8,17,.92));border:1px solid rgba(255,255,255,.12);overflow:hidden;display:grid;grid-template-rows:auto 1fr auto}
+    .tg-head{min-height:70px;padding:12px 16px;display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.08)}.avatar{width:42px;height:42px;border-radius:15px;background:linear-gradient(135deg,#7cc7ff,#2f8cff 58%,#5df28a);box-shadow:0 0 24px rgba(47,140,255,.42)}.tg-head b{display:block}.tg-head span{display:block;color:var(--muted);font-size:13px;margin-top:3px}.chat{padding:16px;display:grid;align-content:start;gap:10px}.bubble{max-width:92%;padding:12px 14px;border-radius:18px;line-height:1.42;font-size:14px}.user{justify-self:end;background:linear-gradient(135deg,rgba(47,140,255,.82),rgba(39,105,214,.78));border-bottom-right-radius:6px;word-break:break-word}.bot{justify-self:start;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.08);border-bottom-left-radius:6px}.bot strong,.user strong{display:block;margin-bottom:5px}.report-card{padding:14px;border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.055));border:1px solid rgba(255,255,255,.1);display:grid;gap:10px}.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.metric{border-radius:14px;padding:10px;background:rgba(255,255,255,.065)}.metric b{font-size:20px;display:block}.metric span{color:var(--muted);font-size:12px}.risk{color:var(--red)}.warn{color:var(--amber)}.ok{color:var(--green)}.buttons{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}.tg-button{min-height:38px;border-radius:12px;background:rgba(47,140,255,.18);border:1px solid rgba(124,199,255,.26);display:flex;align-items:center;justify-content:center;color:#dceeff;font-size:13px}.composer{min-height:58px;padding:10px 12px;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.045)}.input{flex:1;min-height:38px;border-radius:999px;background:rgba(255,255,255,.08);display:flex;align-items:center;padding:0 14px;color:var(--muted);font-size:14px}.send{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#7cc7ff,#2f8cff)}
+    .panel{border-radius:30px;padding:22px}.panel h2{margin:0 0 14px;font-size:28px}.muted{color:var(--muted);line-height:1.5}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.stat{border-radius:24px;padding:18px;min-height:128px}.stat b{display:block;font-size:30px;margin-bottom:8px}.stat span{color:var(--muted);line-height:1.35}.wide{display:grid;grid-template-columns:1fr 1fr;gap:14px}.list{display:grid;gap:12px}.item{padding:15px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)}.item strong{display:block;margin-bottom:6px}.mini{display:grid;gap:8px}.mini div{padding:12px;border-radius:16px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.08);color:var(--muted)}.mini b{color:white}.note{border-radius:24px;padding:17px;color:rgba(255,255,255,.78);line-height:1.5;border:1px solid rgba(255,208,86,.32);background:rgba(255,208,86,.08)}
+    @media(max-width:1180px){.page,.layout,.hero{grid-template-columns:1fr}aside{position:static;min-height:auto}.phone{max-width:460px;margin:auto}.grid,.wide{grid-template-columns:1fr 1fr}}@media(max-width:680px){.grid,.wide,.metric-grid{grid-template-columns:1fr}.phone{padding:8px;border-radius:28px}.screen{min-height:760px;border-radius:24px}.hero h1{font-size:42px}.badge{white-space:normal}}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <aside class="glass">
+      <div>
+        <div class="brand"><span class="logo"></span><span>TrafficMind AI</span></div>
+        <nav>
+          <a href="traffic_map_demo.html">Dashboard</a>
+          <a href="telegram_report_mockup.html">Telegram-вид</a>
+          <a class="active" href="xnebo_telegram_report.html">Отчет xnebo.com</a>
+          <a href="link_only_report.html">Отчет по ссылке</a>
+        </nav>
+      </div>
+      <div class="pill">Имитация: пользователь кинул ссылку</div>
+    </aside>
+
+    <main>
+      <section class="hero">
+        <div>
+          <h1>Отчет по xnebo.com</h1>
+          <p>Так сейчас выглядел бы ответ Telegram-бота, если пользователь отправил ссылку на сайт полетов на параплане. Отчет построен только по публичным признакам страницы.</p>
+        </div>
+        <div class="badge">Публичный аудит без интеграций</div>
+      </section>
+
+      <section class="layout">
+        <article class="phone" aria-label="Имитация Telegram-чата по xnebo.com">
+          <div class="screen">
+            <div class="tg-head">
+              <div class="avatar"></div>
+              <div><b>TrafficMind AI</b><span>AI-маркетолог онлайн</span></div>
+            </div>
+            <div class="chat">
+              <div class="bubble user"><strong>Клиент</strong>https://xnebo.com/?yclid=16070165710903705599</div>
+              <div class="bubble bot"><strong>TrafficMind AI</strong>Принял ссылку. Проверяю доступность, title/description, CMS, формы заявки, контакты, аналитику, пиксели, доверие и коммерческие блоки.</div>
+              <div class="bubble bot report-card">
+                <strong>Предварительный отчет готов</strong>
+                <span>Параплан Пятигорск - Юца | Полеты с инструктором</span>
+                <div class="metric-grid">
+                  <div class="metric"><b>78/100</b><span>готовность страницы</span></div>
+                  <div class="metric"><b>67/100</b><span>уверенность отчета</span></div>
+                  <div class="metric"><b class="ok">найдено</b><span>форма, телефон, Яндекс Метрика</span></div>
+                  <div class="metric"><b class="warn">не найдено</b><span>GA4, Meta Pixel, TikTok Pixel</span></div>
+                </div>
+              </div>
+              <div class="bubble bot"><strong>Главный вывод</strong>Сайт хорошо объясняет услугу: есть оффер про полет с инструктором, гора Юца, безопасность, отзывы, стоимость и форма заявки. Главный риск не в упаковке, а в измеримости рекламы и понимании, какие каналы приводят оплаченные полеты.</div>
+              <div class="bubble bot"><strong>Что вижу по странице</strong>1. CMS похожа на WordPress.<br>2. Есть мобильная адаптация.<br>3. Найдена форма заявки и телефон.<br>4. Найдена Яндекс Метрика.<br>5. Есть блоки безопасности, цены и отзывы Tripadvisor.</div>
+              <div class="bubble bot"><strong>Что не вижу без подключений</strong>Не вижу реальные расходы рекламы, оплаченные полеты, качество заявок, причины отказов и путь клиента после первого перехода.</div>
+              <div class="bubble bot"><strong>Где могут теряться деньги</strong>1. Рекламный переход с `yclid` есть, но без CRM нельзя понять, дошел ли человек до оплаты.<br>2. Не вижу Meta/TikTok пиксели для ретаргетинга.<br>3. Не вижу GA4 для сравнения каналов.<br>4. Стоит усилить быстрый путь: цена → дата → мессенджер/заявка.</div>
+              <div class="bubble bot"><strong>Что сделать сегодня</strong>1. Передавать `yclid` и UTM в форму заявки.<br>2. Настроить цель отправки формы и клика по телефону.<br>3. Добавить Meta/TikTok Pixel или GTM для ретаргетинга.<br>4. Подключить CRM/таблицу заявок, чтобы считать стоимость оплаченного полета.</div>
+              <div class="bubble bot"><strong>Важно</strong>Это предварительный отчет. Я не вижу реальные расходы рекламы, заявки, продажи и ROAS. Для точной карты прибыли нужно подключить Метрику/GA4, рекламные кабинеты и CRM.</div>
+              <div class="buttons">
+                <div class="tg-button">Полный отчет</div>
+                <div class="tg-button">План на сегодня</div>
+                <div class="tg-button">Подключить Метрику</div>
+                <div class="tg-button">Скачать PDF</div>
+                <div class="tg-button">Потери денег</div>
+                <div class="tg-button">План 7 дней</div>
+              </div>
+            </div>
+            <div class="composer"><div class="input">Напишите сообщение...</div><div class="send"></div></div>
+          </div>
+        </article>
+
+        <section class="list">
+          <article class="panel glass">
+            <h2>Данные, которые увидит пользователь</h2>
+            <div class="grid">
+              <div class="stat glass"><b>200</b><span>страница доступна</span></div>
+              <div class="stat glass"><b>WordPress</b><span>CMS похожа на WordPress</span></div>
+              <div class="stat glass"><b>1</b><span>форма заявки найдена</span></div>
+              <div class="stat glass"><b>78/100</b><span>оценка готовности страницы</span></div>
+            </div>
+          </article>
+
+          <article class="wide">
+            <div class="panel glass">
+              <h2>Что хорошо</h2>
+              <div class="mini">
+                <div><b>SEO:</b> есть title и description с ключами “Параплан”, “Пятигорск”, “Юца”.</div>
+                <div><b>Конверсия:</b> есть форма, телефон и коммерческий блок со стоимостью.</div>
+                <div><b>Доверие:</b> есть акценты на безопасность, инструкторов, отзывы и Tripadvisor.</div>
+                <div><b>Мобильность:</b> найден viewport, страница готова к мобильному трафику.</div>
+              </div>
+            </div>
+            <div class="panel glass">
+              <h2>Что рискованно</h2>
+              <div class="mini">
+                <div><b>Атрибуция:</b> без CRM нельзя понять, какой переход привел оплату.</div>
+                <div><b>Реклама:</b> публично не найдены Meta Pixel и TikTok Pixel.</div>
+                <div><b>Сравнение каналов:</b> публично не найден GA4.</div>
+                <div><b>Ретаргетинг:</b> часть теплых посетителей может уходить без повторного касания.</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel glass">
+            <h2>AI-рекомендации</h2>
+            <div class="item"><strong class="risk">Высокий приоритет</strong><span class="muted">Передавать `yclid`, UTM, страницу входа и тип заявки в CRM или таблицу. Тогда можно связать рекламу с оплатой полета.</span></div>
+            <div class="item"><strong class="warn">Средний приоритет</strong><span class="muted">Добавить ретаргетинг через Meta/TikTok Pixel или GTM, потому что услуга эмоциональная и решение может приниматься не сразу.</span></div>
+            <div class="item"><strong class="ok">Быстрый выигрыш</strong><span class="muted">Сделать короткий путь “выбрать дату → задать вопрос → оставить заявку” рядом со стоимостью и блоком безопасности.</span></div>
+          </article>
+
+          <article class="panel glass">
+            <h2>Онбординг после отчета</h2>
+            <div class="item"><strong class="ok">1. Ссылка получена</strong><span class="muted">Бот уже сделал первый аудит публичной страницы.</span></div>
+            <div class="item"><strong class="warn">2. Первый отчет готов</strong><span class="muted">Клиент видит сильные стороны, риски и денежные потери.</span></div>
+            <div class="item"><strong class="warn">3. Подключить данные</strong><span class="muted">Метрика/GA4, CRM, пиксели и рекламные кабинеты дадут точную карту прибыли.</span></div>
+          </article>
+
+          <div class="note">Это имитация текущего ответа бота по одной ссылке. Она не утверждает реальные продажи или рекламные расходы, потому что пользователь пока не подключил CRM, рекламные кабинеты и сквозную аналитику.</div>
+        </section>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

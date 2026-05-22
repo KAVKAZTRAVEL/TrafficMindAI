@@ -13,7 +13,8 @@
     main{display:grid;gap:18px}.hero{display:grid;grid-template-columns:1fr 360px;gap:18px;align-items:end}.hero h1{font-size:clamp(38px,6vw,82px);line-height:.98;margin:0;letter-spacing:0}.hero p{color:var(--muted);font-size:18px;max-width:760px;line-height:1.45}.urlbox{border-radius:26px;padding:18px}.urlbox label{display:grid;gap:10px;color:var(--muted)}.urlrow{display:flex;gap:10px}input{min-width:0;width:100%;height:44px;border-radius:999px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.07);color:white;padding:0 14px}.primary{height:44px;border:0;border-radius:999px;background:linear-gradient(90deg,#7cc7ff,#2f8cff);color:#03101f;font-weight:850;padding:0 18px;cursor:pointer;box-shadow:0 0 24px rgba(76,161,255,.42);white-space:nowrap}
     .notice{border-radius:24px;padding:17px;color:rgba(255,255,255,.78);line-height:1.5;border:1px solid rgba(255,208,86,.32);background:rgba(255,208,86,.08)}.grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px}.score{border-radius:24px;padding:18px;min-height:128px}.score b{font-size:30px;display:block;margin-bottom:8px}.score span{color:var(--muted);line-height:1.35}.wide{display:grid;grid-template-columns:1.18fr .82fr;gap:14px}.panel{border-radius:30px;padding:22px}.panel h2{margin:0 0 14px;font-size:28px}.muted{color:var(--muted);line-height:1.5}.summary{display:grid;grid-template-columns:1fr 230px;gap:16px;align-items:center}.risk{border-radius:24px;padding:18px;background:rgba(255,106,95,.11);border:1px solid rgba(255,106,95,.28)}.risk b{font-size:26px;display:block;margin-bottom:6px}.list{display:grid;gap:12px}.item{padding:15px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)}.item strong{display:block;margin-bottom:6px}.high{color:var(--red)}.medium{color:var(--amber)}.ok{color:var(--green)}
     .roadmap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.step{padding:16px;border-radius:20px;background:rgba(47,140,255,.09);border:1px solid rgba(124,199,255,.2);min-height:150px}.step small{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:rgba(124,199,255,.2);margin-bottom:12px;font-weight:850}.table{display:grid;gap:10px}.row{display:grid;grid-template-columns:1fr 1.2fr;gap:12px;padding:13px;border-radius:16px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.08)}.foot{font-size:13px;color:rgba(255,255,255,.54)}
-    @media(max-width:1120px){.page,.hero,.wide{grid-template-columns:1fr}aside{position:static;min-height:auto}.grid{grid-template-columns:repeat(3,1fr)}.roadmap{grid-template-columns:1fr 1fr}}@media(max-width:640px){.grid,.roadmap,.summary{grid-template-columns:1fr}.urlrow{display:grid}.hero h1{font-size:42px}}
+    .timeline{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.timeline .step{min-height:136px}.done small{background:rgba(93,242,138,.22)}.active-step{border-color:rgba(124,199,255,.45);box-shadow:0 0 32px rgba(47,140,255,.18)}.next small{background:rgba(255,208,86,.18)}.split{display:grid;grid-template-columns:1fr 1fr;gap:14px}.check{color:var(--green)}.missing{color:var(--amber)}.leak{border-color:rgba(255,106,95,.24);background:rgba(255,106,95,.07)}.artifact{display:grid;grid-template-columns:1fr 260px;gap:16px;align-items:center}.cta{display:inline-flex;min-height:44px;padding:0 18px;border-radius:999px;align-items:center;justify-content:center;background:linear-gradient(90deg,#7cc7ff,#2f8cff);color:#03101f;font-weight:850;box-shadow:0 0 24px rgba(76,161,255,.42)}
+    @media(max-width:1120px){.page,.hero,.wide,.split,.artifact{grid-template-columns:1fr}aside{position:static;min-height:auto}.grid{grid-template-columns:repeat(3,1fr)}.roadmap,.timeline{grid-template-columns:1fr 1fr}}@media(max-width:640px){.grid,.roadmap,.timeline,.summary{grid-template-columns:1fr}.urlrow{display:grid}.hero h1{font-size:42px}}
   </style>
 </head>
 <body>
@@ -51,6 +52,15 @@
         Это честный предварительный отчет. Без GA4, CRM, рекламных кабинетов и пикселей система не показывает реальные продажи, ROAS и источники денег. Вместо этого она анализирует публичные признаки сайта и дает гипотезы, что проверить первым.
       </section>
 
+      <section class="panel glass">
+        <h2>Онбординг: 1 ссылка -> первый отчет -> подключить данные</h2>
+        <div class="timeline">
+          <div class="step done"><small>1</small><strong>Клиент отправил ссылку</strong><p class="muted">Бот сразу проверяет публичные признаки сайта: доступность, формы, SEO, контакты и счетчики.</p></div>
+          <div class="step active-step"><small>2</small><strong>Первый отчет готов</strong><p class="muted">Клиент видит риски, денежные гипотезы, быстрые действия и ограничения без интеграций.</p></div>
+          <div class="step next"><small>3</small><strong>Подключить данные</strong><p class="muted">Метрика/GA4, CRM, пиксели и реклама превращают предварительный аудит в карту прибыли.</p></div>
+        </div>
+      </section>
+
       <section class="wide">
         <article class="panel glass summary">
           <div>
@@ -65,6 +75,27 @@
         <article class="panel glass">
           <h2>Уверенность отчета</h2>
           <p class="muted"><b>64/100:</b> предварительная оценка. Данных достаточно для первого плана улучшений, но недостаточно для точного расчета прибыли по каналам.</p>
+        </article>
+      </section>
+
+      <section class="split">
+        <article class="panel glass">
+          <h2>Что я вижу</h2>
+          <div class="list">
+            <div class="item"><strong class="check">Публичная доступность сайта</strong><span class="muted">Можно проверить сразу: открывается ли страница и отвечает ли сервер.</span></div>
+            <div class="item"><strong class="check">Title, description и структура страницы</strong><span class="muted">Бот видит базовую SEO-упаковку, заголовки и коммерческие блоки.</span></div>
+            <div class="item"><strong class="check">Формы, телефоны и мессенджеры</strong><span class="muted">Можно найти точки заявки и оценить, насколько короткий путь до контакта.</span></div>
+            <div class="item"><strong class="check">Признаки счетчиков и пикселей</strong><span class="muted">Если код не скрыт, бот видит Метрику, GA4, GTM и рекламные пиксели.</span></div>
+          </div>
+        </article>
+        <article class="panel glass">
+          <h2>Что я не вижу</h2>
+          <div class="list">
+            <div class="item"><strong class="missing">Реальные продажи и выручку</strong><span class="muted">Нужны CRM, платежи или хотя бы статусы заявок.</span></div>
+            <div class="item"><strong class="missing">Расходы рекламы, CPL и ROAS</strong><span class="muted">Нужны рекламные кабинеты Google, Meta, TikTok или LinkedIn.</span></div>
+            <div class="item"><strong class="missing">Качество лидов и причины отказов</strong><span class="muted">Нужны CRM-стадии, call tracking и ручные причины потерь.</span></div>
+            <div class="item"><strong class="missing">Повторные касания до покупки</strong><span class="muted">Нужна сквозная аналитика и multi-touch attribution.</span></div>
+          </div>
         </article>
       </section>
 
@@ -100,6 +131,16 @@
       </section>
 
       <section class="panel glass">
+        <h2>Модуль “Потери денег”</h2>
+        <div class="roadmap">
+          <div class="step leak"><small>1</small><strong>Невидимая реклама</strong><p class="muted">20 000-70 000 ₽/мес: бюджет может уходить в клики без продаж, если нет расходов и конверсий по кампаниям.</p></div>
+          <div class="step leak"><small>2</small><strong>Теплые посетители не возвращаются</strong><p class="muted">10 000-35 000 ₽/мес: без пикселей и ретаргетинга пользователь может уйти после первого касания.</p></div>
+          <div class="step leak"><small>3</small><strong>Заявки без источника</strong><p class="muted">15 000-50 000 ₽/мес: форма должна сохранять источник, кампанию, страницу входа и device.</p></div>
+          <div class="step leak"><small>4</small><strong>Слабый путь до действия</strong><p class="muted">5 000-25 000 ₽/мес: CTA, цена, доверие и форма должны вести к одному быстрому действию.</p></div>
+        </div>
+      </section>
+
+      <section class="panel glass">
         <h2>Что делать сегодня</h2>
         <div class="roadmap">
           <div class="step"><small>1</small><strong>Поставить цели формы и мессенджеров</strong><p class="muted">Эффект: +15-30% точности в понимании заявок. Сложность: низкая. Время: 30-60 минут.</p></div>
@@ -123,6 +164,14 @@
           <p class="muted">TrafficMind AI не заставляет клиента разбираться в метриках. Он получает короткий вывод, список проблем по критичности, план действий, ожидаемый эффект и честное объяснение, какие данные нужны для более точного отчета.</p>
           <p class="foot">Demo endpoint для backend: <code>GET /api/reports/link-only-demo?domain=example.com</code></p>
         </article>
+      </section>
+
+      <section class="panel glass artifact">
+        <div>
+          <h2>PDF/HTML-отчет как продающий артефакт</h2>
+          <p class="muted">Этот первый отчет можно отправить клиенту как красивый HTML/PDF: короткий вывод, что бот уже видит, чего не хватает без подключений, денежные потери, план на 7 дней и понятная кнопка “Получить точную карту прибыли”.</p>
+        </div>
+        <a class="cta" href="sales_report_artifact.html">Открыть артефакт</a>
       </section>
     </main>
   </div>

@@ -138,6 +138,21 @@ async def link_only_report_demo(domain: str = Query(default="example.com", min_l
     return link_only_report_payload(domain)
 
 
+@app.get("/admin/alerts-demo", dependencies=[Depends(require_admin)])
+async def admin_alerts_demo(domain: str = Query(default="example.com", min_length=3, max_length=255)) -> dict:
+    report = link_only_report_payload(domain)
+    return {
+        "domain": report["domain"],
+        "alerts": report["owner_alerts"],
+        "money_leaks": report["money_leaks"],
+        "recommended_owner_flow": [
+            "Проверить, посмотрел ли пользователь полный отчет.",
+            "Отправить кнопку подключения Метрики/GA4 и CRM.",
+            "Через 24 часа напомнить, что точная карта прибыли появится после данных.",
+        ],
+    }
+
+
 @app.get("/api/account/{telegram_id}")
 async def account_get(telegram_id: int, db: AsyncSession = Depends(get_db)) -> dict:
     user = await db.scalar(select(User).where(User.telegram_id == telegram_id))

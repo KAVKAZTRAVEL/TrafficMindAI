@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TrafficMind AI - продающий отчет</title>
+  <style>
+    :root{color-scheme:dark;--text:rgba(255,255,255,.94);--muted:rgba(255,255,255,.66);--blue:#2f8cff;--green:#5df28a;--amber:#ffd056;--red:#ff6a5f}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--text);background:radial-gradient(circle at 10% -12%,rgba(116,168,72,.58),transparent 26%),radial-gradient(circle at 36% -12%,rgba(255,98,54,.54),transparent 24%),radial-gradient(circle at 96% 0%,rgba(0,117,255,.44),transparent 30%),linear-gradient(180deg,#08111f 0%,#02050b 48%,#04070d 100%)}body:before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(circle at 50% 44%,black,transparent 72%)}
+    a{color:inherit;text-decoration:none}.wrap{width:min(1120px,100%);margin:auto;padding:40px clamp(16px,4vw,52px);display:grid;gap:18px}.glass{border:1px solid rgba(255,255,255,.13);background:linear-gradient(180deg,rgba(255,255,255,.13),rgba(255,255,255,.055));box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 18px 50px rgba(0,0,0,.35);backdrop-filter:blur(22px)}.hero{min-height:420px;border-radius:34px;padding:34px;display:grid;align-content:end;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;right:32px;bottom:32px;width:280px;height:180px;border-radius:34px;border:1px solid rgba(124,199,255,.36);background:linear-gradient(135deg,rgba(218,237,255,.82),rgba(47,140,255,.32));box-shadow:0 0 52px rgba(47,140,255,.3)}h1{font-size:clamp(42px,7vw,86px);line-height:.96;margin:0;letter-spacing:0;max-width:760px}p{color:var(--muted);line-height:1.52;font-size:17px}.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.chip{min-height:38px;border-radius:999px;padding:0 14px;display:flex;align-items:center;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07);color:rgba(255,255,255,.78)}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.card{border-radius:26px;padding:20px;min-height:132px}.card b{display:block;font-size:28px;margin-bottom:8px}.card span{color:var(--muted);line-height:1.35}.wide{display:grid;grid-template-columns:1fr 1fr;gap:14px}.panel{border-radius:30px;padding:24px}.panel h2{margin:0 0 14px;font-size:30px}.list{display:grid;gap:12px}.item{padding:15px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)}.item strong{display:block;margin-bottom:5px}.ok{color:var(--green)}.warn{color:var(--amber)}.bad{color:var(--red)}.cta{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.button{min-height:46px;border-radius:999px;padding:0 18px;background:linear-gradient(90deg,#7cc7ff,#2f8cff);color:#03101f;font-weight:850;display:flex;align-items:center}.secondary{background:rgba(255,255,255,.08);color:white;border:1px solid rgba(255,255,255,.12)}
+    @media print{body{background:#fff;color:#111}.glass{box-shadow:none;background:#fff;border:1px solid #ddd}.wrap{padding:0}.button{display:none}p,.card span{color:#333}}@media(max-width:860px){.grid,.wide{grid-template-columns:1fr}.hero:after{display:none}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero glass">
+      <h1>Предварительный AI-аудит сайта</h1>
+      <p>Отчет для клиента, который пока отправил только ссылку. TrafficMind AI показывает быстрые выводы, ограничения без интеграций и путь к точной карте прибыли.</p>
+      <div class="chips">
+        <span class="chip">1 ссылка</span>
+        <span class="chip">первый отчет</span>
+        <span class="chip">план на 7 дней</span>
+        <span class="chip">подключить данные</span>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card glass"><b>64/100</b><span>уверенность предварительного отчета</span></div>
+      <div class="card glass"><b>35-120 тыс. ₽</b><span>оценочный диапазон возможных потерь</span></div>
+      <div class="card glass"><b>4</b><span>быстрых действия на сегодня</span></div>
+      <div class="card glass"><b>7 дней</b><span>путь до точной карты прибыли</span></div>
+    </section>
+
+    <section class="wide">
+      <article class="panel glass">
+        <h2>Что уже видно</h2>
+        <div class="list">
+          <div class="item"><strong class="ok">Сайт и публичная упаковка</strong><span>Доступность, title, description, структура, формы, контакты, CTA.</span></div>
+          <div class="item"><strong class="ok">Базовые риски заявки</strong><span>Путь до формы, доверие, видимость цены/оффера, мобильная готовность.</span></div>
+          <div class="item"><strong class="ok">Признаки аналитики</strong><span>Если счетчики и пиксели стоят публично, отчет их обнаруживает.</span></div>
+        </div>
+      </article>
+      <article class="panel glass">
+        <h2>Чего не хватает</h2>
+        <div class="list">
+          <div class="item"><strong class="warn">Продажи и выручка</strong><span>Нужны CRM, платежи или статусы сделок.</span></div>
+          <div class="item"><strong class="warn">Расходы и ROAS</strong><span>Нужны рекламные кабинеты и передача UTM/gclid/yclid.</span></div>
+          <div class="item"><strong class="warn">Качество лидов</strong><span>Нужны причины отказов, звонки и этапы воронки.</span></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="panel glass">
+      <h2>Денежные потери</h2>
+      <div class="grid">
+        <div class="item"><strong class="bad">Невидимая реклама</strong><span>20-70 тыс. ₽/мес из-за отсутствия связи кликов с продажами.</span></div>
+        <div class="item"><strong class="bad">Заявки без источника</strong><span>15-50 тыс. ₽/мес, если форма не сохраняет канал.</span></div>
+        <div class="item"><strong class="warn">Нет ретаргетинга</strong><span>10-35 тыс. ₽/мес из-за потери теплых посетителей.</span></div>
+        <div class="item"><strong class="warn">Длинный путь</strong><span>5-25 тыс. ₽/мес, если CTA, цена и доверие разорваны.</span></div>
+      </div>
+    </section>
+
+    <section class="wide">
+      <article class="panel glass">
+        <h2>План на 7 дней</h2>
+        <p>День 1: первый отчет. День 2: цели формы. День 3: UTM. День 4: пиксели. День 5: CRM. День 6: потери. День 7: карта прибыли.</p>
+      </article>
+      <article class="panel glass">
+        <h2>Следующий шаг</h2>
+        <p>Подключить Метрику/GA4, CRM и пиксели. После этого TrafficMind AI сможет считать не просто риски сайта, а реальные деньги, лиды, продажи, ROI и потери.</p>
+        <div class="cta">
+          <a class="button" href="link_only_report.html">Вернуться к отчету</a>
+          <a class="button secondary" href="traffic_map_demo.html">Открыть dashboard</a>
+        </div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
