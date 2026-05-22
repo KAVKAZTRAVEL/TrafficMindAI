@@ -498,17 +498,17 @@
       color: rgba(245,245,247,.72);
       font-size: 13px;
     }
-    .owner-strip {
+    .account-strip {
       display: grid;
-      grid-template-columns: 1.1fr .9fr;
+      grid-template-columns: 1fr;
       gap: 16px;
     }
-    .owner-card {
-      min-height: 300px;
+    .account-card {
+      min-height: 280px;
       display: grid;
       align-content: space-between;
     }
-    .owner-card ul {
+    .account-card ul {
       margin: 18px 0 0;
       padding: 0;
       list-style: none;
@@ -517,7 +517,7 @@
       color: var(--muted);
       line-height: 1.45;
     }
-    .owner-card li:before {
+    .account-card li:before {
       content: "";
       width: 7px;
       height: 7px;
@@ -580,7 +580,7 @@
       .hero,
       .demo-report,
       .connect-grid,
-      .owner-strip {
+      .account-strip {
         grid-template-columns: 1fr;
       }
       .phone {
@@ -628,7 +628,6 @@
       <a href="#report">Что увидит клиент</a>
       <a href="#metrics">Метрики</a>
       <a href="#connect">Подключения</a>
-      <a href="#owner">Для владельца</a>
     </nav>
   </header>
 
@@ -765,36 +764,23 @@
       </div>
     </section>
 
-    <section class="section" id="owner">
+    <section class="section" id="account">
       <div class="section-head">
-        <h2>Личный кабинет и админ-контроль</h2>
-        <p>В интерфейсе нет лишней технической информации: только то, что помогает клиенту и владельцу продукта принимать решения.</p>
+        <h2>Личный кабинет клиента</h2>
+        <p>Клиент один раз сохраняет сайт, цели и подключения. Дальше бот использует эти данные в каждом отчете и не заставляет настраивать все заново.</p>
       </div>
-      <div class="owner-strip">
-        <article class="card owner-card">
+      <div class="account-strip">
+        <article class="card account-card">
           <div>
             <span class="number">CLIENT</span>
-            <h3>Личный кабинет клиента</h3>
-            <p>Клиент один раз сохраняет сайт, цели, нишу и подключения. После этого бот использует эти данные в каждом отчете.</p>
+            <h3>Все настройки в одном месте</h3>
+            <p>Личный кабинет нужен, чтобы клиенту было проще: он видит свои сайты, подключенные сервисы, историю отчетов и рекомендации по росту.</p>
           </div>
           <ul>
             <li>сайты и цели бизнеса</li>
             <li>подключенные сервисы</li>
             <li>история отчетов</li>
             <li>рекомендации и задачи</li>
-          </ul>
-        </article>
-        <article class="card owner-card">
-          <div>
-            <span class="number">OWNER</span>
-            <h3>Панель владельца</h3>
-            <p>Для тебя это центр управления продуктом: пользователи, подписки, активность, горячие лиды и важные алерты.</p>
-          </div>
-          <ul>
-            <li>кто создал отчет</li>
-            <li>кто не подключил данные</li>
-            <li>кто готов к оплате</li>
-            <li>где нужен ручной контакт</li>
           </ul>
         </article>
       </div>
