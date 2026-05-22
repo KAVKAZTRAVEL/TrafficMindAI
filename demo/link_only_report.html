@@ -159,54 +159,172 @@
     .metric span { color: var(--muted); line-height: 1.35; }
     .bot-welcome {
       display: grid;
-      grid-template-columns: minmax(240px, .86fr) 1.4fr;
+      grid-template-columns: minmax(300px, .82fr) 1.18fr;
       gap: 16px;
       align-items: stretch;
     }
     .bot-card {
       min-height: 100%;
+      display: grid;
+      align-content: space-between;
+      gap: 26px;
       background:
-        radial-gradient(circle at 82% 8%, rgba(0,113,227,.16), transparent 34%),
-        rgba(255,255,255,.82);
+        radial-gradient(circle at 82% 12%, rgba(0,113,227,.22), transparent 28%),
+        radial-gradient(circle at 14% 86%, rgba(52,199,89,.13), transparent 34%),
+        linear-gradient(145deg, rgba(255,255,255,.96), rgba(242,242,247,.78));
     }
+    .bot-face {
+      width: min(100%, 360px);
+      min-height: 250px;
+      border-radius: 34px;
+      display: grid;
+      align-content: center;
+      gap: 18px;
+      padding: 28px;
+      color: #fff;
+      background:
+        radial-gradient(circle at 74% 24%, rgba(255,255,255,.36), transparent 24%),
+        linear-gradient(145deg, #0b0b0f, #1d1d1f 52%, #0071e3);
+      box-shadow: 0 28px 74px rgba(0,0,0,.22);
+      position: relative;
+      overflow: hidden;
+    }
+    .bot-face:before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,.16);
+      pointer-events: none;
+    }
+    .bot-face-top { display: flex; justify-content: space-between; align-items: center; gap: 14px; position: relative; }
     .bot-mark {
-      width: 54px;
-      height: 54px;
+      width: 64px;
+      height: 64px;
+      border-radius: 22px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.25);
+      font-weight: 900;
+      font-size: 20px;
+    }
+    .bot-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.13);
+      color: rgba(255,255,255,.86);
+      font-size: 13px;
+    }
+    .bot-status i { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 5px rgba(52,199,89,.16); }
+    .bot-phrase { position: relative; max-width: 260px; font-size: 28px; line-height: 1.08; font-weight: 800; }
+    .source-flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      position: relative;
+    }
+    .source-node {
+      min-height: 62px;
       border-radius: 18px;
       display: grid;
       place-items: center;
-      margin-bottom: 22px;
-      color: white;
-      background: linear-gradient(135deg, #111, #0071e3);
-      font-weight: 900;
-      box-shadow: 0 18px 44px rgba(0,113,227,.22);
+      padding: 8px;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255,255,255,.8);
+      background: rgba(255,255,255,.11);
+      border: 1px solid rgba(255,255,255,.14);
     }
-    .bot-card h2 { margin: 0; font-size: clamp(30px, 4vw, 54px); line-height: 1; }
+    .bot-card h2 { margin: 0; font-size: clamp(34px, 4.4vw, 62px); line-height: .98; }
     .bot-card p { margin: 18px 0 0; color: var(--muted); line-height: 1.5; font-size: 17px; }
-    .metrics-list { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
-    .metric-row {
+    .bot-points {
       display: grid;
-      grid-template-columns: 38px 1fr;
-      gap: 12px;
-      min-height: 108px;
-      padding: 16px;
-      border-radius: 24px;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 10px;
+    }
+    .bot-point {
+      min-height: 92px;
+      border-radius: 22px;
+      padding: 14px;
       background: rgba(255,255,255,.74);
       border: 1px solid var(--line);
     }
+    .bot-point strong { display: block; font-size: 22px; margin-bottom: 5px; }
+    .bot-point span { color: var(--muted); line-height: 1.35; font-size: 13px; }
+    .metrics-panel {
+      display: grid;
+      gap: 16px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.74));
+    }
+    .metrics-panel .section-head { align-items: start; }
+    .metric-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .metric-tabs span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: #f2f2f7;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .metrics-list { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+    .metric-row {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 13px;
+      min-height: 122px;
+      padding: 16px;
+      border-radius: 24px;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,.065);
+      box-shadow: 0 12px 28px rgba(0,0,0,.045);
+      position: relative;
+      overflow: hidden;
+    }
+    .metric-row:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 16px;
+      bottom: 16px;
+      width: 4px;
+      border-radius: 999px;
+      background: var(--metric-color, var(--blue));
+    }
     .metric-row small {
-      width: 38px;
-      height: 38px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
       display: grid;
       place-items: center;
       color: white;
-      background: #111;
+      background: var(--metric-color, #111);
       font-weight: 900;
     }
-    .metric-row strong { display: block; margin-bottom: 5px; line-height: 1.2; }
+    .metric-row strong { display: block; margin-bottom: 6px; line-height: 1.18; }
     .metric-row span { display: block; color: var(--muted); line-height: 1.35; font-size: 14px; }
     .source-tag { color: var(--blue); font-weight: 800; }
+    .metric-row[data-type="traffic"] { --metric-color: #0071e3; }
+    .metric-row[data-type="conversion"] { --metric-color: #34c759; }
+    .metric-row[data-type="money"] { --metric-color: #111; }
+    .metric-row[data-type="ads"] { --metric-color: #ff9f0a; }
+    .metric-row[data-type="seo"] { --metric-color: #5856d6; }
+    .metric-row[data-type="calls"] { --metric-color: #ff3b30; }
     .ring-card { display: grid; grid-template-columns: 150px 1fr; gap: 20px; align-items: center; }
     .ring { width: 150px; height: 150px; position: relative; display: grid; place-items: center; }
     .ring svg { width: 150px; height: 150px; transform: rotate(-90deg); }
@@ -253,7 +371,7 @@
     }
     @media (max-width: 640px) {
       .urlbox, .funnel-row, .leak-row, .ring-card { grid-template-columns: 1fr; display: grid; border-radius: 28px; }
-      .grid, .three, .actions, .timeline, .metrics-list { grid-template-columns: 1fr; }
+      .grid, .three, .actions, .timeline, .metrics-list, .bot-points, .source-flow { grid-template-columns: 1fr; }
       .hero { min-height: auto; padding: 28px; border-radius: 30px; }
       h1 { font-size: 44px; }
     }
@@ -302,27 +420,58 @@
 
     <section class="bot-welcome" aria-label="Приветствие бота">
       <article class="card bot-card">
-        <div class="bot-mark">AI</div>
-        <h2>Привет, я TrafficMind AI.</h2>
-        <p>Я принимаю ссылку на сайт, делаю первый аудит без сложной настройки, а после подключения аналитики превращаю разрозненные данные в понятный план роста: что происходит, где теряются деньги и какое действие стоит сделать первым.</p>
-        <p>Ниже не демонстрационные фантазии, а реальные метрики, которые можно получать из подключенных сервисов: GA4, Google Search Console, Яндекс Метрики, рекламных кабинетов, CRM, пикселей, email-сервисов и call tracking.</p>
+        <div>
+          <div class="bot-face" aria-hidden="true">
+            <div class="bot-face-top">
+              <div class="bot-mark">AI</div>
+              <span class="bot-status"><i></i>готов к аудиту</span>
+            </div>
+            <div class="bot-phrase">Я не просто считаю цифры. Я объясняю, где рост.</div>
+            <div class="source-flow">
+              <span class="source-node">Сайт</span>
+              <span class="source-node">Аналитика</span>
+              <span class="source-node">Реклама</span>
+              <span class="source-node">CRM</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h2>Привет, я TrafficMind AI.</h2>
+          <p>Сначала мне достаточно одной ссылки: я проверяю публичные признаки сайта и собираю первый понятный отчет. После подключения данных я становлюсь AI-маркетологом: связываю трафик, рекламу, заявки, звонки и продажи в одну картину.</p>
+          <p>Моя задача не завалить клиента таблицами, а показать: что происходит, где теряются деньги, какие каналы окупаются и что нужно сделать первым.</p>
+        </div>
+        <div class="bot-points">
+          <div class="bot-point"><strong>1</strong><span>ссылка для первого аудита</span></div>
+          <div class="bot-point"><strong>10</strong><span>реальных метрик после подключений</span></div>
+          <div class="bot-point"><strong>0</strong><span>выдуманных показателей в отчете</span></div>
+        </div>
       </article>
-      <article class="card">
+      <article class="card metrics-panel">
         <div class="section-head">
-          <h2>10 реальных метрик</h2>
-          <p>Показываются только когда есть источник данных или публичный сигнал для предварительной оценки.</p>
+          <div>
+            <h2>Метрики, которым можно доверять</h2>
+            <div class="metric-tabs">
+              <span>Трафик</span>
+              <span>Конверсии</span>
+              <span>Деньги</span>
+              <span>Реклама</span>
+              <span>SEO</span>
+              <span>Звонки</span>
+            </div>
+          </div>
+          <p>Показываются только когда есть реальный источник данных: GA4, Яндекс Метрика, Google Search Console, рекламные кабинеты, CRM, GTM, пиксели или call tracking.</p>
         </div>
         <div class="metrics-list">
-          <div class="metric-row"><small>1</small><div><strong>Пользователи и сессии</strong><span><span class="source-tag">GA4 / Метрика</span> показывает объем аудитории и визитов по каналам.</span></div></div>
-          <div class="metric-row"><small>2</small><div><strong>Конверсии и события</strong><span><span class="source-tag">GA4 / GTM / Метрика</span> заявки, клики по телефону, формы, мессенджеры и покупки.</span></div></div>
-          <div class="metric-row"><small>3</small><div><strong>Conversion Rate</strong><span><span class="source-tag">GA4 / CRM</span> конверсии или сделки, разделенные на сессии, пользователей или лиды.</span></div></div>
-          <div class="metric-row"><small>4</small><div><strong>Доход и продажи</strong><span><span class="source-tag">CRM / ecommerce GA4</span> выручка, количество сделок, средний чек и оплаченные заказы.</span></div></div>
-          <div class="metric-row"><small>5</small><div><strong>Расход рекламы</strong><span><span class="source-tag">Google Ads / Meta / TikTok / LinkedIn</span> spend по кампаниям, группам и объявлениям.</span></div></div>
-          <div class="metric-row"><small>6</small><div><strong>CTR, CPC и CPM</strong><span><span class="source-tag">Рекламные кабинеты</span> кликабельность, цена клика и цена тысячи показов.</span></div></div>
-          <div class="metric-row"><small>7</small><div><strong>CPL, CPA и CAC</strong><span><span class="source-tag">Ads + CRM</span> стоимость лида, целевого действия или привлеченного клиента.</span></div></div>
-          <div class="metric-row"><small>8</small><div><strong>ROAS и ROI</strong><span><span class="source-tag">Ads + CRM / revenue</span> возврат рекламных расходов и прибыльность каналов.</span></div></div>
-          <div class="metric-row"><small>9</small><div><strong>SEO клики, показы, CTR, позиция</strong><span><span class="source-tag">Google Search Console</span> запросы, страницы входа и средняя позиция в поиске.</span></div></div>
-          <div class="metric-row"><small>10</small><div><strong>Звонки и качество лидов</strong><span><span class="source-tag">Call Tracking / CRM</span> звонки, источник звонка, статус лида и переход в продажу.</span></div></div>
+          <div class="metric-row" data-type="traffic"><small>1</small><div><strong>Пользователи и сессии</strong><span><span class="source-tag">GA4 / Метрика</span> объем аудитории, визиты, новые и возвращающиеся пользователи по каналам.</span></div></div>
+          <div class="metric-row" data-type="conversion"><small>2</small><div><strong>Конверсии и события</strong><span><span class="source-tag">GA4 / GTM / Метрика</span> заявки, формы, клики по телефону, мессенджеры, покупки и микроцели.</span></div></div>
+          <div class="metric-row" data-type="conversion"><small>3</small><div><strong>Conversion Rate</strong><span><span class="source-tag">GA4 / CRM</span> доля пользователей, сессий или лидов, которые дошли до целевого действия.</span></div></div>
+          <div class="metric-row" data-type="money"><small>4</small><div><strong>Доход и продажи</strong><span><span class="source-tag">CRM / ecommerce GA4</span> выручка, сделки, оплаченные заказы, средний чек и статусы продаж.</span></div></div>
+          <div class="metric-row" data-type="ads"><small>5</small><div><strong>Расход рекламы</strong><span><span class="source-tag">Google Ads / Meta / TikTok / LinkedIn</span> spend по кампаниям, группам, объявлениям и периодам.</span></div></div>
+          <div class="metric-row" data-type="ads"><small>6</small><div><strong>CTR, CPC и CPM</strong><span><span class="source-tag">Рекламные кабинеты</span> кликабельность, цена клика и цена тысячи показов для оценки качества трафика.</span></div></div>
+          <div class="metric-row" data-type="money"><small>7</small><div><strong>CPL, CPA и CAC</strong><span><span class="source-tag">Ads + CRM</span> стоимость лида, целевого действия или привлеченного клиента.</span></div></div>
+          <div class="metric-row" data-type="money"><small>8</small><div><strong>ROAS и ROI</strong><span><span class="source-tag">Ads + CRM / revenue</span> возврат рекламных расходов и прибыльность каналов с учетом выручки.</span></div></div>
+          <div class="metric-row" data-type="seo"><small>9</small><div><strong>SEO: клики, показы, CTR, позиция</strong><span><span class="source-tag">Google Search Console</span> запросы, страницы входа, средняя позиция и поисковый CTR.</span></div></div>
+          <div class="metric-row" data-type="calls"><small>10</small><div><strong>Звонки и качество лидов</strong><span><span class="source-tag">Call Tracking / CRM</span> звонки, источник звонка, статус лида и переход в продажу.</span></div></div>
         </div>
       </article>
     </section>
