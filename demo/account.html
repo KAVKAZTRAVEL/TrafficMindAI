@@ -151,6 +151,215 @@
       min-height: 18px;
       accent-color: var(--cyan);
     }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .plan-card {
+      position: relative;
+      min-height: 360px;
+      display: grid;
+      align-content: space-between;
+      gap: 18px;
+      padding: 22px;
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,.12);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 24% 0%, rgba(146,231,255,.20), transparent 34%),
+        linear-gradient(145deg, rgba(255,255,255,.085), rgba(255,255,255,.035));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 24px 60px rgba(0,0,0,.22);
+      cursor: pointer;
+      text-align: left;
+      overflow: hidden;
+    }
+    .plan-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -20% -36% -20%;
+      height: 160px;
+      background: linear-gradient(90deg, transparent, rgba(146,231,255,.20), transparent);
+      transform: rotate(-7deg);
+      opacity: .74;
+      pointer-events: none;
+    }
+    .plan-card.featured {
+      border-color: rgba(146,231,255,.42);
+      background:
+        radial-gradient(circle at 16% 0%, rgba(146,231,255,.30), transparent 36%),
+        radial-gradient(circle at 88% 12%, rgba(255,255,255,.18), transparent 30%),
+        linear-gradient(145deg, rgba(20,64,88,.70), rgba(255,255,255,.045));
+    }
+    .plan-card.active {
+      border-color: rgba(146,231,255,.82);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 0 0 4px rgba(146,231,255,.11), 0 28px 70px rgba(0,0,0,.32);
+    }
+    .plan-topline {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+    .plan-name {
+      font-family: var(--display);
+      font-size: 25px;
+      font-weight: 800;
+    }
+    .plan-badge {
+      min-height: 30px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(146,231,255,.30);
+      background: rgba(146,231,255,.09);
+      color: rgba(216,246,255,.92);
+      font-family: var(--tech);
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+    .plan-price {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      margin-top: 14px;
+      font-family: var(--display);
+      font-size: 46px;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+    .plan-price span {
+      padding-bottom: 8px;
+      color: var(--muted);
+      font-family: var(--read);
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .plan-card p {
+      margin: 12px 0 0;
+      color: rgba(245,245,247,.72);
+      line-height: 1.45;
+    }
+    .plan-list {
+      display: grid;
+      gap: 9px;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+      color: rgba(245,245,247,.80);
+      font-size: 14px;
+      line-height: 1.35;
+    }
+    .plan-list li {
+      position: relative;
+      padding-left: 20px;
+    }
+    .plan-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .48em;
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--cyan);
+      box-shadow: 0 0 18px rgba(146,231,255,.62);
+    }
+    .plan-button {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      min-height: 46px;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 16px;
+      color: #fff;
+      background: rgba(255,255,255,.08);
+      cursor: pointer;
+    }
+    .plan-card.active .plan-button {
+      background: linear-gradient(135deg, rgba(146,231,255,.32), rgba(255,255,255,.10));
+      border-color: rgba(146,231,255,.55);
+    }
+    .plan-summary {
+      display: grid;
+      gap: 10px;
+      padding: 18px;
+      border-radius: 24px;
+      border: 1px solid rgba(146,231,255,.20);
+      background:
+        radial-gradient(circle at 18% 0%, rgba(146,231,255,.15), transparent 34%),
+        rgba(255,255,255,.045);
+    }
+    .plan-summary strong {
+      color: #fff;
+      font-family: var(--display);
+      font-size: 22px;
+    }
+    .plan-summary span {
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .access-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .access-item {
+      min-height: 74px;
+      display: grid;
+      gap: 5px;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.075), rgba(255,255,255,.035));
+    }
+    .access-item strong {
+      color: #fff;
+      font-size: 14px;
+    }
+    .access-item span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+    .access-item.locked {
+      opacity: .58;
+      background: rgba(255,255,255,.025);
+    }
+    .access-item.locked strong::after {
+      content: "  закрыто";
+      color: rgba(245,245,247,.48);
+      font-family: var(--tech);
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+    .lock-note {
+      display: none;
+      margin-top: 8px;
+      color: rgba(146,231,255,.86);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+    .is-plan-locked {
+      opacity: .48;
+      position: relative;
+    }
+    .is-plan-locked input,
+    .is-plan-locked select,
+    .is-plan-locked .custom-select-button {
+      pointer-events: none;
+      filter: saturate(.45);
+    }
+    .is-plan-locked .lock-note {
+      display: block;
+    }
+    .custom-select-option.is-disabled {
+      opacity: .38;
+      cursor: not-allowed;
+    }
     label { display: grid; gap: 7px; color: var(--muted); font-size: 14px; }
     input, select {
       width: 100%;
@@ -368,12 +577,13 @@
     }
     @media (max-width: 980px) {
       .hero, .two { grid-template-columns: 1fr; }
-      .grid { grid-template-columns: 1fr 1fr; }
+      .grid, .pricing-grid { grid-template-columns: 1fr 1fr; }
       .compact-grid, .check-grid { grid-template-columns: 1fr 1fr; }
+      .access-panel { grid-template-columns: 1fr; }
     }
     @media (max-width: 680px) {
       .nav { display: none; }
-      .grid, .form-grid, .compact-grid, .check-grid { grid-template-columns: 1fr; }
+      .grid, .pricing-grid, .form-grid, .compact-grid, .check-grid { grid-template-columns: 1fr; }
       .wide-field { grid-column: auto; }
       h1 { font-size: 48px; }
     }
@@ -385,6 +595,7 @@
     <nav class="nav" aria-label="Навигация">
       <a href="link_only_report.html">Сайт</a>
       <a class="active" href="account.html">Личный кабинет</a>
+      <a href="#plans">Тарифы</a>
       <a href="#telegram-sync">Telegram-связка</a>
       <a href="#settings">Настройки</a>
     </nav>
@@ -417,12 +628,81 @@
       <article class="card stat"><b id="sync-stat">Telegram готов</b><span>связка с ботом через ID или код</span></article>
     </section>
 
+    <section class="card" id="plans">
+      <span class="eyebrow">тарифы</span>
+      <h2>Выберите глубину анализа</h2>
+      <p class="muted">TrafficMind AI можно попробовать с одной ссылки, а затем открыть больше данных, автоматических выводов и контроля конкурентов. Чем выше тариф, тем меньше ручной аналитики остается владельцу бизнеса.</p>
+      <div class="pricing-grid">
+        <button class="plan-card" type="button" data-plan="trial" aria-pressed="false">
+          <div>
+            <div class="plan-topline"><span class="plan-name">Пробный</span><span class="plan-badge">1 раз</span></div>
+            <div class="plan-price">0 ₽<span>первый отчет</span></div>
+            <p>Для клиента, который хочет быстро понять потенциал бота без подключений и сложной настройки.</p>
+            <ul class="plan-list">
+              <li>один отчет по ссылке на сайт</li>
+              <li>демо возможностей тарифа 399</li>
+              <li>базовые выводы по сайту, офферу и точкам потерь</li>
+              <li>после отчета часть функций закрывается до оплаты</li>
+            </ul>
+          </div>
+          <span class="plan-button">Выбрать пробный</span>
+        </button>
+
+        <button class="plan-card featured active" type="button" data-plan="growth399" aria-pressed="true">
+          <div>
+            <div class="plan-topline"><span class="plan-name">Рост</span><span class="plan-badge">популярный</span></div>
+            <div class="plan-price">399 ₽<span>в месяц</span></div>
+            <p>Для малого бизнеса и маркетолога: бот уже запоминает настройки, ведет регулярные отчеты и показывает, что делать первым.</p>
+            <ul class="plan-list">
+              <li>личный кабинет и Telegram-синхронизация</li>
+              <li>отчеты по сайту, SEO, рекламе и соцсетям</li>
+              <li>AI-рекомендации, приоритеты и недельный итог</li>
+              <li>один раз показывает часть функций топ-тарифа как демо</li>
+            </ul>
+          </div>
+          <span class="plan-button">Выбрать Рост</span>
+        </button>
+
+        <button class="plan-card" type="button" data-plan="pro799" aria-pressed="false">
+          <div>
+            <div class="plan-topline"><span class="plan-name">Максимум</span><span class="plan-badge">все инструменты</span></div>
+            <div class="plan-price">799 ₽<span>в месяц</span></div>
+            <p>Для бизнеса, который хочет видеть деньги, источники роста, риски и действия конкурентов в одной системе.</p>
+            <ul class="plan-list">
+              <li>все доступные источники данных и расширенные отчеты</li>
+              <li>модуль потерь денег, CRM, звонки, email и пиксели</li>
+              <li>до 3 конкурентов с отслеживанием динамики</li>
+              <li>горячие алерты владельцу и подробные AI-выводы</li>
+            </ul>
+          </div>
+          <span class="plan-button">Выбрать Максимум</span>
+        </button>
+      </div>
+      <div class="plan-summary" id="plan-summary">
+        <strong>Активен тариф “Рост”</strong>
+        <span>Открыты регулярные отчеты, личный кабинет, Telegram-связка, базовые каналы и AI-рекомендации. CRM, звонки, email и 3 конкурента отмечены как возможности тарифа “Максимум”.</span>
+      </div>
+    </section>
+
     <section class="two" id="settings">
       <article class="card">
         <h2>Настройки бизнеса</h2>
-        <p class="muted">Эти данные бот будет использовать, чтобы отчеты звучали не общими словами, а под конкретный бизнес.</p>
+        <p class="muted">Кабинет работает как пульт управления ботом: клиент задает цель, ценность лида, каналы и уровень уведомлений, а TrafficMind AI подстраивает отчеты под выбранный тариф.</p>
         <form id="settings-form">
+          <input type="hidden" name="plan" value="growth399">
           <div class="settings-stack">
+            <div class="settings-section">
+              <div class="section-kicker"><strong>Доступ по тарифу</strong><span>что бот может использовать прямо сейчас</span></div>
+              <div class="access-panel">
+                <div class="access-item" data-feature="link_report"><strong>Отчет по ссылке</strong><span>быстрый аудит сайта, оффера, CTA и видимых точек потерь.</span></div>
+                <div class="access-item" data-feature="saved_account"><strong>Личный кабинет</strong><span>бот помнит цели, сайт, нишу и настройки клиента.</span></div>
+                <div class="access-item" data-feature="ai_actions"><strong>Что делать сегодня</strong><span>приоритеты, ожидаемый эффект и понятный план действий.</span></div>
+                <div class="access-item" data-feature="money_loss"><strong>Потери денег</strong><span>поиск мест, где бизнес теряет заявки, бюджет или продажи.</span></div>
+                <div class="access-item" data-feature="deep_sources"><strong>Глубокие источники</strong><span>CRM, звонки, email, пиксели и расширенные рекламные данные.</span></div>
+                <div class="access-item" data-feature="competitors"><strong>3 конкурента</strong><span>мониторинг динамики, контента, активности и точек роста.</span></div>
+              </div>
+            </div>
+
             <div class="settings-section">
               <div class="section-kicker"><strong>Профиль</strong><span>кто вы и что продвигаете</span></div>
               <div class="compact-grid">
@@ -509,24 +789,24 @@
                 <label>Как часто присылать отчет
                   <select name="report_frequency">
                     <optgroup label="Регулярно">
-                      <option value="daily">Каждый день</option>
-                      <option value="weekdays">По будням</option>
+                      <option value="daily" data-min-plan="growth399">Каждый день</option>
+                      <option value="weekdays" data-min-plan="growth399">По будням</option>
                       <option value="weekly">Раз в неделю</option>
                       <option value="monthly">Раз в месяц</option>
                     </optgroup>
                     <optgroup label="По событию">
-                      <option value="critical_only">Только при критичных изменениях</option>
-                      <option value="budget_spike">Когда резко растет расход</option>
-                      <option value="lead_drop">Когда падают заявки</option>
+                      <option value="critical_only" data-min-plan="growth399">Только при критичных изменениях</option>
+                      <option value="budget_spike" data-min-plan="pro799">Когда резко растет расход</option>
+                      <option value="lead_drop" data-min-plan="pro799">Когда падают заявки</option>
                     </optgroup>
                   </select>
                 </label>
                 <label>Уровень уведомлений
                   <select name="alert_level">
                     <option value="critical">Только критичное</option>
-                    <option value="important">Только важное</option>
-                    <option value="growth">Важное + возможности роста</option>
-                    <option value="all">Все события</option>
+                    <option value="important" data-min-plan="growth399">Только важное</option>
+                    <option value="growth" data-min-plan="growth399">Важное + возможности роста</option>
+                    <option value="all" data-min-plan="pro799">Все события</option>
                     <option value="quiet">Тихий режим</option>
                   </select>
                 </label>
@@ -542,11 +822,11 @@
                 </label>
               </div>
               <div class="check-grid">
-                <label class="check-card"><input type="checkbox" name="notify_money_loss" checked> Потери денег</label>
+                <label class="check-card" data-min-plan="pro799"><input type="checkbox" name="notify_money_loss" checked> Потери денег<span class="lock-note">Откроется на тарифе “Максимум”: бот будет считать потери бюджета, лидов и продаж.</span></label>
                 <label class="check-card"><input type="checkbox" name="notify_leads_drop" checked> Просадка заявок</label>
                 <label class="check-card"><input type="checkbox" name="notify_ads_spike" checked> Рост CPL</label>
-                <label class="check-card"><input type="checkbox" name="notify_competitors"> Конкуренты</label>
-                <label class="check-card"><input type="checkbox" name="weekly_digest" checked> Недельный итог</label>
+                <label class="check-card" data-min-plan="pro799"><input type="checkbox" name="notify_competitors"> Конкуренты<span class="lock-note">Откроется на тарифе “Максимум”: до 3 конкурентов с динамикой.</span></label>
+                <label class="check-card" data-min-plan="growth399"><input type="checkbox" name="weekly_digest" checked> Недельный итог<span class="lock-note">Откроется на тарифе “Рост”: регулярный дайджест по действиям и результатам.</span></label>
                 <label class="check-card"><input type="checkbox" name="telegram_sync" checked> Telegram-связка</label>
               </div>
             </div>
@@ -555,21 +835,24 @@
               <div class="section-kicker"><strong>Каналы и конкуренты</strong><span>что учитывать в анализе</span></div>
               <div class="check-grid">
                 <label class="check-card"><input type="checkbox" name="channel_seo" checked> SEO</label>
-                <label class="check-card"><input type="checkbox" name="channel_ads" checked> Реклама</label>
-                <label class="check-card"><input type="checkbox" name="channel_social" checked> Соцсети</label>
-                <label class="check-card"><input type="checkbox" name="channel_email"> Email</label>
-                <label class="check-card"><input type="checkbox" name="channel_calls" checked> Звонки</label>
-                <label class="check-card"><input type="checkbox" name="channel_crm" checked> CRM</label>
+                <label class="check-card" data-min-plan="growth399"><input type="checkbox" name="channel_ads" checked> Реклама<span class="lock-note">Откроется на тарифе “Рост”: анализ расходов, CPL и качества трафика.</span></label>
+                <label class="check-card" data-min-plan="growth399"><input type="checkbox" name="channel_social" checked> Соцсети<span class="lock-note">Откроется на тарифе “Рост”: контент, вовлечение и заявки из соцсетей.</span></label>
+                <label class="check-card" data-min-plan="pro799"><input type="checkbox" name="channel_email"> Email<span class="lock-note">Откроется на тарифе “Максимум”: email-воронки и кампании.</span></label>
+                <label class="check-card" data-min-plan="pro799"><input type="checkbox" name="channel_calls" checked> Звонки<span class="lock-note">Откроется на тарифе “Максимум”: call tracking и качество обращений.</span></label>
+                <label class="check-card" data-min-plan="pro799"><input type="checkbox" name="channel_crm" checked> CRM<span class="lock-note">Откроется на тарифе “Максимум”: продажи, статусы сделок и выручка.</span></label>
               </div>
               <div class="compact-grid">
-                <label>Конкурент 1
+                <label data-min-plan="pro799">Конкурент 1
                   <input name="competitor_1" value="competitor-one.ru">
+                  <span class="lock-note">3 конкурента доступны на тарифе “Максимум”.</span>
                 </label>
-                <label>Конкурент 2
+                <label data-min-plan="pro799">Конкурент 2
                   <input name="competitor_2" value="">
+                  <span class="lock-note">Бот будет отслеживать изменения сайта, активности и видимого спроса.</span>
                 </label>
-                <label>Конкурент 3
+                <label data-min-plan="pro799">Конкурент 3
                   <input name="competitor_3" value="">
+                  <span class="lock-note">Подходит для регулярного сравнения динамики рынка.</span>
                 </label>
               </div>
             </div>
@@ -632,6 +915,31 @@
     const siteStat = document.querySelector("#site-stat");
     const syncStat = document.querySelector("#sync-stat");
     const storageKey = "trafficmind_account_settings";
+    const planInput = settingsForm.elements.plan;
+    const planOrder = { trial: 0, growth399: 1, pro799: 2 };
+    const planCopy = {
+      trial: {
+        title: "Активен пробный доступ",
+        text: "Клиент получает один сильный первый отчет по ссылке и видит, как бот помогает находить слабые места сайта. Регулярные отчеты, рекламные каналы, CRM и конкуренты показываются как следующий шаг."
+      },
+      growth399: {
+        title: "Активен тариф “Рост”",
+        text: "Открыты регулярные отчеты, личный кабинет, Telegram-связка, базовые каналы и AI-рекомендации. CRM, звонки, email и 3 конкурента отмечены как возможности тарифа “Максимум”."
+      },
+      pro799: {
+        title: "Активен тариф “Максимум”",
+        text: "Бот использует все доступные инструменты: глубокие источники, потери денег, CRM, звонки, email, пиксели, горячие алерты и мониторинг до 3 конкурентов."
+      }
+    };
+    const featurePlans = {
+      link_report: "trial",
+      saved_account: "growth399",
+      ai_actions: "growth399",
+      money_loss: "pro799",
+      deep_sources: "pro799",
+      competitors: "pro799"
+    };
+    const planAllows = (currentPlan, requiredPlan = "trial") => planOrder[currentPlan] >= planOrder[requiredPlan];
 
     const closeAllSelects = () => {
       document.querySelectorAll(".select-shell.open").forEach((shell) => {
@@ -667,6 +975,8 @@
           label.textContent = selected ? selected.textContent : "Выберите";
           menu.querySelectorAll(".custom-select-option").forEach((item) => {
             item.classList.toggle("active", item.dataset.value === select.value);
+            const sourceOption = [...select.options].find((option) => option.value === item.dataset.value);
+            item.classList.toggle("is-disabled", Boolean(sourceOption?.disabled));
           });
         };
 
@@ -687,8 +997,10 @@
           item.type = "button";
           item.className = "custom-select-option";
           item.dataset.value = option.value;
+          if (option.dataset.minPlan) item.dataset.minPlan = option.dataset.minPlan;
           item.textContent = option.textContent;
           item.addEventListener("click", () => {
+            if (option.disabled) return;
             select.value = option.value;
             select.dispatchEvent(new Event("change", { bubbles: true }));
             updateLabel();
@@ -728,6 +1040,55 @@
       }
     };
 
+    const setPlan = (plan) => {
+      const currentPlan = planCopy[plan] ? plan : "growth399";
+      planInput.value = currentPlan;
+
+      document.querySelectorAll(".plan-card").forEach((card) => {
+        const active = card.dataset.plan === currentPlan;
+        card.classList.toggle("active", active);
+        card.setAttribute("aria-pressed", String(active));
+      });
+
+      const summary = document.querySelector("#plan-summary");
+      summary.querySelector("strong").textContent = planCopy[currentPlan].title;
+      summary.querySelector("span").textContent = planCopy[currentPlan].text;
+
+      document.querySelectorAll("[data-feature]").forEach((item) => {
+        const allowed = planAllows(currentPlan, featurePlans[item.dataset.feature]);
+        item.classList.toggle("locked", !allowed);
+      });
+
+      settingsForm.querySelectorAll("[data-min-plan]").forEach((node) => {
+        const allowed = planAllows(currentPlan, node.dataset.minPlan);
+        if (node.tagName === "OPTION") {
+          node.disabled = !allowed;
+          return;
+        }
+
+        node.classList.toggle("is-plan-locked", !allowed);
+        node.querySelectorAll("input, select").forEach((field) => {
+          field.disabled = !allowed;
+          if (!allowed && field.type === "checkbox") field.checked = false;
+          if (!allowed && field.name?.startsWith("competitor_")) field.value = "";
+        });
+      });
+
+      settingsForm.querySelectorAll("select").forEach((select) => {
+        const selectedOption = select.options[select.selectedIndex];
+        if (selectedOption?.disabled) {
+          const fallback = [...select.options].find((option) => !option.disabled);
+          if (fallback) select.value = fallback.value;
+        }
+        select.dispatchEvent(new Event("change", { bubbles: true }));
+      });
+
+      localStorage.setItem(storageKey, JSON.stringify({
+        ...JSON.parse(localStorage.getItem(storageKey) || "{}"),
+        plan: currentPlan
+      }));
+    };
+
     if (saved.telegram_id) {
       const prefs = saved.preferences || {};
       const merged = {
@@ -746,7 +1107,8 @@
         channel_crm: prefs.channels?.crm,
         competitor_1: prefs.competitors?.[0],
         competitor_2: prefs.competitors?.[1],
-        competitor_3: prefs.competitors?.[2]
+        competitor_3: prefs.competitors?.[2],
+        plan: saved.plan || prefs.plan
       };
       Object.entries(merged).forEach(([name, value]) => setControlValue(name, value));
       siteStat.textContent = saved.website || "example.com";
@@ -754,6 +1116,10 @@
       loginStatus.textContent = `Вход выполнен как Telegram ID ${saved.telegram_id}`;
     }
     enhanceSelects();
+    document.querySelectorAll(".plan-card").forEach((card) => {
+      card.addEventListener("click", () => setPlan(card.dataset.plan));
+    });
+    setPlan(saved.plan || planInput.value || "growth399");
 
     loginForm.addEventListener("submit", async (event) => {
       event.preventDefault();
@@ -787,6 +1153,7 @@
       const preferences = {
         show_money_first: true,
         language: "ru",
+        plan: data.plan,
         telegram_sync: Boolean(data.telegram_sync),
         region: data.region,
         currency: data.currency,
@@ -818,6 +1185,7 @@
         website: data.website,
         business_name: data.business_name,
         business_niche: data.business_niche,
+        plan: data.plan,
         goal: data.goal,
         report_frequency: data.report_frequency,
         alert_level: data.alert_level,
