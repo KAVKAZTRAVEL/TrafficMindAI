@@ -5,176 +5,371 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Отчет по ссылке TrafficMind AI</title>
   <style>
-    :root{color-scheme:dark;--text:rgba(255,255,255,.94);--muted:rgba(255,255,255,.66);--blue:#2f8cff;--blue2:#7cc7ff;--green:#5df28a;--amber:#ffd056;--red:#ff6a5f}
-    *{box-sizing:border-box} body{margin:0;min-height:100vh;font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--text);background:radial-gradient(circle at 12% -10%,rgba(116,168,72,.58),transparent 25%),radial-gradient(circle at 36% -12%,rgba(255,98,54,.58),transparent 24%),radial-gradient(circle at 96% 3%,rgba(0,117,255,.43),transparent 28%),radial-gradient(circle at 54% 88%,rgba(47,140,255,.24),transparent 38%),linear-gradient(180deg,#08111f 0%,#02050b 48%,#04070d 100%)}
-    body:before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(circle at 50% 44%,black,transparent 72%)}
-    a{color:inherit;text-decoration:none} button,input{font:inherit}.page{min-height:100vh;padding:34px clamp(16px,4vw,58px);display:grid;grid-template-columns:280px 1fr;gap:24px}.glass{border:1px solid rgba(255,255,255,.13);background:linear-gradient(180deg,rgba(255,255,255,.13),rgba(255,255,255,.055));box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 18px 50px rgba(0,0,0,.35);backdrop-filter:blur(22px)}
-    aside{border-radius:30px;padding:22px;display:flex;flex-direction:column;justify-content:space-between;min-height:calc(100vh - 68px);position:sticky;top:34px}.brand{display:flex;gap:12px;align-items:center;font-weight:850;font-size:21px}.logo{width:38px;height:38px;border-radius:14px;background:linear-gradient(135deg,#7cc7ff,#2f8cff 58%,#5df28a);box-shadow:0 0 28px rgba(47,140,255,.42)}nav{display:grid;gap:10px;margin-top:28px}nav a,.pill{min-height:42px;padding:0 14px;border-radius:999px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;background:rgba(255,255,255,.055);color:var(--muted)}nav a.active{color:white;border-color:rgba(124,199,255,.6);background:linear-gradient(90deg,rgba(47,140,255,.27),rgba(255,255,255,.06))}
-    main{display:grid;gap:18px}.hero{display:grid;grid-template-columns:1fr 360px;gap:18px;align-items:end}.hero h1{font-size:clamp(38px,6vw,82px);line-height:.98;margin:0;letter-spacing:0}.hero p{color:var(--muted);font-size:18px;max-width:760px;line-height:1.45}.urlbox{border-radius:26px;padding:18px}.urlbox label{display:grid;gap:10px;color:var(--muted)}.urlrow{display:flex;gap:10px}input{min-width:0;width:100%;height:44px;border-radius:999px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.07);color:white;padding:0 14px}.primary{height:44px;border:0;border-radius:999px;background:linear-gradient(90deg,#7cc7ff,#2f8cff);color:#03101f;font-weight:850;padding:0 18px;cursor:pointer;box-shadow:0 0 24px rgba(76,161,255,.42);white-space:nowrap}
-    .notice{border-radius:24px;padding:17px;color:rgba(255,255,255,.78);line-height:1.5;border:1px solid rgba(255,208,86,.32);background:rgba(255,208,86,.08)}.grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px}.score{border-radius:24px;padding:18px;min-height:128px}.score b{font-size:30px;display:block;margin-bottom:8px}.score span{color:var(--muted);line-height:1.35}.wide{display:grid;grid-template-columns:1.18fr .82fr;gap:14px}.panel{border-radius:30px;padding:22px}.panel h2{margin:0 0 14px;font-size:28px}.muted{color:var(--muted);line-height:1.5}.summary{display:grid;grid-template-columns:1fr 230px;gap:16px;align-items:center}.risk{border-radius:24px;padding:18px;background:rgba(255,106,95,.11);border:1px solid rgba(255,106,95,.28)}.risk b{font-size:26px;display:block;margin-bottom:6px}.list{display:grid;gap:12px}.item{padding:15px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)}.item strong{display:block;margin-bottom:6px}.high{color:var(--red)}.medium{color:var(--amber)}.ok{color:var(--green)}
-    .roadmap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.step{padding:16px;border-radius:20px;background:rgba(47,140,255,.09);border:1px solid rgba(124,199,255,.2);min-height:150px}.step small{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:rgba(124,199,255,.2);margin-bottom:12px;font-weight:850}.table{display:grid;gap:10px}.row{display:grid;grid-template-columns:1fr 1.2fr;gap:12px;padding:13px;border-radius:16px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.08)}.foot{font-size:13px;color:rgba(255,255,255,.54)}
-    .timeline{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.timeline .step{min-height:136px}.done small{background:rgba(93,242,138,.22)}.active-step{border-color:rgba(124,199,255,.45);box-shadow:0 0 32px rgba(47,140,255,.18)}.next small{background:rgba(255,208,86,.18)}.split{display:grid;grid-template-columns:1fr 1fr;gap:14px}.check{color:var(--green)}.missing{color:var(--amber)}.leak{border-color:rgba(255,106,95,.24);background:rgba(255,106,95,.07)}.artifact{display:grid;grid-template-columns:1fr 260px;gap:16px;align-items:center}.cta{display:inline-flex;min-height:44px;padding:0 18px;border-radius:999px;align-items:center;justify-content:center;background:linear-gradient(90deg,#7cc7ff,#2f8cff);color:#03101f;font-weight:850;box-shadow:0 0 24px rgba(76,161,255,.42)}
-    @media(max-width:1120px){.page,.hero,.wide,.split,.artifact{grid-template-columns:1fr}aside{position:static;min-height:auto}.grid{grid-template-columns:repeat(3,1fr)}.roadmap,.timeline{grid-template-columns:1fr 1fr}}@media(max-width:640px){.grid,.roadmap,.timeline,.summary{grid-template-columns:1fr}.urlrow{display:grid}.hero h1{font-size:42px}}
+    :root {
+      color-scheme: light;
+      --bg: #f5f5f7;
+      --ink: #1d1d1f;
+      --muted: #6e6e73;
+      --line: rgba(0, 0, 0, .08);
+      --card: rgba(255, 255, 255, .72);
+      --card-strong: rgba(255, 255, 255, .92);
+      --blue: #0071e3;
+      --blue-soft: #e8f2ff;
+      --green: #34c759;
+      --amber: #ff9f0a;
+      --red: #ff3b30;
+      --shadow: 0 22px 70px rgba(0, 0, 0, .10);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Inter, Segoe UI, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 18% -8%, rgba(0,113,227,.16), transparent 30%),
+        radial-gradient(circle at 86% 4%, rgba(52,199,89,.14), transparent 28%),
+        linear-gradient(180deg, #fbfbfd 0%, var(--bg) 48%, #fff 100%);
+      letter-spacing: 0;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 0 clamp(18px, 5vw, 72px);
+      border-bottom: 1px solid rgba(0,0,0,.055);
+      background: rgba(251,251,253,.78);
+      backdrop-filter: blur(24px);
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+    .logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, #111, #5f6368 55%, #0071e3);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.45);
+    }
+    .nav { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 14px; }
+    .nav a { padding: 8px 10px; border-radius: 999px; }
+    .nav a.active, .nav a:hover { color: var(--ink); background: rgba(0,0,0,.045); }
+    .page { width: min(1220px, 100%); margin: 0 auto; padding: 48px clamp(18px, 4vw, 42px) 72px; display: grid; gap: 22px; }
+    .hero {
+      min-height: 560px;
+      display: grid;
+      grid-template-columns: 1fr minmax(320px, 420px);
+      align-items: center;
+      gap: 32px;
+      padding: clamp(28px, 5vw, 64px);
+      border-radius: 42px;
+      background:
+        radial-gradient(circle at 86% 18%, rgba(0,113,227,.20), transparent 34%),
+        linear-gradient(145deg, rgba(255,255,255,.94), rgba(245,245,247,.72));
+      border: 1px solid rgba(255,255,255,.92);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+    .eyebrow {
+      width: fit-content;
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 14px;
+      border-radius: 999px;
+      background: #fff;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 30px rgba(0,0,0,.05);
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+    h1 { margin: 0; max-width: 760px; font-size: clamp(48px, 7vw, 96px); line-height: .94; letter-spacing: 0; }
+    .hero p { max-width: 640px; margin: 22px 0 0; color: var(--muted); font-size: clamp(18px, 2vw, 24px); line-height: 1.35; }
+    .urlbox {
+      margin-top: 28px;
+      display: flex;
+      gap: 10px;
+      max-width: 620px;
+      padding: 8px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid var(--line);
+      box-shadow: 0 18px 42px rgba(0,0,0,.08);
+    }
+    input { min-width: 0; flex: 1; height: 46px; padding: 0 16px; border: 0; outline: 0; color: var(--ink); background: transparent; }
+    .primary {
+      height: 46px;
+      border: 0;
+      border-radius: 999px;
+      padding: 0 18px;
+      color: white;
+      background: var(--blue);
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .report-device {
+      min-height: 430px;
+      border-radius: 38px;
+      background: #111;
+      padding: 16px;
+      box-shadow: 0 30px 90px rgba(0,0,0,.26);
+      transform: rotate(-1.5deg);
+    }
+    .device-screen {
+      height: 100%;
+      border-radius: 28px;
+      background: linear-gradient(180deg, #fbfbfd, #f2f2f7);
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+      align-content: start;
+      overflow: hidden;
+    }
+    .device-chip { min-height: 30px; border-radius: 999px; background: rgba(0,0,0,.05); width: 46%; }
+    .device-title { font-size: 30px; font-weight: 800; line-height: 1; }
+    .device-card { border-radius: 22px; padding: 16px; background: #fff; border: 1px solid rgba(0,0,0,.06); box-shadow: 0 12px 28px rgba(0,0,0,.07); }
+    .mini-bars { display: grid; gap: 8px; margin-top: 12px; }
+    .mini-bars span { height: 9px; border-radius: 999px; background: #e5e5ea; overflow: hidden; }
+    .mini-bars span:before { content:""; display:block; height:100%; border-radius:999px; background: var(--blue); width: var(--w); }
+    .section { display: grid; gap: 18px; }
+    .section-head { display: flex; justify-content: space-between; gap: 18px; align-items: end; }
+    .section h2 { margin: 0; font-size: clamp(32px, 4.6vw, 58px); line-height: 1; letter-spacing: 0; }
+    .section-head p, .muted { color: var(--muted); line-height: 1.5; margin: 0; }
+    .grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 16px; }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .three { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
+    .card {
+      border-radius: 30px;
+      padding: 24px;
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,.9);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(20px);
+    }
+    .metric b { display: block; font-size: clamp(32px, 4vw, 52px); line-height: .95; margin-bottom: 10px; }
+    .metric span { color: var(--muted); line-height: 1.35; }
+    .ring-card { display: grid; grid-template-columns: 150px 1fr; gap: 20px; align-items: center; }
+    .ring { width: 150px; height: 150px; position: relative; display: grid; place-items: center; }
+    .ring svg { width: 150px; height: 150px; transform: rotate(-90deg); }
+    .ring circle { fill: none; stroke-width: 14; stroke-linecap: round; }
+    .ring .bg { stroke: #e5e5ea; }
+    .ring .fg { stroke: var(--blue); stroke-dasharray: 326; stroke-dashoffset: var(--offset); }
+    .ring strong { position: absolute; font-size: 32px; }
+    .funnel { display: grid; gap: 12px; }
+    .funnel-row { display: grid; grid-template-columns: 120px 1fr 70px; gap: 12px; align-items: center; color: var(--muted); }
+    .funnel-track { height: 16px; border-radius: 999px; background: #e5e5ea; overflow: hidden; }
+    .funnel-fill { height: 100%; width: var(--w); background: linear-gradient(90deg, #111, var(--blue)); border-radius: 999px; }
+    .timeline { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
+    .step { min-height: 154px; border-radius: 26px; padding: 20px; background: var(--card-strong); border: 1px solid var(--line); }
+    .step small { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; color: white; background: #111; margin-bottom: 14px; font-weight: 800; }
+    .step.active { box-shadow: 0 20px 52px rgba(0,113,227,.16); border-color: rgba(0,113,227,.22); }
+    .step.active small { background: var(--blue); }
+    .visibility-card { min-height: 100%; }
+    .list { display: grid; gap: 12px; margin-top: 16px; }
+    .item { padding: 15px; border-radius: 20px; background: rgba(255,255,255,.72); border: 1px solid var(--line); }
+    .item strong { display: block; margin-bottom: 5px; }
+    .check { color: var(--green); }
+    .missing { color: var(--amber); }
+    .high { color: var(--red); }
+    .medium { color: var(--amber); }
+    .leaks { display: grid; gap: 14px; }
+    .leak-row { display: grid; grid-template-columns: 220px 1fr 140px; gap: 14px; align-items: center; }
+    .leak-row strong { line-height: 1.2; }
+    .leak-track { height: 18px; border-radius: 999px; background: #e5e5ea; overflow: hidden; }
+    .leak-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #ff9f0a, #ff3b30); width: var(--w); }
+    .actions { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 14px; }
+    .action { border-radius: 28px; padding: 20px; background: #fff; border: 1px solid var(--line); min-height: 174px; }
+    .action small { color: var(--blue); font-weight: 800; }
+    .artifact { display: grid; grid-template-columns: 1fr 280px; gap: 22px; align-items: center; background: #111; color: #fff; }
+    .artifact .muted { color: rgba(255,255,255,.68); }
+    .cta { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 20px; border-radius: 999px; background: #fff; color: #111; font-weight: 800; }
+    .notice { border-color: rgba(255,159,10,.20); background: rgba(255,249,235,.86); }
+    @media (max-width: 980px) {
+      .topbar { position: static; }
+      .nav { display: none; }
+      .page { padding-top: 28px; }
+      .hero, .two, .artifact { grid-template-columns: 1fr; }
+      .grid, .three, .actions, .timeline { grid-template-columns: 1fr 1fr; }
+      .report-device { transform: none; }
+    }
+    @media (max-width: 640px) {
+      .urlbox, .funnel-row, .leak-row, .ring-card { grid-template-columns: 1fr; display: grid; border-radius: 28px; }
+      .grid, .three, .actions, .timeline { grid-template-columns: 1fr; }
+      .hero { min-height: auto; padding: 28px; border-radius: 30px; }
+      h1 { font-size: 44px; }
+    }
   </style>
 </head>
 <body>
-  <div class="page">
-    <aside class="glass">
+  <header class="topbar">
+    <a class="brand" href="traffic_map_demo.html"><span class="logo"></span><span>TrafficMind AI</span></a>
+    <nav class="nav" aria-label="Навигация">
+      <a href="traffic_map_demo.html">Dashboard</a>
+      <a class="active" href="link_only_report.html">Отчет</a>
+      <a href="telegram_report_mockup.html">Telegram-вид</a>
+      <a href="sales_report_artifact.html">PDF/HTML</a>
+      <a href="admin.html">Админка</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="hero">
       <div>
-        <div class="brand"><span class="logo"></span><span>TrafficMind AI</span></div>
-        <nav>
-          <a href="traffic_map_demo.html">Dashboard</a>
-          <a class="active" href="link_only_report.html">Отчет по ссылке</a>
-          <a href="account.html">Личный кабинет</a>
-          <a href="admin.html">Админ-панель</a>
-        </nav>
-      </div>
-      <div class="pill">Без подключений: только URL сайта</div>
-    </aside>
-
-    <main>
-      <section class="hero">
-        <div>
-          <h1>Полный отчет по сайту</h1>
-          <p>Сценарий для клиента, который ничего не подключает и просто отправляет ссылку. TrafficMind AI показывает предварительный аудит, риски, гипотезы потерь и план действий.</p>
-        </div>
-        <form class="urlbox glass" id="domain-form">
-          <label>Ссылка на сайт
-            <span class="urlrow">
-              <input id="domain-input" value="kavkaztravel.example" aria-label="Домен сайта">
-              <button class="primary" type="submit">Собрать отчет</button>
-            </span>
-          </label>
+        <span class="eyebrow">Предварительный отчет без подключений</span>
+        <h1>AI-аудит сайта в стиле executive report.</h1>
+        <p>Клиент отправляет одну ссылку, а TrafficMind AI показывает, что уже видно, чего не хватает для точной аналитики, где могут теряться деньги и что сделать первым.</p>
+        <form class="urlbox" id="domain-form">
+          <input id="domain-input" value="kavkaztravel.example" aria-label="Домен сайта">
+          <button class="primary" type="submit">Обновить отчет</button>
         </form>
-      </section>
-
-      <section class="notice">
-        Это честный предварительный отчет. Без GA4, CRM, рекламных кабинетов и пикселей система не показывает реальные продажи, ROAS и источники денег. Вместо этого она анализирует публичные признаки сайта и дает гипотезы, что проверить первым.
-      </section>
-
-      <section class="panel glass">
-        <h2>Онбординг: 1 ссылка -> первый отчет -> подключить данные</h2>
-        <div class="timeline">
-          <div class="step done"><small>1</small><strong>Клиент отправил ссылку</strong><p class="muted">Бот сразу проверяет публичные признаки сайта: доступность, формы, SEO, контакты и счетчики.</p></div>
-          <div class="step active-step"><small>2</small><strong>Первый отчет готов</strong><p class="muted">Клиент видит риски, денежные гипотезы, быстрые действия и ограничения без интеграций.</p></div>
-          <div class="step next"><small>3</small><strong>Подключить данные</strong><p class="muted">Метрика/GA4, CRM, пиксели и реклама превращают предварительный аудит в карту прибыли.</p></div>
+      </div>
+      <aside class="report-device" aria-label="Превью отчета">
+        <div class="device-screen">
+          <div class="device-chip"></div>
+          <div class="device-title">Profit Readiness</div>
+          <div class="device-card">
+            <div class="ring" style="--offset:117">
+              <svg viewBox="0 0 120 120" aria-hidden="true"><circle class="bg" cx="60" cy="60" r="52"></circle><circle class="fg" cx="60" cy="60" r="52"></circle></svg>
+              <strong>64</strong>
+            </div>
+          </div>
+          <div class="device-card">
+            <b>Что делать сегодня</b>
+            <div class="mini-bars"><span style="--w:88%"></span><span style="--w:72%"></span><span style="--w:54%"></span></div>
+          </div>
         </div>
-      </section>
+      </aside>
+    </section>
 
-      <section class="wide">
-        <article class="panel glass summary">
-          <div>
-            <h2 id="report-domain">kavkaztravel.example</h2>
-            <p class="muted"><b>Главный вывод:</b> сайт может терять заявки из-за слабого измерения, неочевидного CTA и неполной воронки. Первый шаг: проверить первый экран, форму заявки и подключить базовый трекинг.</p>
-          </div>
-          <div class="risk">
-            <b>35 000-120 000 ₽</b>
-            <span class="muted">оценочный диапазон возможных потерь в месяц</span>
-          </div>
-        </article>
-        <article class="panel glass">
-          <h2>Уверенность отчета</h2>
-          <p class="muted"><b>64/100:</b> предварительная оценка. Данных достаточно для первого плана улучшений, но недостаточно для точного расчета прибыли по каналам.</p>
-        </article>
-      </section>
+    <section class="section">
+      <div class="section-head">
+        <h2 id="report-domain">kavkaztravel.example</h2>
+        <p>Отчет честно отделяет публичные факты от гипотез. Без GA4, CRM, рекламных кабинетов и пикселей система не показывает реальные продажи, ROAS и источники денег.</p>
+      </div>
+      <div class="grid">
+        <div class="card metric"><b>64/100</b><span>уверенность предварительного отчета</span></div>
+        <div class="card metric"><b>35-120 тыс. ₽</b><span>оценочный диапазон возможных потерь</span></div>
+        <div class="card metric"><b>4</b><span>быстрых действия на сегодня</span></div>
+        <div class="card metric"><b>7 дней</b><span>путь до карты прибыли</span></div>
+      </div>
+    </section>
 
-      <section class="split">
-        <article class="panel glass">
-          <h2>Что я вижу</h2>
-          <div class="list">
-            <div class="item"><strong class="check">Публичная доступность сайта</strong><span class="muted">Можно проверить сразу: открывается ли страница и отвечает ли сервер.</span></div>
-            <div class="item"><strong class="check">Title, description и структура страницы</strong><span class="muted">Бот видит базовую SEO-упаковку, заголовки и коммерческие блоки.</span></div>
-            <div class="item"><strong class="check">Формы, телефоны и мессенджеры</strong><span class="muted">Можно найти точки заявки и оценить, насколько короткий путь до контакта.</span></div>
-            <div class="item"><strong class="check">Признаки счетчиков и пикселей</strong><span class="muted">Если код не скрыт, бот видит Метрику, GA4, GTM и рекламные пиксели.</span></div>
-          </div>
-        </article>
-        <article class="panel glass">
-          <h2>Что я не вижу</h2>
-          <div class="list">
-            <div class="item"><strong class="missing">Реальные продажи и выручку</strong><span class="muted">Нужны CRM, платежи или хотя бы статусы заявок.</span></div>
-            <div class="item"><strong class="missing">Расходы рекламы, CPL и ROAS</strong><span class="muted">Нужны рекламные кабинеты Google, Meta, TikTok или LinkedIn.</span></div>
-            <div class="item"><strong class="missing">Качество лидов и причины отказов</strong><span class="muted">Нужны CRM-стадии, call tracking и ручные причины потерь.</span></div>
-            <div class="item"><strong class="missing">Повторные касания до покупки</strong><span class="muted">Нужна сквозная аналитика и multi-touch attribution.</span></div>
-          </div>
-        </article>
-      </section>
+    <section class="card ring-card">
+      <div class="ring" style="--offset:117">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><circle class="bg" cx="60" cy="60" r="52"></circle><circle class="fg" cx="60" cy="60" r="52"></circle></svg>
+        <strong>64</strong>
+      </div>
+      <div>
+        <h2>Уверенность отчета</h2>
+        <p class="muted">Данных достаточно, чтобы дать первый план улучшений, но недостаточно для точного расчета прибыли по каналам. Следующий шаг: подключить Метрику/GA4, CRM и пиксели.</p>
+      </div>
+    </section>
 
-      <section class="grid">
-        <div class="score glass"><b>62</b><span>готовность к заявкам<br><em>нужно усилить</em></span></div>
-        <div class="score glass"><b>38</b><span>измеримость маркетинга<br><em>высокий риск</em></span></div>
-        <div class="score glass"><b>71</b><span>SEO-база<br><em>нормально</em></span></div>
-        <div class="score glass"><b>66</b><span>доверие и оффер<br><em>есть потенциал</em></span></div>
-        <div class="score glass"><b>58</b><span>мобильный путь<br><em>проверить</em></span></div>
-        <div class="score glass"><b>54</b><span>скорость решения<br><em>много трения</em></span></div>
-      </section>
+    <section class="section">
+      <div class="section-head">
+        <h2>Онбординг</h2>
+        <p>Путь пользователя должен быть простым: ссылка, первый отчет, подключение данных.</p>
+      </div>
+      <div class="timeline">
+        <div class="step"><small>1</small><strong>Клиент отправил ссылку</strong><p class="muted">Бот проверяет публичные признаки сайта: доступность, формы, SEO, контакты и счетчики.</p></div>
+        <div class="step active"><small>2</small><strong>Первый отчет готов</strong><p class="muted">Клиент видит риски, денежные гипотезы, быстрые действия и ограничения без интеграций.</p></div>
+        <div class="step"><small>3</small><strong>Подключить данные</strong><p class="muted">Метрика/GA4, CRM, пиксели и реклама превращают аудит в карту прибыли.</p></div>
+      </div>
+    </section>
 
-      <section class="wide">
-        <article class="panel glass">
-          <h2>Что найдено</h2>
-          <div class="list">
-            <div class="item"><strong class="high">Нельзя точно понять, какие каналы приводят деньги</strong><span class="muted">Без GA4/Метрики/CRM система видит сайт, но не видит продажи, CPL, ROAS и качество лидов. Рекламный бюджет может перераспределяться вслепую.</span></div>
-            <div class="item"><strong class="high">Путь до заявки нужно сократить</strong><span class="muted">У холодного посетителя должно быть 1-2 очевидных действия: оставить заявку, написать в мессенджер или позвонить.</span></div>
-            <div class="item"><strong class="medium">Недостаточно данных для качества трафика</strong><span class="muted">Без UTM и пикселей нельзя понять, какие объявления дают заявки, а какие просто клики.</span></div>
-            <div class="item"><strong class="medium">SEO может давать больше бесплатных заявок</strong><span class="muted">Нужны страницы под спрос, сильные title/description и структура ответа на вопросы клиента.</span></div>
-          </div>
-        </article>
-        <article class="panel glass">
-          <h2>Чего отчет не знает без подключений</h2>
-          <div class="table">
-            <div class="row"><span>Источники трафика</span><span class="muted">нет реальных каналов и UTM</span></div>
-            <div class="row"><span>Расходы рекламы</span><span class="muted">нет бюджета, CPL и ROAS</span></div>
-            <div class="row"><span>CRM-продажи</span><span class="muted">нет выручки и статусов сделок</span></div>
-            <div class="row"><span>Поведение пользователей</span><span class="muted">нет событий, скролла и кликов</span></div>
-            <div class="row"><span>Повторные касания</span><span class="muted">нет multi-touch attribution</span></div>
-          </div>
-        </article>
-      </section>
-
-      <section class="panel glass">
-        <h2>Модуль “Потери денег”</h2>
-        <div class="roadmap">
-          <div class="step leak"><small>1</small><strong>Невидимая реклама</strong><p class="muted">20 000-70 000 ₽/мес: бюджет может уходить в клики без продаж, если нет расходов и конверсий по кампаниям.</p></div>
-          <div class="step leak"><small>2</small><strong>Теплые посетители не возвращаются</strong><p class="muted">10 000-35 000 ₽/мес: без пикселей и ретаргетинга пользователь может уйти после первого касания.</p></div>
-          <div class="step leak"><small>3</small><strong>Заявки без источника</strong><p class="muted">15 000-50 000 ₽/мес: форма должна сохранять источник, кампанию, страницу входа и device.</p></div>
-          <div class="step leak"><small>4</small><strong>Слабый путь до действия</strong><p class="muted">5 000-25 000 ₽/мес: CTA, цена, доверие и форма должны вести к одному быстрому действию.</p></div>
+    <section class="two">
+      <article class="card visibility-card">
+        <h2>Что я вижу</h2>
+        <div class="list">
+          <div class="item"><strong class="check">Публичная доступность сайта</strong><span class="muted">Можно проверить сразу: открывается ли страница и отвечает ли сервер.</span></div>
+          <div class="item"><strong class="check">Title, description и структура</strong><span class="muted">Видна базовая SEO-упаковка, заголовки и коммерческие блоки.</span></div>
+          <div class="item"><strong class="check">Формы, телефоны и мессенджеры</strong><span class="muted">Можно найти точки заявки и оценить короткость пути до контакта.</span></div>
+          <div class="item"><strong class="check">Признаки счетчиков и пикселей</strong><span class="muted">Если код не скрыт, бот видит Метрику, GA4, GTM и рекламные пиксели.</span></div>
         </div>
-      </section>
-
-      <section class="panel glass">
-        <h2>Что делать сегодня</h2>
-        <div class="roadmap">
-          <div class="step"><small>1</small><strong>Поставить цели формы и мессенджеров</strong><p class="muted">Эффект: +15-30% точности в понимании заявок. Сложность: низкая. Время: 30-60 минут.</p></div>
-          <div class="step"><small>2</small><strong>Переписать первый экран</strong><p class="muted">Сделать конкретное обещание, понятный CTA и быстрый путь к заявке. Потенциал: +5-12% к конверсии.</p></div>
-          <div class="step"><small>3</small><strong>Добавить блок доверия перед формой</strong><p class="muted">Отзывы, гарантии, кейсы, фото результата, условия и быстрые ответы на страхи клиента.</p></div>
-          <div class="step"><small>4</small><strong>Настроить UTM-шаблон</strong><p class="muted">После первых кликов появится понятная карта источников и база для полноценной карты прибыли.</p></div>
+      </article>
+      <article class="card visibility-card">
+        <h2>Что я не вижу</h2>
+        <div class="list">
+          <div class="item"><strong class="missing">Реальные продажи и выручку</strong><span class="muted">Нужны CRM, платежи или хотя бы статусы заявок.</span></div>
+          <div class="item"><strong class="missing">Расходы рекламы, CPL и ROAS</strong><span class="muted">Нужны рекламные кабинеты Google, Meta, TikTok или LinkedIn.</span></div>
+          <div class="item"><strong class="missing">Качество лидов и причины отказов</strong><span class="muted">Нужны CRM-стадии, call tracking и ручные причины потерь.</span></div>
+          <div class="item"><strong class="missing">Повторные касания до покупки</strong><span class="muted">Нужна сквозная аналитика и multi-touch attribution.</span></div>
         </div>
-      </section>
+      </article>
+    </section>
 
-      <section class="wide">
-        <article class="panel glass">
-          <h2>Прогноз развития</h2>
-          <div class="list">
-            <div class="item"><strong>Если ничего не подключать</strong><span class="muted">Через 7 дней можно видеть только технический прогресс и косвенные признаки улучшения сайта.</span></div>
-            <div class="item"><strong>Если установить трекинг</strong><span class="muted">Появятся источники, события, качество визитов, проблемные страницы и первые аномалии.</span></div>
-            <div class="item"><strong>Если подключить CRM</strong><span class="muted">Станет возможна карта прибыли: лиды, продажи, доход, ROI и реальные потери по каналам.</span></div>
+    <section class="section">
+      <div class="section-head">
+        <h2>Score-карта</h2>
+        <p>Лаконичная оценка готовности сайта к заявкам и измерению маркетинга.</p>
+      </div>
+      <div class="three">
+        <article class="card">
+          <div class="funnel">
+            <div class="funnel-row"><strong>Заявки</strong><span class="funnel-track"><i class="funnel-fill" style="--w:62%"></i></span><span>62</span></div>
+            <div class="funnel-row"><strong>Измерение</strong><span class="funnel-track"><i class="funnel-fill" style="--w:38%"></i></span><span>38</span></div>
+            <div class="funnel-row"><strong>SEO</strong><span class="funnel-track"><i class="funnel-fill" style="--w:71%"></i></span><span>71</span></div>
           </div>
         </article>
-        <article class="panel glass">
-          <h2>Что увидит клиент в конце</h2>
-          <p class="muted">TrafficMind AI не заставляет клиента разбираться в метриках. Он получает короткий вывод, список проблем по критичности, план действий, ожидаемый эффект и честное объяснение, какие данные нужны для более точного отчета.</p>
-          <p class="foot">Demo endpoint для backend: <code>GET /api/reports/link-only-demo?domain=example.com</code></p>
+        <article class="card">
+          <div class="funnel">
+            <div class="funnel-row"><strong>Доверие</strong><span class="funnel-track"><i class="funnel-fill" style="--w:66%"></i></span><span>66</span></div>
+            <div class="funnel-row"><strong>Мобайл</strong><span class="funnel-track"><i class="funnel-fill" style="--w:58%"></i></span><span>58</span></div>
+            <div class="funnel-row"><strong>Решение</strong><span class="funnel-track"><i class="funnel-fill" style="--w:54%"></i></span><span>54</span></div>
+          </div>
         </article>
-      </section>
+        <article class="card notice">
+          <h2>Главный вывод</h2>
+          <p class="muted">Сайт может терять заявки из-за слабого измерения, неочевидного CTA и неполной воронки. Первый шаг: проверить первый экран, форму заявки и подключить базовый трекинг.</p>
+        </article>
+      </div>
+    </section>
 
-      <section class="panel glass artifact">
-        <div>
-          <h2>PDF/HTML-отчет как продающий артефакт</h2>
-          <p class="muted">Этот первый отчет можно отправить клиенту как красивый HTML/PDF: короткий вывод, что бот уже видит, чего не хватает без подключений, денежные потери, план на 7 дней и понятная кнопка “Получить точную карту прибыли”.</p>
+    <section class="section">
+      <div class="section-head">
+        <h2>Потери денег</h2>
+        <p>Оценочные зоны риска. После подключения CRM и рекламы они станут точными расчетами.</p>
+      </div>
+      <article class="card">
+        <div class="leaks">
+          <div class="leak-row"><strong>Невидимая реклама</strong><span class="leak-track"><i class="leak-fill" style="--w:88%"></i></span><span>20-70 тыс. ₽</span></div>
+          <div class="leak-row"><strong>Заявки без источника</strong><span class="leak-track"><i class="leak-fill" style="--w:72%"></i></span><span>15-50 тыс. ₽</span></div>
+          <div class="leak-row"><strong>Нет ретаргетинга</strong><span class="leak-track"><i class="leak-fill" style="--w:54%"></i></span><span>10-35 тыс. ₽</span></div>
+          <div class="leak-row"><strong>Длинный путь</strong><span class="leak-track"><i class="leak-fill" style="--w:38%"></i></span><span>5-25 тыс. ₽</span></div>
         </div>
-        <a class="cta" href="sales_report_artifact.html">Открыть артефакт</a>
-      </section>
-    </main>
-  </div>
+      </article>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Что сделать сегодня</h2>
+        <p>Небольшой план с максимальным влиянием на первый отчет и будущую карту прибыли.</p>
+      </div>
+      <div class="actions">
+        <div class="action"><small>01</small><h3>Поставить цели</h3><p class="muted">Форма, телефон, мессенджеры и ключевые клики. Эффект: +15-30% точности.</p></div>
+        <div class="action"><small>02</small><h3>Переписать первый экран</h3><p class="muted">Конкретное обещание, понятный CTA и быстрый путь к заявке.</p></div>
+        <div class="action"><small>03</small><h3>Добавить доверие</h3><p class="muted">Отзывы, гарантии, кейсы и ответы на страхи перед формой.</p></div>
+        <div class="action"><small>04</small><h3>Включить UTM</h3><p class="muted">Источник, кампания, страница входа и device в каждой заявке.</p></div>
+      </div>
+    </section>
+
+    <section class="card artifact">
+      <div>
+        <h2>PDF/HTML-отчет как продающий артефакт</h2>
+        <p class="muted">Этот отчет можно отправить клиенту: короткий вывод, что бот уже видит, чего не хватает без подключений, денежные потери, план на 7 дней и следующий шаг к точной карте прибыли.</p>
+      </div>
+      <a class="cta" href="sales_report_artifact.html">Открыть артефакт</a>
+    </section>
+  </main>
 
   <script>
     const form = document.querySelector("#domain-form");
