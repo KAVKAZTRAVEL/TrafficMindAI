@@ -3,6 +3,7 @@ from pydantic import BaseModel
 
 class WorkspaceSettingsIn(BaseModel):
     telegram_id: int
+    website: str | None = None
     business_name: str | None = None
     business_niche: str | None = None
     goal: str = "leads"
@@ -16,3 +17,9 @@ class WorkspaceSettingsIn(BaseModel):
 class WorkspaceSettingsOut(BaseModel):
     ok: bool
     settings: dict
+
+
+class TelegramLinkIn(BaseModel):
+    telegram_id: int
+    link_code: str | None = None
+    source: str = "web_account"

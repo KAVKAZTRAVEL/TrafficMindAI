@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.config import get_settings
 from app.database import get_db, init_db
 from app.models import Event, IntegrationAccount, Report, Subscription, User, Website
-from app.schemas.account import WorkspaceSettingsIn
+from app.schemas.account import TelegramLinkIn, WorkspaceSettingsIn
 from app.services.account_service import account_payload, update_workspace_settings
 from app.services.growth_intelligence_service import (
     build_profit_map,
@@ -176,6 +176,30 @@ async def account_settings_save(payload: WorkspaceSettingsIn, db: AsyncSession =
             "onboarding_completed": settings.onboarding_completed,
             "preferences": settings.preferences or {},
         },
+    }
+
+
+@app.post("/api/account/telegram-link")
+async def account_telegram_link(payload: TelegramLinkIn, db: AsyncSession = Depends(get_db)) -> dict:
+    user = await db.scalar(select(User).where(User.telegram_id == payload.telegram_id))
+    if not user:
+        user = User(
+            telegram_id=payload.telegram_id,
+            username=None,
+            first_name=None,
+            avatar=None,
+            subscription_status="trial",
+            max_websites=1,
+            is_admin=False,
+        )
+        db.add(user)
+        await db.flush()
+    await db.commit()
+    return {
+        "ok": True,
+        "telegram_id": user.telegram_id,
+        "link_status": "ready_for_bot_sync",
+        "source": payload.source,
     }
 
 

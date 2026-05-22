@@ -504,8 +504,11 @@
       gap: 16px;
     }
     .account-card {
-      min-height: 280px;
+      min-height: 360px;
       display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: end;
       align-content: space-between;
     }
     .account-card ul {
@@ -525,6 +528,22 @@
       margin-right: 9px;
       border-radius: 50%;
       background: var(--cyan);
+    }
+    .account-actions {
+      min-width: 230px;
+      display: grid;
+      gap: 10px;
+      justify-items: end;
+    }
+    .account-actions .button {
+      width: 100%;
+    }
+    .account-note {
+      max-width: 280px;
+      color: var(--muted);
+      line-height: 1.4;
+      font-size: 14px;
+      text-align: right;
     }
     .final {
       min-height: 430px;
@@ -583,6 +602,15 @@
       .account-strip {
         grid-template-columns: 1fr;
       }
+      .account-card {
+        grid-template-columns: 1fr;
+      }
+      .account-actions {
+        justify-items: start;
+      }
+      .account-note {
+        text-align: left;
+      }
       .phone {
         max-width: 480px;
         margin: 0 auto;
@@ -628,6 +656,7 @@
       <a href="#report">Что увидит клиент</a>
       <a href="#metrics">Метрики</a>
       <a href="#connect">Подключения</a>
+      <a href="#account">Личный кабинет</a>
     </nav>
   </header>
 
@@ -782,6 +811,10 @@
             <li>история отчетов</li>
             <li>рекомендации и задачи</li>
           </ul>
+          <div class="account-actions">
+            <a class="button primary" href="account.html">Войти в личный кабинет</a>
+            <span class="account-note">Кабинет будет синхронизироваться с Telegram-ботом по Telegram ID или одноразовому коду.</span>
+          </div>
         </article>
       </div>
     </section>

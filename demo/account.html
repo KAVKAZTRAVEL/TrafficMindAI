@@ -4,116 +4,402 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Личный кабинет TrafficMind AI</title>
-  <style>
-    :root{color-scheme:dark;--text:rgba(255,255,255,.94);--muted:rgba(255,255,255,.66);--blue:#2f8cff;--green:#5df28a;--amber:#ffd056;--red:#ff6a5f}
-    *{box-sizing:border-box} body{margin:0;min-height:100vh;font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--text);background:radial-gradient(circle at 12% -10%,rgba(116,168,72,.62),transparent 25%),radial-gradient(circle at 35% -14%,rgba(255,98,54,.62),transparent 24%),radial-gradient(circle at 96% 4%,rgba(0,117,255,.42),transparent 28%),linear-gradient(180deg,#08111f 0%,#02050b 48%,#04070d 100%)}
-    body:before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(circle at 50% 44%,black,transparent 72%)}
-    a{color:inherit;text-decoration:none}.page{min-height:100vh;padding:34px clamp(16px,4vw,56px);display:grid;grid-template-columns:280px 1fr;gap:24px}
-    .glass{border:1px solid rgba(255,255,255,.13);background:linear-gradient(180deg,rgba(255,255,255,.13),rgba(255,255,255,.055));box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 18px 50px rgba(0,0,0,.35);backdrop-filter:blur(22px)}
-    aside{border-radius:30px;padding:22px;display:flex;flex-direction:column;justify-content:space-between}.brand{display:flex;gap:12px;align-items:center;font-weight:850;font-size:21px}.logo{width:38px;height:38px;border-radius:14px;background:linear-gradient(135deg,#7cc7ff,#2f8cff 58%,#5df28a);box-shadow:0 0 28px rgba(47,140,255,.42)}
-    nav{display:grid;gap:10px;margin-top:28px}nav a,.pill{min-height:42px;padding:0 14px;border-radius:999px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;background:rgba(255,255,255,.055);color:var(--muted)}nav a.active{color:white;border-color:rgba(124,199,255,.6);background:linear-gradient(90deg,rgba(47,140,255,.27),rgba(255,255,255,.06))}
-    main{display:grid;gap:18px}.hero{display:flex;align-items:end;justify-content:space-between;gap:20px}.hero h1{font-size:clamp(36px,6vw,76px);line-height:.98;margin:0;letter-spacing:0}.hero p{color:var(--muted);font-size:18px;max-width:560px;line-height:1.45}
-    .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.card{border-radius:26px;padding:20px;min-height:120px}.card b{display:block;font-size:26px;margin-bottom:8px}.card span,.muted{color:var(--muted);line-height:1.45}
-    .wide{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}.panel{border-radius:30px;padding:22px}.panel h2{margin:0 0 14px;font-size:28px}.list{display:grid;gap:12px}.item{padding:14px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)}.item strong{display:block;margin-bottom:5px}.ok{color:var(--green)}.warn{color:var(--amber)}
-    form{display:grid;grid-template-columns:1fr 1fr;gap:12px}label{display:grid;gap:7px;color:var(--muted);font-size:14px}input,select{width:100%;min-height:42px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07);color:white;padding:0 12px}button.save{min-height:44px;border:0;border-radius:999px;color:#04111e;font-weight:850;background:linear-gradient(90deg,#7cc7ff,#2f8cff);box-shadow:0 0 24px rgba(76,161,255,.45);cursor:pointer}.saved{color:var(--green);min-height:22px}
-    @media(max-width:980px){.page{grid-template-columns:1fr}.grid,.wide{grid-template-columns:1fr 1fr}}@media(max-width:620px){.grid,.wide{grid-template-columns:1fr}.hero{display:block}}
-  </style>
   <link rel="stylesheet" href="trafficmind_unified.css">
+  <style>
+    :root {
+      --ink: #f5f5f7;
+      --muted: rgba(245,245,247,.66);
+      --line: rgba(255,255,255,.13);
+      --cyan: #92e7ff;
+      --display: "Bahnschrift", "Aptos Display", "Segoe UI Variable Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      --read: "Aptos", "Segoe UI Variable Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      --tech: "Cascadia Code", "SF Mono", Consolas, monospace;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; color: var(--ink); font-family: var(--read); }
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      min-height: 56px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      padding: 0 clamp(16px, 4vw, 72px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.72);
+      backdrop-filter: blur(22px) saturate(180%);
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 14px; }
+    .logo { width: 22px; height: 22px; border-radius: 7px; }
+    .nav { display: flex; align-items: center; gap: clamp(12px, 2vw, 26px); color: rgba(245,245,247,.68); font-size: 13px; }
+    .nav a.active, .nav a:hover { color: var(--ink); }
+    .page { width: min(1220px, calc(100% - 32px)); margin: 0 auto; padding: clamp(34px, 6vw, 72px) 0 84px; display: grid; gap: 18px; }
+    .hero {
+      min-height: 520px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(340px, 430px);
+      gap: clamp(22px, 5vw, 64px);
+      align-items: center;
+    }
+    .eyebrow {
+      width: fit-content;
+      min-height: 34px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.07);
+      color: rgba(245,245,247,.74);
+      font-family: var(--tech);
+      font-size: 13px;
+    }
+    h1, h2, h3 { font-family: var(--display); }
+    h1 {
+      margin: 24px 0 0;
+      max-width: 780px;
+      font-size: clamp(56px, 7.4vw, 104px);
+      line-height: .98;
+      background: linear-gradient(92deg, #fff 0%, #dbe4ef 30%, var(--cyan) 58%, #8fa6b8 82%, #fff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      max-width: 680px;
+      margin: 20px 0 0;
+      color: rgba(245,245,247,.80);
+      font-size: clamp(19px, 2vw, 27px);
+      line-height: 1.32;
+    }
+    .login-card {
+      min-height: 420px;
+      display: grid;
+      gap: 18px;
+      align-content: center;
+      padding: clamp(24px, 3vw, 34px);
+      border-radius: 34px;
+      border: 1px solid var(--line);
+      background: rgba(16,18,24,.72);
+    }
+    .login-card h2 { margin: 0; font-size: 32px; line-height: 1.04; }
+    .login-card p, .muted { color: var(--muted); line-height: 1.5; margin: 0; }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .two { display: grid; grid-template-columns: 1.05fr .95fr; gap: 16px; }
+    .card {
+      border-radius: 30px;
+      padding: clamp(22px, 3vw, 34px);
+      border: 1px solid var(--line);
+      background: rgba(16,18,24,.72);
+    }
+    .card h2 { margin: 0 0 14px; font-size: clamp(30px, 3.4vw, 48px); line-height: 1; }
+    .card h3 { margin: 0 0 10px; font-size: 24px; line-height: 1.08; }
+    .stat b { display: block; margin-bottom: 8px; font-size: 30px; }
+    .stat span { color: var(--muted); line-height: 1.35; }
+    form { display: grid; gap: 12px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    label { display: grid; gap: 7px; color: var(--muted); font-size: 14px; }
+    input, select {
+      width: 100%;
+      min-height: 46px;
+      padding: 0 13px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.13);
+      outline: 0;
+      background: rgba(255,255,255,.07);
+      color: #fff;
+    }
+    .button {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .button.primary {
+      border: 0;
+      color: #02070c;
+      background: linear-gradient(90deg, #f5f5f7, #92e7ff);
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    .status {
+      min-height: 24px;
+      color: var(--cyan);
+      line-height: 1.4;
+      font-size: 14px;
+    }
+    .sync-steps {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .step {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      padding: 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.055);
+    }
+    .number {
+      min-width: 34px;
+      height: 34px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 999px;
+      color: var(--cyan);
+      font-family: var(--tech);
+      background: rgba(146,231,255,.08);
+      border: 1px solid rgba(146,231,255,.22);
+    }
+    .list { display: grid; gap: 10px; margin-top: 16px; }
+    .item {
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.055);
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .item strong { display: block; margin-bottom: 5px; color: #fff; }
+    .pill-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .pill {
+      min-height: 34px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: rgba(245,245,247,.72);
+      font-size: 13px;
+    }
+    @media (max-width: 980px) {
+      .hero, .two { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 680px) {
+      .nav { display: none; }
+      .grid, .form-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 48px; }
+    }
+  </style>
 </head>
 <body>
-  <div class="page">
-    <aside class="glass">
+  <header class="topbar">
+    <a class="brand" href="link_only_report.html"><span class="logo"></span><span>TrafficMind AI</span></a>
+    <nav class="nav" aria-label="Навигация">
+      <a href="link_only_report.html">Сайт</a>
+      <a class="active" href="account.html">Личный кабинет</a>
+      <a href="#telegram-sync">Telegram-связка</a>
+      <a href="#settings">Настройки</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="hero">
       <div>
-        <div class="brand"><span class="logo"></span><span>TrafficMind AI</span></div>
-        <nav>
-          <a href="traffic_map_demo.html">Dashboard</a>
-          <a class="active" href="account.html">Личный кабинет</a>
-          <a href="admin.html">Админ-панель</a>
-          <a href="https://github.com/KAVKAZTRAVEL/TrafficMindAI" target="_blank" rel="noreferrer">GitHub</a>
-        </nav>
+        <span class="eyebrow">личный кабинет клиента</span>
+        <h1>Один раз настроили. Дальше бот помнит.</h1>
+        <p>Клиент сохраняет сайт, цель бизнеса, нишу и Telegram-связку. После этого TrafficMind AI использует эти данные в отчетах и рекомендациях.</p>
       </div>
-      <div class="pill">BUSINESS trial: 7 дней</div>
-    </aside>
-    <main>
-      <section class="hero">
-        <div><h1>Личный кабинет</h1><p>Все данные владельца бизнеса: сайты, подписка, интеграции, прибыль, задачи и прогнозы.</p></div>
-      </section>
-      <section class="grid">
-        <div class="card glass"><b>example.com</b><span>Основной сайт активен</span></div>
-        <div class="card glass"><b>82/100</b><span>Оценка здоровья сайта</span></div>
-        <div class="card glass"><b>532 000 ₽</b><span>Доход за период</span></div>
-        <div class="card glass"><b>2.9x</b><span>Средний ROAS</span></div>
-      </section>
-      <section class="wide">
-        <div class="panel glass">
-          <h2>Настройки, которые сохраняются</h2>
-          <form id="settings-form">
-            <label>Telegram ID<input name="telegram_id" value="100001" inputmode="numeric"></label>
-            <label>Название бизнеса<input name="business_name" value="Kavkaz Travel"></label>
-            <label>Ниша<input name="business_niche" value="Туры и впечатления"></label>
-            <label>Главная цель<select name="goal"><option value="leads">Больше заявок</option><option value="sales">Больше продаж</option><option value="revenue">Рост дохода</option></select></label>
-            <label>Отчеты<select name="report_frequency"><option value="daily">Каждый день</option><option value="weekly">Раз в неделю</option><option value="monthly">Раз в месяц</option></select></label>
-            <label>Уведомления<select name="alert_level"><option value="important">Только важное</option><option value="all">Все события</option><option value="critical">Только критичное</option></select></label>
-            <button class="save" type="submit">Сохранить настройки</button>
-            <div class="saved" id="save-status"></div>
-          </form>
-        </div>
-        <div class="panel glass">
-          <h2>Что сохраняется</h2>
-          <p class="muted">Профиль, бизнес-контекст, сайты, выбранный сайт по умолчанию, подключенные интеграции, частота отчетов, уровень уведомлений и onboarding-статус. Пользователь настраивает один раз, дальше бот работает на этих данных.</p>
-        </div>
-      </section>
-      <section class="wide">
-        <div class="panel glass">
-          <h2>Что делать сегодня</h2>
-          <div class="list">
-            <div class="item"><strong>Остановить потери в Instagram</strong><span class="muted">Канал тратит бюджет и возвращает меньше денег, чем вложено. Потенциал: ~68 000 ₽.</span></div>
-            <div class="item"><strong>Масштабировать партнерский блог</strong><span class="muted">Меньше трафика, но выше ROI и качество лидов.</span></div>
-            <div class="item"><strong>Проверить форму заявки</strong><span class="muted">Есть лиды без продаж. Вероятна проблема в форме, оффере или CRM-этапе.</span></div>
+      <aside class="login-card">
+        <span class="eyebrow">вход</span>
+        <h2>Войти по Telegram</h2>
+        <p>Пока бот будет создан позже, кабинет поддерживает будущую схему: Telegram ID или одноразовый код из бота.</p>
+        <form id="login-form">
+          <label>Telegram ID или код входа
+            <input id="login-code" value="100001" inputmode="numeric" autocomplete="one-time-code">
+          </label>
+          <button class="button primary" type="submit">Войти в кабинет</button>
+          <div class="status" id="login-status">Демо-режим: данные сохраняются в браузере и готовы к синхронизации с backend.</div>
+        </form>
+      </aside>
+    </section>
+
+    <section class="grid">
+      <article class="card stat"><b id="site-stat">example.com</b><span>основной сайт клиента</span></article>
+      <article class="card stat"><b>64/100</b><span>последний предварительный отчет</span></article>
+      <article class="card stat"><b id="sync-stat">Telegram готов</b><span>связка с ботом через ID или код</span></article>
+    </section>
+
+    <section class="two" id="settings">
+      <article class="card">
+        <h2>Настройки бизнеса</h2>
+        <p class="muted">Эти данные бот будет использовать, чтобы отчеты звучали не общими словами, а под конкретный бизнес.</p>
+        <form id="settings-form">
+          <div class="form-grid">
+            <label>Telegram ID
+              <input name="telegram_id" value="100001" inputmode="numeric">
+            </label>
+            <label>Сайт
+              <input name="website" value="example.com">
+            </label>
+            <label>Название бизнеса
+              <input name="business_name" value="Kavkaz Travel">
+            </label>
+            <label>Ниша
+              <input name="business_niche" value="Туры и впечатления">
+            </label>
+            <label>Главная цель
+              <select name="goal">
+                <option value="leads">Больше заявок</option>
+                <option value="sales">Больше продаж</option>
+                <option value="revenue">Рост дохода</option>
+              </select>
+            </label>
+            <label>Как часто присылать отчет
+              <select name="report_frequency">
+                <option value="daily">Каждый день</option>
+                <option value="weekly">Раз в неделю</option>
+                <option value="monthly">Раз в месяц</option>
+              </select>
+            </label>
           </div>
-        </div>
-        <div class="panel glass">
-          <h2>Интеграции</h2>
-          <div class="list">
-            <div class="item"><strong class="ok">TrafficMind Script</strong><span>Подключен</span></div>
-            <div class="item"><strong class="warn">Google Analytics 4</strong><span>Ожидает OAuth credentials</span></div>
-            <div class="item"><strong class="warn">CRM</strong><span>Рекомендуется подключить для расчета прибыли</span></div>
-            <div class="item"><strong class="warn">Meta Pixel / TikTok Pixel</strong><span>Нужны для ретаргетинга и рекламы</span></div>
+          <div class="actions">
+            <button class="button primary" type="submit">Сохранить настройки</button>
+            <a class="button" href="link_only_report.html">Вернуться на сайт</a>
           </div>
+          <div class="status" id="save-status"></div>
+        </form>
+      </article>
+
+      <article class="card" id="telegram-sync">
+        <h2>Синхронизация с Telegram</h2>
+        <p class="muted">Когда ты создашь Telegram-бота, он сможет связать пользователя с этим кабинетом и подтягивать сохраненные настройки.</p>
+        <div class="sync-steps">
+          <div class="step"><span class="number">01</span><div><strong>Клиент нажимает “Войти”</strong><p class="muted">Кабинет принимает Telegram ID или одноразовый код, который бот отправит пользователю.</p></div></div>
+          <div class="step"><span class="number">02</span><div><strong>Бот подтверждает связку</strong><p class="muted">Будущий endpoint `/api/account/telegram-link` сохранит связь Telegram и личного кабинета.</p></div></div>
+          <div class="step"><span class="number">03</span><div><strong>Отчеты становятся персональными</strong><p class="muted">Бот знает сайт, цель, нишу, частоту отчетов и подключенные сервисы клиента.</p></div></div>
         </div>
-      </section>
-      <section class="wide">
-        <div class="panel glass"><h2>Прогноз</h2><p class="muted">Если увеличить бюджет TikTok Ads на 20%, ожидается +18-25 лидов за следующий период при сохранении текущей конверсии.</p></div>
-        <div class="panel glass"><h2>Подписка</h2><p class="muted">Тариф BUSINESS: 299 ₽/мес, до 3 сайтов, AI-маркетолог, отчеты, сравнение сайтов и расширенные рекомендации.</p></div>
-      </section>
-    </main>
-  </div>
+        <div class="pill-list">
+          <span class="pill">Telegram ID</span>
+          <span class="pill">одноразовый код</span>
+          <span class="pill">история отчетов</span>
+          <span class="pill">сохраненные настройки</span>
+        </div>
+      </article>
+    </section>
+
+    <section class="two">
+      <article class="card">
+        <h2>Что будет в кабинете</h2>
+        <div class="list">
+          <div class="item"><strong>Сайты клиента</strong>Основной сайт, дополнительные проекты и статус последней проверки.</div>
+          <div class="item"><strong>Подключения</strong>GA4, Метрика, Search Console, реклама, CRM, пиксели и call tracking.</div>
+          <div class="item"><strong>История отчетов</strong>Все отчеты, которые бот уже собрал по ссылке или по подключенным данным.</div>
+          <div class="item"><strong>Задачи роста</strong>Короткий список действий, которые бот рекомендует сделать первыми.</div>
+        </div>
+      </article>
+      <article class="card">
+        <h2>Что увидит бот</h2>
+        <p class="muted">После синхронизации бот сможет отвечать не как общий консультант, а как персональный AI-маркетолог конкретного клиента.</p>
+        <div class="pill-list">
+          <span class="pill">цель бизнеса</span>
+          <span class="pill">сайт</span>
+          <span class="pill">ниша</span>
+          <span class="pill">частота отчетов</span>
+          <span class="pill">подключенные сервисы</span>
+          <span class="pill">предыдущие выводы</span>
+        </div>
+      </article>
+    </section>
+  </main>
+
   <script>
-    const form = document.querySelector("#settings-form");
-    const status = document.querySelector("#save-status");
-    form.addEventListener("submit", async (event) => {
+    const loginForm = document.querySelector("#login-form");
+    const settingsForm = document.querySelector("#settings-form");
+    const loginStatus = document.querySelector("#login-status");
+    const saveStatus = document.querySelector("#save-status");
+    const siteStat = document.querySelector("#site-stat");
+    const syncStat = document.querySelector("#sync-stat");
+    const storageKey = "trafficmind_account_settings";
+
+    const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
+    if (saved.telegram_id) {
+      settingsForm.telegram_id.value = saved.telegram_id;
+      settingsForm.website.value = saved.website || settingsForm.website.value;
+      settingsForm.business_name.value = saved.business_name || settingsForm.business_name.value;
+      settingsForm.business_niche.value = saved.business_niche || settingsForm.business_niche.value;
+      settingsForm.goal.value = saved.goal || settingsForm.goal.value;
+      settingsForm.report_frequency.value = saved.report_frequency || settingsForm.report_frequency.value;
+      siteStat.textContent = saved.website || "example.com";
+      syncStat.textContent = "Связано";
+      loginStatus.textContent = `Вход выполнен как Telegram ID ${saved.telegram_id}`;
+    }
+
+    loginForm.addEventListener("submit", async (event) => {
       event.preventDefault();
-      const data = Object.fromEntries(new FormData(form).entries());
+      const code = document.querySelector("#login-code").value.trim();
+      settingsForm.telegram_id.value = code.replace(/\D/g, "") || "100001";
+      syncStat.textContent = "Связано";
+      loginStatus.textContent = "Кабинет связан с Telegram. После запуска бота эта связка будет подтверждаться через backend.";
+      localStorage.setItem(storageKey, JSON.stringify({
+        ...JSON.parse(localStorage.getItem(storageKey) || "{}"),
+        telegram_id: settingsForm.telegram_id.value,
+        telegram_link_code: code
+      }));
+      try {
+        await fetch("/api/account/telegram-link", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            telegram_id: Number(settingsForm.telegram_id.value),
+            link_code: code,
+            source: "web_account"
+          })
+        });
+      } catch (error) {
+        // GitHub Pages does not run the backend; localStorage keeps the demo useful.
+      }
+    });
+
+    settingsForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const data = Object.fromEntries(new FormData(settingsForm).entries());
       const payload = {
         telegram_id: Number(data.telegram_id),
+        website: data.website,
         business_name: data.business_name,
         business_niche: data.business_niche,
         goal: data.goal,
         report_frequency: data.report_frequency,
-        alert_level: data.alert_level,
+        alert_level: "important",
         timezone: "Europe/Moscow",
         onboarding_completed: true,
-        preferences: { show_money_first: true, language: "ru" }
+        preferences: {
+          show_money_first: true,
+          language: "ru",
+          telegram_sync: true
+        }
       };
+
+      localStorage.setItem(storageKey, JSON.stringify(payload));
+      siteStat.textContent = payload.website || "example.com";
+      saveStatus.textContent = "Настройки сохранены в кабинете. После запуска backend они будут сохраняться в базе и синхронизироваться с ботом.";
+
       try {
         const response = await fetch("/api/account/settings", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
         });
-        status.textContent = response.ok ? "Настройки сохранены" : "Демо-страница сохранит эти данные после запуска backend";
+        if (response.ok) {
+          saveStatus.textContent = "Настройки сохранены и отправлены в backend.";
+        }
       } catch (error) {
-        status.textContent = "В GitHub Pages это демо формы. В backend endpoint уже добавлен: POST /api/account/settings";
+        // Static demo mode.
       }
     });
   </script>
