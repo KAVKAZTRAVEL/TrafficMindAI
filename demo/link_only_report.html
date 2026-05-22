@@ -6,26 +6,32 @@
   <title>Отчет по ссылке TrafficMind AI</title>
   <style>
     :root {
-      color-scheme: light;
-      --bg: #f5f5f7;
-      --ink: #1d1d1f;
-      --muted: #6e6e73;
-      --line: rgba(0, 0, 0, .08);
-      --card: rgba(255, 255, 255, .72);
-      --card-strong: rgba(255, 255, 255, .92);
-      --blue: #0071e3;
-      --blue-soft: #e8f2ff;
-      --green: #34c759;
-      --amber: #ff9f0a;
-      --red: #ff3b30;
-      --shadow: 0 22px 70px rgba(0, 0, 0, .10);
+      color-scheme: dark;
+      --bg: #000;
+      --ink: #f5f5f7;
+      --muted: #a1a1a6;
+      --line: rgba(255, 255, 255, .12);
+      --card: rgba(18, 18, 22, .82);
+      --card-strong: rgba(26, 26, 31, .92);
+      --blue: #5eb6ff;
+      --blue-soft: rgba(94, 182, 255, .14);
+      --cyan: #7ddcff;
+      --steel: #8fa6b8;
+      --silver: #d7dde6;
+      --graphite: #2a3038;
+      --green: #7ddcff;
+      --amber: #b8c7d7;
+      --red: #d7dde6;
+      --shadow: 0 28px 90px rgba(0, 0, 0, .62);
+      --display-font: "Aptos Display", "Segoe UI Variable Display", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      --tech-font: "Cascadia Code", "SF Mono", "Roboto Mono", Consolas, monospace;
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Inter, Segoe UI, Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Inter, Arial, sans-serif;
       color: var(--ink);
       background: var(--bg);
       letter-spacing: 0;
@@ -42,8 +48,8 @@
       justify-content: space-between;
       gap: 18px;
       padding: 0 clamp(14px, 4vw, 72px);
-      border-bottom: 1px solid rgba(0,0,0,.055);
-      background: rgba(245,245,247,.82);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.72);
       backdrop-filter: saturate(180%) blur(20px);
     }
     .brand { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 13px; }
@@ -51,25 +57,24 @@
       width: 20px;
       height: 20px;
       border-radius: 6px;
-      background: linear-gradient(135deg, #111, #5f6368 55%, #0071e3);
+      background: linear-gradient(135deg, var(--silver), #557997 52%, #0b1118);
       box-shadow: inset 0 1px 0 rgba(255,255,255,.45);
     }
-    .nav { display: flex; align-items: center; gap: clamp(12px, 2vw, 26px); color: rgba(29,29,31,.72); font-size: 12px; }
+    .nav { display: flex; align-items: center; gap: clamp(12px, 2vw, 26px); color: rgba(245,245,247,.68); font-size: 12px; }
     .nav a { padding: 4px 0; border-radius: 0; }
     .nav a.active, .nav a:hover { color: var(--ink); background: transparent; }
     .page { width: 100%; margin: 0 auto; padding: 0 0 72px; display: grid; gap: 12px; }
     .page > section:not(.hero) { width: min(1220px, calc(100% - 32px)); margin: 0 auto; }
     .hero {
-      min-height: 760px;
+      min-height: 890px;
       display: grid;
       grid-template-columns: 1fr;
       align-items: start;
       justify-items: center;
-      gap: 34px;
-      padding: clamp(46px, 7vw, 88px) clamp(18px, 5vw, 72px) 54px;
+      gap: 22px;
+      padding: clamp(32px, 5vw, 58px) clamp(18px, 5vw, 72px) 64px;
       border-radius: 0;
-      background:
-        linear-gradient(180deg, #ffffff 0%, #fbfbfd 58%, #f5f5f7 100%);
+      background: #000;
       border: 0;
       box-shadow: none;
       overflow: hidden;
@@ -83,22 +88,36 @@
       min-height: 34px;
       padding: 0 14px;
       border-radius: 999px;
-      background: #fff;
-      color: var(--muted);
+      background: rgba(255,255,255,.07);
+      color: rgba(245,245,247,.72);
       border: 1px solid var(--line);
-      box-shadow: 0 10px 30px rgba(0,0,0,.05);
+      box-shadow: none;
       font-size: 14px;
+      font-family: var(--tech-font);
       margin-bottom: 18px;
     }
-    h1 { margin: 0 auto; max-width: 980px; font-size: clamp(56px, 8vw, 112px); line-height: 1.18; letter-spacing: 0; }
-    .hero p { max-width: 760px; margin: 18px auto 0; color: var(--muted); font-size: clamp(21px, 2.3vw, 30px); line-height: 1.22; }
+    h1 {
+      margin: 0 auto;
+      max-width: 980px;
+      font-family: var(--display-font);
+      font-size: clamp(58px, 8vw, 116px);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: 0;
+      color: #f5f5f7;
+      background: linear-gradient(92deg, #f6f7fb 0%, #bfc8d5 30%, var(--cyan) 55%, #8fa6b8 76%, #ffffff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p { max-width: 720px; margin: 16px auto 0; color: rgba(245,245,247,.86); font-family: var(--display-font); font-size: clamp(21px, 2.2vw, 30px); line-height: 1.28; }
     .hero-links {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
       gap: 22px;
       margin-top: 22px;
-      color: var(--blue);
+      color: #8ecbff;
       font-size: 19px;
     }
     .hero-links a:after { content: " >"; }
@@ -109,9 +128,9 @@
       max-width: 620px;
       padding: 8px;
       border-radius: 999px;
-      background: #fff;
+      background: rgba(255,255,255,.08);
       border: 1px solid var(--line);
-      box-shadow: 0 18px 42px rgba(0,0,0,.08);
+      box-shadow: 0 18px 60px rgba(0,0,0,.38);
     }
     input { min-width: 0; flex: 1; height: 46px; padding: 0 16px; border: 0; outline: 0; color: var(--ink); background: transparent; }
     .primary {
@@ -120,29 +139,62 @@
       border-radius: 999px;
       padding: 0 18px;
       color: white;
-      background: var(--blue);
+      background: #f5f5f7;
+      color: #000;
       font-weight: 700;
       cursor: pointer;
       white-space: nowrap;
     }
     .report-device {
-      width: min(760px, 94vw);
-      min-height: 360px;
-      border-radius: 46px;
-      background: #111;
-      padding: 16px;
-      box-shadow: 0 34px 90px rgba(0,0,0,.22);
+      order: -1;
+      width: min(680px, 90vw);
+      min-height: 530px;
+      border-radius: 0;
+      background: transparent;
+      padding: 0;
+      box-shadow: none;
       transform: none;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      color: transparent;
+      font-size: 0;
+      contain: paint;
+    }
+    .report-device:before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: min(450px, 68vw);
+      aspect-ratio: 1.12;
+      transform: translate(-50%, -50%) rotate(-10deg);
+      border-radius: 44% 56% 52% 48% / 50% 42% 58% 50%;
+      background:
+        linear-gradient(135deg, rgba(245,245,247,.92) 0%, rgba(125,220,255,.80) 34%, rgba(10,28,42,.92) 58%, rgba(143,166,184,.82) 100%);
+      box-shadow:
+        inset 40px 30px 90px rgba(255,255,255,.24),
+        inset -58px -52px 120px rgba(0,0,0,.82),
+        0 0 110px rgba(76,159,220,.36);
+      filter: saturate(1.1) contrast(1.08);
+      z-index: 1;
+    }
+    .report-device:after {
+      content: "";
+      position: absolute;
+      inset: 5%;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,.92) 0 1px, transparent 1.35px),
+        radial-gradient(circle, rgba(94,182,255,.82) 0 1px, transparent 1.5px);
+      background-size: 9px 9px, 13px 13px;
+      background-position: 0 0, 4px 6px;
+      mask-image: linear-gradient(92deg, transparent 0%, #000 39%, #000 74%, transparent 100%);
+      opacity: .38;
+      transform: rotate(9deg);
+      z-index: 2;
     }
     .device-screen {
-      height: 100%;
-      border-radius: 28px;
-      background: linear-gradient(180deg, #fbfbfd, #f2f2f7);
-      padding: 18px;
-      display: grid;
-      gap: 14px;
-      align-content: start;
-      overflow: hidden;
+      display: none;
     }
     .device-chip { min-height: 30px; border-radius: 999px; background: rgba(0,0,0,.05); width: 46%; }
     .device-title { font-size: 30px; font-weight: 800; line-height: 1; }
@@ -152,7 +204,7 @@
     .mini-bars span:before { content:""; display:block; height:100%; border-radius:999px; background: var(--blue); width: var(--w); }
     .section { display: grid; gap: 18px; }
     .section-head { display: flex; justify-content: space-between; gap: 18px; align-items: end; }
-    .section h2 { margin: 0; font-size: clamp(32px, 4.6vw, 58px); line-height: 1; letter-spacing: 0; }
+    .section h2 { margin: 0; font-family: var(--display-font); font-size: clamp(32px, 4.6vw, 58px); line-height: 1; letter-spacing: 0; }
     .section-head p, .muted { color: var(--muted); line-height: 1.5; margin: 0; }
     .grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 16px; }
     .two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -161,8 +213,8 @@
       border-radius: 0;
       padding: clamp(24px, 3.2vw, 42px);
       background: var(--card);
-      border: 1px solid rgba(255,255,255,.9);
-      box-shadow: 0 16px 42px rgba(0,0,0,.07);
+      border: 1px solid rgba(255,255,255,.11);
+      box-shadow: var(--shadow);
       backdrop-filter: blur(20px);
     }
     .metric b { display: block; font-size: clamp(32px, 4vw, 52px); line-height: .95; margin-bottom: 10px; }
@@ -178,8 +230,7 @@
       display: grid;
       align-content: space-between;
       gap: 26px;
-      background:
-        linear-gradient(145deg, rgba(255,255,255,.96), rgba(242,242,247,.78));
+      background: linear-gradient(145deg, rgba(20,20,24,.98), rgba(6,6,8,.92));
     }
     .bot-face {
       width: min(100%, 360px);
@@ -191,8 +242,8 @@
       padding: 28px;
       color: #fff;
       background:
-        linear-gradient(145deg, #0b0b0f, #1d1d1f 52%, #0071e3);
-      box-shadow: 0 28px 74px rgba(0,0,0,.22);
+        linear-gradient(145deg, #050507, #171b20 48%, #0d3956);
+      box-shadow: 0 28px 74px rgba(0,0,0,.54);
       position: relative;
       overflow: hidden;
     }
@@ -249,7 +300,7 @@
       background: rgba(255,255,255,.11);
       border: 1px solid rgba(255,255,255,.14);
     }
-    .bot-card h2 { margin: 0; font-size: clamp(34px, 4.4vw, 62px); line-height: .98; }
+    .bot-card h2 { margin: 0; font-family: var(--display-font); font-size: clamp(34px, 4.4vw, 62px); line-height: .98; }
     .bot-card p { margin: 18px 0 0; color: var(--muted); line-height: 1.5; font-size: 17px; }
     .bot-points {
       display: grid;
@@ -260,16 +311,45 @@
       min-height: 92px;
       border-radius: 22px;
       padding: 14px;
-      background: rgba(255,255,255,.74);
+      background: rgba(255,255,255,.07);
       border: 1px solid var(--line);
+      position: relative;
+      overflow: hidden;
     }
-    .bot-point strong { display: block; font-size: 22px; margin-bottom: 5px; }
-    .bot-point span { color: var(--muted); line-height: 1.35; font-size: 13px; }
+    .bot-point:before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+      background-size: 22px 22px;
+      opacity: .55;
+      pointer-events: none;
+    }
+    .bot-point strong {
+      display: inline-grid;
+      place-items: center;
+      min-width: 44px;
+      height: 34px;
+      margin-bottom: 9px;
+      padding: 0 12px;
+      border-radius: 10px;
+      color: #f5f5f7;
+      background: linear-gradient(135deg, rgba(255,255,255,.14), rgba(94,182,255,.10));
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.22), 0 0 24px rgba(94,182,255,.12);
+      font-size: 19px;
+      font-variant-numeric: tabular-nums;
+      position: relative;
+      clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 9px 100%, 0 calc(100% - 9px));
+    }
+    .bot-point span { color: var(--muted); line-height: 1.35; font-size: 13px; position: relative; }
     .metrics-panel {
       display: grid;
       gap: 16px;
       background:
-        linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.74));
+        linear-gradient(180deg, rgba(18,18,22,.98), rgba(6,6,8,.92));
     }
     .metrics-panel .section-head { align-items: start; }
     .metric-tabs {
@@ -284,54 +364,120 @@
       min-height: 32px;
       padding: 0 12px;
       border-radius: 999px;
-      background: #f2f2f7;
+      background: rgba(255,255,255,.07);
       border: 1px solid var(--line);
       color: var(--muted);
+      font-family: var(--tech-font);
       font-size: 13px;
     }
-    .metrics-list { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+    .metrics-list { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; perspective: 1200px; }
     .metric-row {
       display: grid;
-      grid-template-columns: 42px 1fr;
-      gap: 13px;
-      min-height: 122px;
-      padding: 16px;
-      border-radius: 24px;
-      background: #fff;
-      border: 1px solid rgba(0,0,0,.065);
-      box-shadow: 0 12px 28px rgba(0,0,0,.045);
+      gap: 16px;
+      min-height: 212px;
+      padding: 22px;
+      border-radius: 30px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.11), rgba(255,255,255,.035) 42%, rgba(0,0,0,.18)),
+        radial-gradient(circle at 80% 12%, color-mix(in srgb, var(--metric-color) 26%, transparent), transparent 38%);
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.14),
+        inset 0 -42px 70px rgba(0,0,0,.22),
+        0 26px 72px rgba(0,0,0,.32);
       position: relative;
       overflow: hidden;
+      transform: rotateX(0deg) rotateY(0deg) translateZ(0);
+      transform-style: preserve-3d;
+      transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+    }
+    .metric-row:nth-child(odd) { transform: rotateY(-2deg) translateZ(0); }
+    .metric-row:nth-child(even) { transform: rotateY(2deg) translateZ(0); }
+    .metric-row:hover {
+      transform: rotateY(0deg) translateY(-4px) translateZ(18px);
+      border-color: color-mix(in srgb, var(--metric-color) 38%, rgba(255,255,255,.12));
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.18),
+        inset 0 -42px 70px rgba(0,0,0,.22),
+        0 34px 88px rgba(0,0,0,.42);
     }
     .metric-row:before {
       content: "";
       position: absolute;
-      left: 0;
-      top: 16px;
-      bottom: 16px;
-      width: 4px;
+      left: 22px;
+      right: 22px;
+      bottom: 18px;
+      height: 1px;
       border-radius: 999px;
-      background: var(--metric-color, var(--blue));
+      background: linear-gradient(90deg, transparent, var(--metric-color), transparent);
+      opacity: .8;
+    }
+    .metric-row:after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.052) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.040) 1px, transparent 1px);
+      background-size: 24px 24px;
+      mask-image: linear-gradient(135deg, #000 0%, transparent 78%);
+      opacity: .34;
+      pointer-events: none;
     }
     .metric-row small {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      color: white;
-      background: var(--metric-color, #111);
-      font-weight: 900;
+      width: fit-content;
+      min-height: 34px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 12px;
+      border-radius: 12px;
+      color: rgba(245,245,247,.88);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.18), rgba(255,255,255,.04)),
+        var(--metric-color, #111);
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.22), 0 0 26px rgba(94,182,255,.16);
+      font-family: var(--tech-font);
+      font-size: 12px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      position: relative;
+      z-index: 1;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
     }
-    .metric-row strong { display: block; margin-bottom: 6px; line-height: 1.18; }
-    .metric-row span { display: block; color: var(--muted); line-height: 1.35; font-size: 14px; }
-    .source-tag { color: var(--blue); font-weight: 800; }
-    .metric-row[data-type="traffic"] { --metric-color: #0071e3; }
-    .metric-row[data-type="conversion"] { --metric-color: #34c759; }
-    .metric-row[data-type="money"] { --metric-color: #111; }
-    .metric-row[data-type="ads"] { --metric-color: #ff9f0a; }
-    .metric-row[data-type="seo"] { --metric-color: #5856d6; }
-    .metric-row[data-type="calls"] { --metric-color: #ff3b30; }
+    .metric-row small:after {
+      content: "";
+      position: absolute;
+      inset: 6px;
+      border: 1px solid rgba(255,255,255,.20);
+      clip-path: polygon(0 0, 65% 0, 65% 1px, 1px 1px, 1px 65%, 0 65%);
+      opacity: .8;
+    }
+    .metric-row strong { display: block; margin-bottom: 8px; font-family: var(--display-font); font-size: 24px; line-height: 1.08; }
+    .metric-row span { display: block; color: var(--muted); line-height: 1.38; font-size: 15px; }
+    .metric-row strong, .metric-row span { position: relative; z-index: 1; }
+    .metric-pairs { display: flex; flex-wrap: wrap; gap: 8px; position: relative; z-index: 1; }
+    .metric-pairs b {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 0 10px;
+      border-radius: 999px;
+      color: rgba(245,245,247,.82);
+      background: rgba(255,255,255,.075);
+      border: 1px solid rgba(255,255,255,.09);
+      font-family: var(--tech-font);
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .source-tag { color: #8ecbff; font-weight: 800; }
+    .metric-row[data-type="traffic"] { --metric-color: #5eb6ff; }
+    .metric-row[data-type="conversion"] { --metric-color: #7ddcff; }
+    .metric-row[data-type="money"] { --metric-color: #d7dde6; }
+    .metric-row[data-type="ads"] { --metric-color: #8fa6b8; }
+    .metric-row[data-type="seo"] { --metric-color: #9fb8ff; }
+    .metric-row[data-type="calls"] { --metric-color: #b8c7d7; }
     .true-metrics {
       display: grid;
       grid-template-columns: .95fr 1.05fr;
@@ -341,8 +487,7 @@
     .tm-hero {
       display: grid;
       gap: 22px;
-      background:
-        linear-gradient(145deg, #ffffff, #f5f5f7);
+      background: linear-gradient(145deg, rgba(18,18,22,.96), rgba(6,6,8,.92));
     }
     .tm-label {
       width: fit-content;
@@ -367,7 +512,7 @@
       min-height: 96px;
       border-radius: 22px;
       padding: 14px;
-      background: #fff;
+      background: rgba(255,255,255,.07);
       border: 1px solid var(--line);
     }
     .tm-proof strong { display: block; margin-bottom: 7px; }
@@ -435,21 +580,35 @@
     .ring { width: 150px; height: 150px; position: relative; display: grid; place-items: center; }
     .ring svg { width: 150px; height: 150px; transform: rotate(-90deg); }
     .ring circle { fill: none; stroke-width: 14; stroke-linecap: round; }
-    .ring .bg { stroke: #e5e5ea; }
+    .ring .bg { stroke: rgba(255,255,255,.13); }
     .ring .fg { stroke: var(--blue); stroke-dasharray: 326; stroke-dashoffset: var(--offset); }
     .ring strong { position: absolute; font-size: 32px; }
     .funnel { display: grid; gap: 12px; }
     .funnel-row { display: grid; grid-template-columns: 120px 1fr 70px; gap: 12px; align-items: center; color: var(--muted); }
-    .funnel-track { height: 16px; border-radius: 999px; background: #e5e5ea; overflow: hidden; }
-    .funnel-fill { height: 100%; width: var(--w); background: linear-gradient(90deg, #111, var(--blue)); border-radius: 999px; }
+    .funnel-track { height: 16px; border-radius: 999px; background: rgba(255,255,255,.12); overflow: hidden; }
+    .funnel-fill { height: 100%; width: var(--w); background: linear-gradient(90deg, #f5f5f7, var(--blue)); border-radius: 999px; }
     .timeline { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
     .step { min-height: 154px; border-radius: 26px; padding: 20px; background: var(--card-strong); border: 1px solid var(--line); }
-    .step small { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; color: white; background: #111; margin-bottom: 14px; font-weight: 800; }
+    .step small {
+      display: inline-grid;
+      place-items: center;
+      width: 38px;
+      height: 32px;
+      border-radius: 10px;
+      color: #f5f5f7;
+      background: linear-gradient(135deg, rgba(255,255,255,.16), rgba(94,182,255,.12));
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.20), 0 0 24px rgba(94,182,255,.12);
+      margin-bottom: 14px;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+    }
     .step.active { box-shadow: 0 20px 52px rgba(0,113,227,.16); border-color: rgba(0,113,227,.22); }
-    .step.active small { background: var(--blue); }
+    .step.active small { background: linear-gradient(135deg, #f5f5f7, var(--blue)); color: #000; }
     .visibility-card { min-height: 100%; }
     .list { display: grid; gap: 12px; margin-top: 16px; }
-    .item { padding: 15px; border-radius: 20px; background: rgba(255,255,255,.72); border: 1px solid var(--line); }
+    .item { padding: 15px; border-radius: 20px; background: rgba(255,255,255,.055); border: 1px solid var(--line); }
     .item strong { display: block; margin-bottom: 5px; }
     .check { color: var(--green); }
     .missing { color: var(--amber); }
@@ -458,15 +617,15 @@
     .leaks { display: grid; gap: 14px; }
     .leak-row { display: grid; grid-template-columns: 220px 1fr 140px; gap: 14px; align-items: center; }
     .leak-row strong { line-height: 1.2; }
-    .leak-track { height: 18px; border-radius: 999px; background: #e5e5ea; overflow: hidden; }
-    .leak-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #ff9f0a, #ff3b30); width: var(--w); }
+    .leak-track { height: 18px; border-radius: 999px; background: rgba(255,255,255,.12); overflow: hidden; }
+    .leak-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #8fa6b8, #7ddcff); width: var(--w); }
     .actions { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 14px; }
-    .action { border-radius: 28px; padding: 20px; background: #fff; border: 1px solid var(--line); min-height: 174px; }
-    .action small { color: var(--blue); font-weight: 800; }
+    .action { border-radius: 28px; padding: 20px; background: rgba(255,255,255,.055); border: 1px solid var(--line); min-height: 174px; }
+    .action small { color: #8ecbff; font-weight: 800; }
     .artifact { display: grid; grid-template-columns: 1fr 280px; gap: 22px; align-items: center; background: #111; color: #fff; }
     .artifact .muted { color: rgba(255,255,255,.68); }
-    .cta { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 20px; border-radius: 999px; background: #fff; color: #111; font-weight: 800; }
-    .notice { border-color: rgba(255,159,10,.20); background: rgba(255,249,235,.86); }
+    .cta { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 20px; border-radius: 999px; background: #f5f5f7; color: #000; font-weight: 800; }
+    .notice { border-color: rgba(255,159,10,.24); background: rgba(255,159,10,.10); }
     @media (max-width: 980px) {
       .topbar { position: static; }
       .nav { display: none; }
@@ -499,8 +658,8 @@
     <section class="hero">
       <div>
         <span class="eyebrow">AI-маркетолог в Telegram</span>
-        <h1>TrafficMind AI</h1>
-        <p>Одна ссылка превращается в понятный отчет о росте: что видно сейчас, где теряются деньги и какие данные нужно подключить, чтобы считать прибыль точно.</p>
+        <h1>TrafficMind AI.</h1>
+        <p>Одна ссылка превращается в понятный отчет о росте. Что видно сейчас, где теряются деньги и какие данные нужно подключить, чтобы считать прибыль точно.</p>
         <div class="hero-links" aria-label="Быстрые действия">
           <a href="#bot-intro">Посмотреть возможности</a>
           <a href="#true-metrics">Подключить TrueMetrics</a>
@@ -569,19 +728,34 @@
               <span>Звонки</span>
             </div>
           </div>
-          <p>Показываются только когда есть реальный источник данных: GA4, Яндекс Метрика, Google Search Console, рекламные кабинеты, CRM, GTM, пиксели или call tracking.</p>
+          <p>Вместо длинной таблицы бот собирает метрики в понятные блоки: трафик, заявки, деньги, реклама, поиск и звонки. Так владелец бизнеса сразу видит, где рост, а где потеря.</p>
         </div>
         <div class="metrics-list">
-          <div class="metric-row" data-type="traffic"><small>1</small><div><strong>Пользователи и сессии</strong><span><span class="source-tag">GA4 / Метрика</span> объем аудитории, визиты, новые и возвращающиеся пользователи по каналам.</span></div></div>
-          <div class="metric-row" data-type="conversion"><small>2</small><div><strong>Конверсии и события</strong><span><span class="source-tag">GA4 / GTM / Метрика</span> заявки, формы, клики по телефону, мессенджеры, покупки и микроцели.</span></div></div>
-          <div class="metric-row" data-type="conversion"><small>3</small><div><strong>Conversion Rate</strong><span><span class="source-tag">GA4 / CRM</span> доля пользователей, сессий или лидов, которые дошли до целевого действия.</span></div></div>
-          <div class="metric-row" data-type="money"><small>4</small><div><strong>Доход и продажи</strong><span><span class="source-tag">CRM / ecommerce GA4</span> выручка, сделки, оплаченные заказы, средний чек и статусы продаж.</span></div></div>
-          <div class="metric-row" data-type="ads"><small>5</small><div><strong>Расход рекламы</strong><span><span class="source-tag">Google Ads / Meta / TikTok / LinkedIn</span> spend по кампаниям, группам, объявлениям и периодам.</span></div></div>
-          <div class="metric-row" data-type="ads"><small>6</small><div><strong>CTR, CPC и CPM</strong><span><span class="source-tag">Рекламные кабинеты</span> кликабельность, цена клика и цена тысячи показов для оценки качества трафика.</span></div></div>
-          <div class="metric-row" data-type="money"><small>7</small><div><strong>CPL, CPA и CAC</strong><span><span class="source-tag">Ads + CRM</span> стоимость лида, целевого действия или привлеченного клиента.</span></div></div>
-          <div class="metric-row" data-type="money"><small>8</small><div><strong>ROAS и ROI</strong><span><span class="source-tag">Ads + CRM / revenue</span> возврат рекламных расходов и прибыльность каналов с учетом выручки.</span></div></div>
-          <div class="metric-row" data-type="seo"><small>9</small><div><strong>SEO: клики, показы, CTR, позиция</strong><span><span class="source-tag">Google Search Console</span> запросы, страницы входа, средняя позиция и поисковый CTR.</span></div></div>
-          <div class="metric-row" data-type="calls"><small>10</small><div><strong>Звонки и качество лидов</strong><span><span class="source-tag">Call Tracking / CRM</span> звонки, источник звонка, статус лида и переход в продажу.</span></div></div>
+          <div class="metric-row" data-type="traffic">
+            <small>01 / SIGNAL</small>
+            <div><strong>Откуда приходит аудитория</strong><span><span class="source-tag">GA4 / Метрика</span> показывает, какие каналы реально приводят людей и как часто они возвращаются.</span></div>
+            <div class="metric-pairs"><b>Пользователи</b><b>Сессии</b></div>
+          </div>
+          <div class="metric-row" data-type="conversion">
+            <small>02 / ACTION</small>
+            <div><strong>Где человек становится заявкой</strong><span><span class="source-tag">GA4 / GTM / CRM</span> связывает формы, клики, мессенджеры и конверсию в понятный путь до лида.</span></div>
+            <div class="metric-pairs"><b>События</b><b>Conversion Rate</b></div>
+          </div>
+          <div class="metric-row" data-type="money">
+            <small>03 / MONEY</small>
+            <div><strong>Какие каналы дают деньги</strong><span><span class="source-tag">CRM / Ads / ecommerce</span> сравнивает выручку, продажи и стоимость привлечения, чтобы видеть прибыльность.</span></div>
+            <div class="metric-pairs"><b>Доход</b><b>CPL / CPA / CAC</b><b>ROAS / ROI</b></div>
+          </div>
+          <div class="metric-row" data-type="ads">
+            <small>04 / MEDIA</small>
+            <div><strong>Что происходит с рекламой</strong><span><span class="source-tag">Google Ads / Meta / TikTok / LinkedIn</span> показывает расходы и качество трафика без ручной сверки кабинетов.</span></div>
+            <div class="metric-pairs"><b>Расход</b><b>CTR / CPC / CPM</b></div>
+          </div>
+          <div class="metric-row" data-type="seo">
+            <small>05 / DEMAND</small>
+            <div><strong>Где уже есть спрос</strong><span><span class="source-tag">Search Console / Call Tracking</span> показывает поисковые запросы, страницы входа и звонки, которые можно довести до продаж.</span></div>
+            <div class="metric-pairs"><b>SEO клики</b><b>Показы</b><b>Позиция</b><b>Звонки</b></div>
+          </div>
         </div>
       </article>
     </section>
