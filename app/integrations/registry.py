@@ -12,7 +12,10 @@ class IntegrationSpec:
     setup_time: str
     env_prefix: str
     scopes: tuple[str, ...] = ()
+    scope_separator: str = " "
     auth_url: str | None = None
+    token_url: str | None = None
+    token_method: str = "POST"
     docs_url: str | None = None
     user_fields: tuple[str, ...] = ()
     install_steps: tuple[str, ...] = ()
@@ -40,6 +43,7 @@ INTEGRATIONS = [
         "GOOGLE",
         scopes=("https://www.googleapis.com/auth/analytics.readonly",),
         auth_url="https://accounts.google.com/o/oauth2/v2/auth",
+        token_url="https://oauth2.googleapis.com/token",
         docs_url="https://developers.google.com/analytics/devguides/reporting/data/v1",
     ),
     IntegrationSpec(
@@ -52,6 +56,7 @@ INTEGRATIONS = [
         "GOOGLE",
         scopes=("https://www.googleapis.com/auth/webmasters.readonly",),
         auth_url="https://accounts.google.com/o/oauth2/v2/auth",
+        token_url="https://oauth2.googleapis.com/token",
         docs_url="https://developers.google.com/webmaster-tools",
     ),
     IntegrationSpec(
@@ -62,21 +67,25 @@ INTEGRATIONS = [
         "oauth2",
         "2 минуты",
         "YANDEX",
+        scopes=("metrika:read",),
         auth_url="https://oauth.yandex.ru/authorize",
+        token_url="https://oauth.yandex.ru/token",
         docs_url="https://yandex.ru/dev/metrika/",
     ),
-    IntegrationSpec("google_ads", "Google Ads", "ads", "Расходы, кампании, клики, конверсии, CPL, ROAS.", "oauth2", "3 минуты", "GOOGLE", scopes=("https://www.googleapis.com/auth/adwords",), auth_url="https://accounts.google.com/o/oauth2/v2/auth", docs_url="https://developers.google.com/google-ads/api/docs/start"),
-    IntegrationSpec("meta_ads", "Meta Ads", "ads", "Instagram/Facebook реклама, креативы, расходы, CPL и лиды.", "oauth2", "3 минуты", "META", scopes=("ads_read", "business_management", "pages_read_engagement"), auth_url="https://www.facebook.com/v20.0/dialog/oauth", docs_url="https://developers.facebook.com/docs/marketing-apis/"),
+    IntegrationSpec("google_ads", "Google Ads", "ads", "Расходы, кампании, клики, конверсии, CPL, ROAS.", "oauth2", "3 минуты", "GOOGLE", scopes=("https://www.googleapis.com/auth/adwords",), auth_url="https://accounts.google.com/o/oauth2/v2/auth", token_url="https://oauth2.googleapis.com/token", docs_url="https://developers.google.com/google-ads/api/docs/start"),
+    IntegrationSpec("yandex_direct", "Яндекс Директ", "ads", "Кампании, расходы, клики, конверсии, CPL и эффективность объявлений в Яндексе.", "oauth2", "3 минуты", "YANDEX", scopes=("direct:api",), auth_url="https://oauth.yandex.ru/authorize", token_url="https://oauth.yandex.ru/token", docs_url="https://yandex.ru/dev/direct/doc/ru/"),
+    IntegrationSpec("meta_ads", "Meta Ads", "ads", "Instagram/Facebook реклама, креативы, расходы, CPL и лиды.", "oauth2", "3 минуты", "META", scopes=("ads_read", "business_management", "pages_read_engagement"), auth_url="https://www.facebook.com/v20.0/dialog/oauth", token_url="https://graph.facebook.com/v20.0/oauth/access_token", docs_url="https://developers.facebook.com/docs/marketing-apis/"),
     IntegrationSpec("tiktok_ads", "TikTok Ads", "ads", "Кампании, видео, расходы, лиды и эффективность креативов.", "oauth2", "3 минуты", "TIKTOK", scopes=("advertiser.read", "report.read"), auth_url="https://business-api.tiktok.com/portal/auth", docs_url="https://business-api.tiktok.com/portal/docs"),
-    IntegrationSpec("linkedin_ads", "LinkedIn Ads", "ads", "B2B кампании, расходы, лиды и CPL.", "oauth2", "3 минуты", "LINKEDIN", scopes=("r_ads_reporting", "r_ads"), auth_url="https://www.linkedin.com/oauth/v2/authorization", docs_url="https://learn.microsoft.com/en-us/linkedin/marketing/"),
+    IntegrationSpec("linkedin_ads", "LinkedIn Ads", "ads", "B2B кампании, расходы, лиды и CPL.", "oauth2", "3 минуты", "LINKEDIN", scopes=("r_ads_reporting", "r_ads"), auth_url="https://www.linkedin.com/oauth/v2/authorization", token_url="https://www.linkedin.com/oauth/v2/accessToken", docs_url="https://learn.microsoft.com/en-us/linkedin/marketing/"),
     IntegrationSpec("hubspot", "HubSpot", "crm", "Лиды, сделки, стадии, источники и revenue attribution.", "oauth2", "2 минуты", "HUBSPOT", scopes=("crm.objects.contacts.read", "crm.objects.deals.read"), auth_url="https://app.hubspot.com/oauth/authorize", docs_url="https://developers.hubspot.com/docs/api/overview"),
     IntegrationSpec("bitrix24", "Bitrix24", "crm", "Лиды, сделки, статусы, менеджеры и причины потерь.", "oauth2", "3 минуты", "BITRIX24", auth_url="https://oauth.bitrix.info/oauth/authorize/", docs_url="https://training.bitrix24.com/rest_help/", user_fields=("Домен портала, например example.bitrix24.ru",)),
     IntegrationSpec("amocrm", "AmoCRM", "crm", "Воронки, сделки, источники, этапы и причины потерь.", "oauth2", "3 минуты", "AMOCRM", auth_url="https://www.amocrm.ru/oauth", docs_url="https://www.amocrm.ru/developers/content/oauth/step-by-step", user_fields=("Поддомен AmoCRM, например company.amocrm.ru",)),
-    IntegrationSpec("instagram", "Instagram", "social", "Публикации, охваты, вовлеченность и контент, который приводит лиды.", "oauth2", "3 минуты", "META", scopes=("instagram_basic", "instagram_manage_insights", "pages_show_list"), auth_url="https://www.facebook.com/v20.0/dialog/oauth", docs_url="https://developers.facebook.com/docs/instagram-platform/"),
+    IntegrationSpec("instagram", "Instagram", "social", "Публикации, охваты, вовлеченность и контент, который приводит лиды.", "oauth2", "3 минуты", "META", scopes=("instagram_basic", "instagram_manage_insights", "pages_show_list"), auth_url="https://www.facebook.com/v20.0/dialog/oauth", token_url="https://graph.facebook.com/v20.0/oauth/access_token", docs_url="https://developers.facebook.com/docs/instagram-platform/"),
     IntegrationSpec("tiktok", "TikTok", "social", "Видео, просмотры, вовлеченность, идеи Reels и контентные тренды.", "oauth2", "3 минуты", "TIKTOK", scopes=("user.info.basic", "video.list"), auth_url="https://www.tiktok.com/v2/auth/authorize/", docs_url="https://developers.tiktok.com/doc/overview/"),
-    IntegrationSpec("facebook", "Facebook", "social", "Страницы, посты, охваты, вовлеченность и переходы.", "oauth2", "3 минуты", "META", scopes=("pages_read_engagement", "pages_read_user_content"), auth_url="https://www.facebook.com/v20.0/dialog/oauth", docs_url="https://developers.facebook.com/docs/pages-api/"),
-    IntegrationSpec("linkedin", "LinkedIn", "social", "B2B публикации, вовлеченность и контентные сигналы.", "oauth2", "3 минуты", "LINKEDIN", scopes=("openid", "profile", "w_member_social"), auth_url="https://www.linkedin.com/oauth/v2/authorization", docs_url="https://learn.microsoft.com/en-us/linkedin/"),
-    IntegrationSpec("youtube", "YouTube", "social", "Видео, просмотры, удержание, источники и идеи контента.", "oauth2", "3 минуты", "GOOGLE", scopes=("https://www.googleapis.com/auth/youtube.readonly",), auth_url="https://accounts.google.com/o/oauth2/v2/auth", docs_url="https://developers.google.com/youtube/v3"),
+    IntegrationSpec("facebook", "Facebook", "social", "Страницы, посты, охваты, вовлеченность и переходы.", "oauth2", "3 минуты", "META", scopes=("pages_read_engagement", "pages_read_user_content"), auth_url="https://www.facebook.com/v20.0/dialog/oauth", token_url="https://graph.facebook.com/v20.0/oauth/access_token", docs_url="https://developers.facebook.com/docs/pages-api/"),
+    IntegrationSpec("vk", "VK API", "social", "Сообщества, публикации, охваты, вовлеченность, рекламные кабинеты VK и переходы на сайт.", "oauth2", "3 минуты", "VK", scopes=("groups", "wall", "stats", "ads"), scope_separator=",", auth_url="https://oauth.vk.com/authorize", token_url="https://oauth.vk.com/access_token", token_method="GET", docs_url="https://dev.vk.com/ru/api/access-token/getting-started"),
+    IntegrationSpec("linkedin", "LinkedIn", "social", "B2B публикации, вовлеченность и контентные сигналы.", "oauth2", "3 минуты", "LINKEDIN", scopes=("openid", "profile", "w_member_social"), auth_url="https://www.linkedin.com/oauth/v2/authorization", token_url="https://www.linkedin.com/oauth/v2/accessToken", docs_url="https://learn.microsoft.com/en-us/linkedin/"),
+    IntegrationSpec("youtube", "YouTube", "social", "Видео, просмотры, удержание, источники и идеи контента.", "oauth2", "3 минуты", "GOOGLE", scopes=("https://www.googleapis.com/auth/youtube.readonly",), auth_url="https://accounts.google.com/o/oauth2/v2/auth", token_url="https://oauth2.googleapis.com/token", docs_url="https://developers.google.com/youtube/v3"),
     IntegrationSpec("mailchimp", "Mailchimp", "email", "Email-кампании, аудитории, клики и доход от рассылок.", "api_key", "2 минуты", "MAILCHIMP", docs_url="https://mailchimp.com/developer/marketing/"),
     IntegrationSpec("brevo", "Brevo", "email", "Email/SMS кампании, контакты, клики и конверсии.", "api_key", "2 минуты", "BREVO", docs_url="https://developers.brevo.com/"),
     IntegrationSpec("klaviyo", "Klaviyo", "email", "Email/SMS, ecommerce-события и revenue attribution.", "api_key", "2 минуты", "KLAVIYO", docs_url="https://developers.klaviyo.com/"),
@@ -113,6 +122,7 @@ def integration_to_dict(item: IntegrationSpec) -> dict:
         "setup_time": item.setup_time,
         "required_env": required_env_vars(item),
         "docs_url": item.docs_url,
+        "has_oauth_exchange": bool(item.token_url),
         "user_fields": list(item.user_fields),
         "install_steps": list(item.install_steps),
     }
@@ -136,8 +146,11 @@ def build_oauth_url(item: IntegrationSpec, client_id: str, redirect_uri: str, st
         "state": state,
     }
     if item.scopes:
-        params["scope"] = " ".join(item.scopes)
+        params["scope"] = item.scope_separator.join(item.scopes)
     if item.env_prefix == "GOOGLE":
         params["access_type"] = "offline"
         params["prompt"] = "consent"
+    if item.env_prefix == "VK":
+        params["display"] = "page"
+        params["v"] = "5.199"
     return f"{item.auth_url}?{urlencode(params)}"

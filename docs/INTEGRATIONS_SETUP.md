@@ -33,11 +33,17 @@ Meta services use:
 Other prefixes:
 
 - `YANDEX_*`
+- `VK_*`
 - `TIKTOK_*`
 - `LINKEDIN_*`
 - `HUBSPOT_*`
 - `BITRIX24_*`
 - `AMOCRM_*`
+
+Новые OAuth-сервисы:
+
+- `YANDEX_*` используется и для Яндекс Метрики, и для Яндекс Директа. Для Директа приложение должно иметь доступ к Direct API.
+- `VK_*` используется для VK API: сообщества, публикации, статистика и рекламные данные VK.
 
 ## Current implementation status
 
@@ -48,8 +54,9 @@ Implemented:
 - Telegram service picker;
 - setup/instruction card;
 - OAuth URL generation when env vars exist;
+- OAuth code-to-token exchange for providers with token endpoint;
 - OAuth callback receiver;
-- database status `authorized_pending_token_exchange`;
+- database status `connected` after successful token exchange;
 - API catalog endpoints.
 
 Next production step:

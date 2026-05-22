@@ -56,6 +56,7 @@ class IntegrationAccount(Base):
     status: Mapped[str] = mapped_column(String(32), default="disconnected")
     external_account_id: Mapped[str | None] = mapped_column(String(255))
     scopes: Mapped[list | None] = mapped_column(JSON)
+    token_data: Mapped[dict | None] = mapped_column(JSON)
     last_sync_at: Mapped[datetime | None] = mapped_column(DateTime)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
 

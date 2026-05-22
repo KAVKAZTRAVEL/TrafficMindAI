@@ -836,7 +836,9 @@
               <div class="check-grid">
                 <label class="check-card"><input type="checkbox" name="channel_seo" checked> SEO</label>
                 <label class="check-card" data-min-plan="growth399"><input type="checkbox" name="channel_ads" checked> Реклама<span class="lock-note">Откроется на тарифе “Рост”: анализ расходов, CPL и качества трафика.</span></label>
+                <label class="check-card" data-min-plan="growth399"><input type="checkbox" name="channel_yandex_direct" checked> Яндекс Директ<span class="lock-note">Откроется на тарифе “Рост”: расходы, клики, конверсии и CPL из Директа.</span></label>
                 <label class="check-card" data-min-plan="growth399"><input type="checkbox" name="channel_social" checked> Соцсети<span class="lock-note">Откроется на тарифе “Рост”: контент, вовлечение и заявки из соцсетей.</span></label>
+                <label class="check-card" data-min-plan="growth399"><input type="checkbox" name="channel_vk" checked> VK API<span class="lock-note">Откроется на тарифе “Рост”: сообщества, охваты, публикации и рекламные сигналы VK.</span></label>
                 <label class="check-card" data-min-plan="pro799"><input type="checkbox" name="channel_email"> Email<span class="lock-note">Откроется на тарифе “Максимум”: email-воронки и кампании.</span></label>
                 <label class="check-card" data-min-plan="pro799"><input type="checkbox" name="channel_calls" checked> Звонки<span class="lock-note">Откроется на тарифе “Максимум”: call tracking и качество обращений.</span></label>
                 <label class="check-card" data-min-plan="pro799"><input type="checkbox" name="channel_crm" checked> CRM<span class="lock-note">Откроется на тарифе “Максимум”: продажи, статусы сделок и выручка.</span></label>
@@ -887,7 +889,7 @@
         <h2>Что будет в кабинете</h2>
         <div class="list">
           <div class="item"><strong>Сайты клиента</strong>Основной сайт, дополнительные проекты и статус последней проверки.</div>
-          <div class="item"><strong>Подключения</strong>GA4, Метрика, Search Console, реклама, CRM, пиксели и call tracking.</div>
+          <div class="item"><strong>Подключения</strong>GA4, Метрика, Search Console, Google Ads, Яндекс Директ, VK API, CRM, пиксели и call tracking.</div>
           <div class="item"><strong>История отчетов</strong>Все отчеты, которые бот уже собрал по ссылке или по подключенным данным.</div>
           <div class="item"><strong>Задачи роста</strong>Короткий список действий, которые бот рекомендует сделать первыми.</div>
         </div>
@@ -1101,7 +1103,9 @@
         weekly_digest: prefs.notifications?.weekly_digest,
         channel_seo: prefs.channels?.seo,
         channel_ads: prefs.channels?.ads,
+        channel_yandex_direct: prefs.channels?.yandex_direct,
         channel_social: prefs.channels?.social,
+        channel_vk: prefs.channels?.vk,
         channel_email: prefs.channels?.email,
         channel_calls: prefs.channels?.calls,
         channel_crm: prefs.channels?.crm,
@@ -1172,7 +1176,9 @@
         channels: {
           seo: Boolean(data.channel_seo),
           ads: Boolean(data.channel_ads),
+          yandex_direct: Boolean(data.channel_yandex_direct),
           social: Boolean(data.channel_social),
+          vk: Boolean(data.channel_vk),
           email: Boolean(data.channel_email),
           calls: Boolean(data.channel_calls),
           crm: Boolean(data.channel_crm)

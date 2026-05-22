@@ -16,7 +16,7 @@ from app.services.growth_intelligence_service import (
     generate_today_actions,
 )
 from app.integrations.registry import get_integration, required_env_vars
-from app.services.integration_connection_service import catalog_payload, setup_text
+from app.services.integration_connection_service import catalog_payload, exchange_oauth_code, setup_text
 from app.services.link_only_report_service import link_only_report_payload
 from app.tracker.tracker_api import router as tracker_router
 
@@ -256,22 +256,43 @@ async def oauth_callback(provider: str, code: str | None = None, state: str | No
             IntegrationAccount.provider == integration_code,
         )
     )
+    token_payload = None
+    token_error = None
+    try:
+        token_payload = await exchange_oauth_code(item, code)
+    except Exception as exc:
+        token_error = str(exc)
+    external_account_id = None
+    if token_payload:
+        external_account_id = str(
+            token_payload.get("user_id")
+            or token_payload.get("uid")
+            or token_payload.get("account_id")
+            or ""
+        ) or None
+
     if not account:
         account = IntegrationAccount(
             user_id=int(user_id_raw),
             provider=integration_code,
             category=item.category,
-            status="authorized_pending_token_exchange",
+            status="connected" if token_payload else "oauth_exchange_failed",
             scopes=list(item.scopes),
+            token_data=token_payload,
+            external_account_id=external_account_id,
         )
         db.add(account)
     else:
-        account.status = "authorized_pending_token_exchange"
+        account.status = "connected" if token_payload else "oauth_exchange_failed"
+        account.token_data = token_payload
+        if external_account_id:
+            account.external_account_id = external_account_id
     await db.commit()
     return {
-        "ok": True,
+        "ok": bool(token_payload),
         "provider": provider,
         "integration": integration_code,
-        "status": "authorized_pending_token_exchange",
-        "message": "Авторизация получена. Следующий production-шаг: обменять code на access/refresh token и сохранить токены в зашифрованном хранилище.",
+        "status": account.status,
+        "message": "Интеграция подключена и токен сохранен." if token_payload else "Авторизация получена, но обмен code на token не прошел. Проверьте env ключи приложения и redirect URI.",
+        "error": token_error,
     }
