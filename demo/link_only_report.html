@@ -325,6 +325,106 @@
     .metric-row[data-type="ads"] { --metric-color: #ff9f0a; }
     .metric-row[data-type="seo"] { --metric-color: #5856d6; }
     .metric-row[data-type="calls"] { --metric-color: #ff3b30; }
+    .true-metrics {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+    .tm-hero {
+      display: grid;
+      gap: 22px;
+      background:
+        radial-gradient(circle at 86% 12%, rgba(0,113,227,.20), transparent 30%),
+        linear-gradient(145deg, #ffffff, #f5f5f7);
+    }
+    .tm-label {
+      width: fit-content;
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 13px;
+      border-radius: 999px;
+      color: var(--blue);
+      background: var(--blue-soft);
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .tm-hero h2 { margin: 0; font-size: clamp(34px, 4.4vw, 62px); line-height: .98; }
+    .tm-hero p { margin: 0; color: var(--muted); line-height: 1.5; font-size: 17px; }
+    .tm-proof-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 10px;
+    }
+    .tm-proof {
+      min-height: 96px;
+      border-radius: 22px;
+      padding: 14px;
+      background: #fff;
+      border: 1px solid var(--line);
+    }
+    .tm-proof strong { display: block; margin-bottom: 7px; }
+    .tm-proof span { color: var(--muted); font-size: 13px; line-height: 1.35; }
+    .tm-board {
+      display: grid;
+      gap: 14px;
+      background: #111;
+      color: #fff;
+      overflow: hidden;
+    }
+    .tm-board .muted { color: rgba(255,255,255,.64); }
+    .tm-flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 10px;
+    }
+    .tm-node {
+      min-height: 112px;
+      border-radius: 24px;
+      padding: 16px;
+      display: grid;
+      align-content: space-between;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+    }
+    .tm-node small {
+      color: rgba(255,255,255,.52);
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0;
+    }
+    .tm-node strong { line-height: 1.1; }
+    .tm-reports {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 8px;
+    }
+    .tm-report {
+      min-height: 54px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      border-radius: 18px;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.10);
+      color: rgba(255,255,255,.78);
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .tm-code {
+      display: block;
+      white-space: normal;
+      word-break: break-word;
+      padding: 14px;
+      border-radius: 18px;
+      color: rgba(255,255,255,.78);
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.10);
+      font-size: 13px;
+      line-height: 1.45;
+    }
     .ring-card { display: grid; grid-template-columns: 150px 1fr; gap: 20px; align-items: center; }
     .ring { width: 150px; height: 150px; position: relative; display: grid; place-items: center; }
     .ring svg { width: 150px; height: 150px; transform: rotate(-90deg); }
@@ -365,13 +465,13 @@
       .topbar { position: static; }
       .nav { display: none; }
       .page { padding-top: 28px; }
-      .hero, .two, .artifact, .bot-welcome { grid-template-columns: 1fr; }
-      .grid, .three, .actions, .timeline { grid-template-columns: 1fr 1fr; }
+      .hero, .two, .artifact, .bot-welcome, .true-metrics { grid-template-columns: 1fr; }
+      .grid, .three, .actions, .timeline, .tm-flow { grid-template-columns: 1fr 1fr; }
       .report-device { transform: none; }
     }
     @media (max-width: 640px) {
       .urlbox, .funnel-row, .leak-row, .ring-card { grid-template-columns: 1fr; display: grid; border-radius: 28px; }
-      .grid, .three, .actions, .timeline, .metrics-list, .bot-points, .source-flow { grid-template-columns: 1fr; }
+      .grid, .three, .actions, .timeline, .metrics-list, .bot-points, .source-flow, .tm-proof-grid, .tm-flow, .tm-reports { grid-template-columns: 1fr; }
       .hero { min-height: auto; padding: 28px; border-radius: 30px; }
       h1 { font-size: 44px; }
     }
@@ -473,6 +573,38 @@
           <div class="metric-row" data-type="seo"><small>9</small><div><strong>SEO: клики, показы, CTR, позиция</strong><span><span class="source-tag">Google Search Console</span> запросы, страницы входа, средняя позиция и поисковый CTR.</span></div></div>
           <div class="metric-row" data-type="calls"><small>10</small><div><strong>Звонки и качество лидов</strong><span><span class="source-tag">Call Tracking / CRM</span> звонки, источник звонка, статус лида и переход в продажу.</span></div></div>
         </div>
+      </article>
+    </section>
+
+    <section class="true-metrics" aria-label="TrafficMind TrueMetrics">
+      <article class="card tm-hero">
+        <span class="tm-label">Новая функция сервиса</span>
+        <h2>TrafficMind TrueMetrics</h2>
+        <p>Это собственный слой честной аналитики для TrafficMind AI. Он дополняет GA4, Метрику и рекламные кабинеты: собирает события сайта, события бота и server-side события в одно хранилище, чтобы отчет показывал не только клики, но и проверяемый путь до заявки.</p>
+        <div class="tm-proof-grid">
+          <div class="tm-proof"><strong>Browser layer</strong><span>pageview, click, scroll depth, UTM и пользовательские события через `tm.js`.</span></div>
+          <div class="tm-proof"><strong>Server layer</strong><span>лиды, формы, оплаты, события бота и CRM через защищенный endpoint.</span></div>
+          <div class="tm-proof"><strong>Truth score</strong><span>сравнение browser/server событий, доля ботов и проверенный трафик.</span></div>
+        </div>
+      </article>
+      <article class="card tm-board">
+        <div class="section-head">
+          <h2>Как это работает</h2>
+          <p class="muted">Модуль из архива уже распакован в проект: collector на TypeScript, `public/tm.js`, ClickHouse-схема, SDK для бота и API отчетов.</p>
+        </div>
+        <div class="tm-flow">
+          <div class="tm-node"><small>01</small><strong>Сайт</strong><span class="muted">tm.js фиксирует визиты, клики, скролл и UTM.</span></div>
+          <div class="tm-node"><small>02</small><strong>Бот и backend</strong><span class="muted">SDK отправляет report_generated, lead_created, payment_success.</span></div>
+          <div class="tm-node"><small>03</small><strong>ClickHouse</strong><span class="muted">сырые события хранятся независимо от внешних панелей.</span></div>
+          <div class="tm-node"><small>04</small><strong>AI-отчет</strong><span class="muted">бот объясняет источники, страницы и достоверность данных.</span></div>
+        </div>
+        <div class="tm-reports">
+          <span class="tm-report">/summary</span>
+          <span class="tm-report">/sources</span>
+          <span class="tm-report">/pages</span>
+          <span class="tm-report">/truth-score</span>
+        </div>
+        <code class="tm-code">&lt;script async src="/static/tm.js" data-endpoint="/collect" data-project="trafficmind-ai" data-site="client-site"&gt;&lt;/script&gt;</code>
       </article>
     </section>
 
