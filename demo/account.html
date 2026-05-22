@@ -102,6 +102,55 @@
     .stat span { color: var(--muted); line-height: 1.35; }
     form { display: grid; gap: 12px; }
     .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .settings-stack { display: grid; gap: 14px; }
+    .settings-section {
+      display: grid;
+      gap: 12px;
+      padding: 16px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,.09);
+      background: rgba(255,255,255,.045);
+    }
+    .section-kicker {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .section-kicker strong {
+      color: #fff;
+      font-size: 15px;
+    }
+    .compact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .wide-field { grid-column: span 2; }
+    .check-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .check-card {
+      min-height: 54px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.055);
+      color: rgba(245,245,247,.76);
+      font-size: 13px;
+    }
+    .check-card input {
+      width: 18px;
+      min-height: 18px;
+      accent-color: var(--cyan);
+    }
     label { display: grid; gap: 7px; color: var(--muted); font-size: 14px; }
     input, select {
       width: 100%;
@@ -188,10 +237,12 @@
     @media (max-width: 980px) {
       .hero, .two { grid-template-columns: 1fr; }
       .grid { grid-template-columns: 1fr 1fr; }
+      .compact-grid, .check-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 680px) {
       .nav { display: none; }
-      .grid, .form-grid { grid-template-columns: 1fr; }
+      .grid, .form-grid, .compact-grid, .check-grid { grid-template-columns: 1fr; }
+      .wide-field { grid-column: auto; }
       h1 { font-size: 48px; }
     }
   </style>
@@ -239,33 +290,123 @@
         <h2>Настройки бизнеса</h2>
         <p class="muted">Эти данные бот будет использовать, чтобы отчеты звучали не общими словами, а под конкретный бизнес.</p>
         <form id="settings-form">
-          <div class="form-grid">
-            <label>Telegram ID
-              <input name="telegram_id" value="100001" inputmode="numeric">
-            </label>
-            <label>Сайт
-              <input name="website" value="example.com">
-            </label>
-            <label>Название бизнеса
-              <input name="business_name" value="Kavkaz Travel">
-            </label>
-            <label>Ниша
-              <input name="business_niche" value="Туры и впечатления">
-            </label>
-            <label>Главная цель
-              <select name="goal">
-                <option value="leads">Больше заявок</option>
-                <option value="sales">Больше продаж</option>
-                <option value="revenue">Рост дохода</option>
-              </select>
-            </label>
-            <label>Как часто присылать отчет
-              <select name="report_frequency">
-                <option value="daily">Каждый день</option>
-                <option value="weekly">Раз в неделю</option>
-                <option value="monthly">Раз в месяц</option>
-              </select>
-            </label>
+          <div class="settings-stack">
+            <div class="settings-section">
+              <div class="section-kicker"><strong>Профиль</strong><span>кто вы и что продвигаете</span></div>
+              <div class="compact-grid">
+                <label>Telegram ID
+                  <input name="telegram_id" value="100001" inputmode="numeric">
+                </label>
+                <label class="wide-field">Сайт
+                  <input name="website" value="example.com">
+                </label>
+                <label>Название бизнеса
+                  <input name="business_name" value="Kavkaz Travel">
+                </label>
+                <label>Ниша
+                  <input name="business_niche" value="Туры и впечатления">
+                </label>
+                <label>Регион
+                  <input name="region" value="Москва и онлайн">
+                </label>
+              </div>
+            </div>
+
+            <div class="settings-section">
+              <div class="section-kicker"><strong>Цели и деньги</strong><span>как бот будет считать приоритеты</span></div>
+              <div class="compact-grid">
+                <label>Главная цель
+                  <select name="goal">
+                    <option value="leads">Больше заявок</option>
+                    <option value="sales">Больше продаж</option>
+                    <option value="revenue">Рост дохода</option>
+                    <option value="retention">Повторные продажи</option>
+                  </select>
+                </label>
+                <label>Целевое действие
+                  <select name="primary_conversion">
+                    <option value="form">Заявка с формы</option>
+                    <option value="call">Звонок</option>
+                    <option value="messenger">Сообщение в мессенджер</option>
+                    <option value="purchase">Покупка</option>
+                  </select>
+                </label>
+                <label>Валюта
+                  <select name="currency">
+                    <option value="RUB">RUB</option>
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                  </select>
+                </label>
+                <label>Средний чек
+                  <input name="average_order_value" value="15000" inputmode="numeric">
+                </label>
+                <label>Ценность лида
+                  <input name="lead_value" value="2500" inputmode="numeric">
+                </label>
+                <label>Маркетинг-бюджет / месяц
+                  <input name="monthly_budget" value="120000" inputmode="numeric">
+                </label>
+              </div>
+            </div>
+
+            <div class="settings-section">
+              <div class="section-kicker"><strong>Отчеты и уведомления</strong><span>как часто и о чем напоминать</span></div>
+              <div class="compact-grid">
+                <label>Как часто присылать отчет
+                  <select name="report_frequency">
+                    <option value="daily">Каждый день</option>
+                    <option value="weekly">Раз в неделю</option>
+                    <option value="monthly">Раз в месяц</option>
+                  </select>
+                </label>
+                <label>Уровень уведомлений
+                  <select name="alert_level">
+                    <option value="important">Только важное</option>
+                    <option value="critical">Только критичное</option>
+                    <option value="all">Все события</option>
+                  </select>
+                </label>
+                <label>Тон общения
+                  <select name="communication_tone">
+                    <option value="simple">Просто и по делу</option>
+                    <option value="expert">Экспертно</option>
+                    <option value="soft">Мягко и подробно</option>
+                  </select>
+                </label>
+              </div>
+              <div class="check-grid">
+                <label class="check-card"><input type="checkbox" name="notify_money_loss" checked> Потери денег</label>
+                <label class="check-card"><input type="checkbox" name="notify_leads_drop" checked> Просадка заявок</label>
+                <label class="check-card"><input type="checkbox" name="notify_ads_spike" checked> Рост CPL</label>
+                <label class="check-card"><input type="checkbox" name="notify_competitors"> Конкуренты</label>
+                <label class="check-card"><input type="checkbox" name="weekly_digest" checked> Недельный итог</label>
+                <label class="check-card"><input type="checkbox" name="telegram_sync" checked> Telegram-связка</label>
+              </div>
+            </div>
+
+            <div class="settings-section">
+              <div class="section-kicker"><strong>Каналы и конкуренты</strong><span>что учитывать в анализе</span></div>
+              <div class="check-grid">
+                <label class="check-card"><input type="checkbox" name="channel_seo" checked> SEO</label>
+                <label class="check-card"><input type="checkbox" name="channel_ads" checked> Реклама</label>
+                <label class="check-card"><input type="checkbox" name="channel_social" checked> Соцсети</label>
+                <label class="check-card"><input type="checkbox" name="channel_email"> Email</label>
+                <label class="check-card"><input type="checkbox" name="channel_calls" checked> Звонки</label>
+                <label class="check-card"><input type="checkbox" name="channel_crm" checked> CRM</label>
+              </div>
+              <div class="compact-grid">
+                <label>Конкурент 1
+                  <input name="competitor_1" value="competitor-one.ru">
+                </label>
+                <label>Конкурент 2
+                  <input name="competitor_2" value="">
+                </label>
+                <label>Конкурент 3
+                  <input name="competitor_3" value="">
+                </label>
+              </div>
+            </div>
           </div>
           <div class="actions">
             <button class="button primary" type="submit">Сохранить настройки</button>
@@ -327,13 +468,37 @@
     const storageKey = "trafficmind_account_settings";
 
     const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
+    const setControlValue = (name, value) => {
+      const field = settingsForm.elements[name];
+      if (!field || value === undefined || value === null) return;
+      if (field.type === "checkbox") {
+        field.checked = Boolean(value);
+      } else {
+        field.value = value;
+      }
+    };
+
     if (saved.telegram_id) {
-      settingsForm.telegram_id.value = saved.telegram_id;
-      settingsForm.website.value = saved.website || settingsForm.website.value;
-      settingsForm.business_name.value = saved.business_name || settingsForm.business_name.value;
-      settingsForm.business_niche.value = saved.business_niche || settingsForm.business_niche.value;
-      settingsForm.goal.value = saved.goal || settingsForm.goal.value;
-      settingsForm.report_frequency.value = saved.report_frequency || settingsForm.report_frequency.value;
+      const prefs = saved.preferences || {};
+      const merged = {
+        ...saved,
+        ...prefs,
+        notify_money_loss: prefs.notifications?.money_loss,
+        notify_leads_drop: prefs.notifications?.leads_drop,
+        notify_ads_spike: prefs.notifications?.ads_spike,
+        notify_competitors: prefs.notifications?.competitors,
+        weekly_digest: prefs.notifications?.weekly_digest,
+        channel_seo: prefs.channels?.seo,
+        channel_ads: prefs.channels?.ads,
+        channel_social: prefs.channels?.social,
+        channel_email: prefs.channels?.email,
+        channel_calls: prefs.channels?.calls,
+        channel_crm: prefs.channels?.crm,
+        competitor_1: prefs.competitors?.[0],
+        competitor_2: prefs.competitors?.[1],
+        competitor_3: prefs.competitors?.[2]
+      };
+      Object.entries(merged).forEach(([name, value]) => setControlValue(name, value));
       siteStat.textContent = saved.website || "example.com";
       syncStat.textContent = "Связано";
       loginStatus.textContent = `Вход выполнен как Telegram ID ${saved.telegram_id}`;
@@ -368,6 +533,35 @@
     settingsForm.addEventListener("submit", async (event) => {
       event.preventDefault();
       const data = Object.fromEntries(new FormData(settingsForm).entries());
+      const preferences = {
+        show_money_first: true,
+        language: "ru",
+        telegram_sync: Boolean(data.telegram_sync),
+        region: data.region,
+        currency: data.currency,
+        primary_conversion: data.primary_conversion,
+        average_order_value: data.average_order_value,
+        lead_value: data.lead_value,
+        monthly_budget: data.monthly_budget,
+        communication_tone: data.communication_tone,
+        notifications: {
+          money_loss: Boolean(data.notify_money_loss),
+          leads_drop: Boolean(data.notify_leads_drop),
+          ads_spike: Boolean(data.notify_ads_spike),
+          competitors: Boolean(data.notify_competitors),
+          weekly_digest: Boolean(data.weekly_digest)
+        },
+        channels: {
+          seo: Boolean(data.channel_seo),
+          ads: Boolean(data.channel_ads),
+          social: Boolean(data.channel_social),
+          email: Boolean(data.channel_email),
+          calls: Boolean(data.channel_calls),
+          crm: Boolean(data.channel_crm)
+        },
+        competitors: [data.competitor_1, data.competitor_2, data.competitor_3].filter(Boolean)
+      };
+
       const payload = {
         telegram_id: Number(data.telegram_id),
         website: data.website,
@@ -375,14 +569,10 @@
         business_niche: data.business_niche,
         goal: data.goal,
         report_frequency: data.report_frequency,
-        alert_level: "important",
+        alert_level: data.alert_level,
         timezone: "Europe/Moscow",
         onboarding_completed: true,
-        preferences: {
-          show_money_first: true,
-          language: "ru",
-          telegram_sync: true
-        }
+        preferences
       };
 
       localStorage.setItem(storageKey, JSON.stringify(payload));
