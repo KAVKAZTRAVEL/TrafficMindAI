@@ -458,6 +458,214 @@
       gap: 16px;
       align-items: stretch;
     }
+    .connected-report {
+      display: grid;
+      gap: 16px;
+    }
+    .report-hero-card {
+      min-height: 360px;
+      display: grid;
+      grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+      gap: 24px;
+      align-items: center;
+    }
+    .connected-status {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+    .status-chip {
+      min-height: 32px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 0 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(201,243,255,.18);
+      color: rgba(245,245,247,.80);
+      background: rgba(255,255,255,.055);
+      font-size: 12px;
+    }
+    .status-chip:before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #78f0c4;
+      box-shadow: 0 0 16px rgba(120,240,196,.62);
+    }
+    .report-title {
+      margin: 0;
+      font-family: var(--display);
+      font-size: clamp(32px, 4vw, 58px);
+      line-height: 1;
+    }
+    .report-lead {
+      max-width: 620px;
+      margin: 16px 0 0;
+      color: rgba(245,245,247,.72);
+      font-size: 18px;
+      line-height: 1.42;
+    }
+    .money-signal {
+      display: grid;
+      gap: 12px;
+      padding: 22px;
+      border-radius: 26px;
+      border: 1px solid rgba(146,231,255,.22);
+      background:
+        radial-gradient(circle at 20% 0%, rgba(146,231,255,.22), transparent 38%),
+        rgba(255,255,255,.055);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.16);
+    }
+    .money-signal span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .money-signal strong {
+      font-family: var(--display);
+      font-size: clamp(46px, 6vw, 82px);
+      line-height: .92;
+      background: linear-gradient(90deg, #fff, var(--ice), var(--cyan));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .money-signal b {
+      color: #92e7ff;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+    .report-kpis {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .kpi-card {
+      min-height: 148px;
+      display: grid;
+      align-content: space-between;
+      padding: 18px;
+      border-radius: 24px;
+      border: 1px solid rgba(201,243,255,.16);
+      background:
+        radial-gradient(circle at 25% 0%, rgba(146,231,255,.16), transparent 38%),
+        linear-gradient(145deg, rgba(8,21,35,.76), rgba(255,255,255,.045));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.13), 0 16px 42px rgba(0,0,0,.20);
+    }
+    .kpi-card span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.3;
+    }
+    .kpi-card strong {
+      font-family: var(--display);
+      font-size: clamp(28px, 3vw, 42px);
+      line-height: .96;
+    }
+    .kpi-card b {
+      color: #78f0c4;
+      font-size: 12px;
+    }
+    .kpi-card.warning b {
+      color: #ffb6a8;
+    }
+    .report-grid-2 {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 16px;
+    }
+    .channel-bars {
+      display: grid;
+      gap: 14px;
+    }
+    .channel-row {
+      display: grid;
+      grid-template-columns: 128px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      color: rgba(245,245,247,.80);
+      font-size: 14px;
+    }
+    .bar-track {
+      height: 13px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255,255,255,.08);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #1a84ff, #92e7ff, #d9fbff);
+      box-shadow: 0 0 22px rgba(146,231,255,.34);
+    }
+    .report-actions {
+      display: grid;
+      gap: 12px;
+    }
+    .action-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 12px;
+      align-items: start;
+      padding: 15px;
+      border-radius: 20px;
+      border: 1px solid rgba(201,243,255,.13);
+      background: rgba(255,255,255,.045);
+    }
+    .priority {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #06101c;
+      background: linear-gradient(135deg, #f5f5f7, #92e7ff);
+      font-family: var(--tech);
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .action-row strong {
+      display: block;
+      margin-bottom: 5px;
+      color: #fff;
+    }
+    .action-row span {
+      color: var(--muted);
+      line-height: 1.35;
+      font-size: 14px;
+    }
+    .impact {
+      white-space: nowrap;
+      color: #78f0c4;
+      font-family: var(--tech);
+      font-size: 12px;
+    }
+    .funnel {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .funnel-step {
+      min-height: 116px;
+      display: grid;
+      align-content: space-between;
+      padding: 16px;
+      border-radius: 22px;
+      border: 1px solid rgba(201,243,255,.14);
+      background: rgba(255,255,255,.045);
+    }
+    .funnel-step b {
+      font-size: 26px;
+      font-family: var(--display);
+    }
+    .funnel-step span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.3;
+    }
     .score-card {
       min-height: 420px;
       display: grid;
@@ -676,9 +884,17 @@
     @media (max-width: 1080px) {
       .hero,
       .demo-report,
+      .report-hero-card,
+      .report-grid-2,
       .connect-grid,
       .account-strip {
         grid-template-columns: 1fr;
+      }
+      .report-kpis {
+        grid-template-columns: repeat(3, minmax(0,1fr));
+      }
+      .funnel {
+        grid-template-columns: repeat(2, minmax(0,1fr));
       }
       .account-card {
         grid-template-columns: 1fr;
@@ -710,8 +926,20 @@
       .cards-3,
       .cards-4,
       .flow,
+      .report-kpis,
+      .funnel,
       .metrics {
         grid-template-columns: 1fr;
+      }
+      .channel-row {
+        grid-template-columns: 1fr;
+        gap: 7px;
+      }
+      .action-row {
+        grid-template-columns: auto 1fr;
+      }
+      .impact {
+        grid-column: 2;
       }
       .section-head {
         display: grid;
@@ -799,19 +1027,67 @@
       <div class="section-head">
         <h2>Что увидит клиент</h2>
       </div>
-      <div class="demo-report">
-        <article class="card score-card">
-          <div class="score"><strong>64</strong></div>
-          <h3>Готовность сайта к заявкам</h3>
-          <p>Оценка показывает, насколько сайт готов не просто принимать трафик, а превращать посетителей в реальные обращения.</p>
+      <div class="connected-report">
+        <article class="card report-hero-card">
+          <div>
+            <div class="connected-status">
+              <span class="status-chip">GA4</span>
+              <span class="status-chip">Search Console</span>
+              <span class="status-chip">Яндекс Метрика</span>
+              <span class="status-chip">Google Ads</span>
+              <span class="status-chip">Яндекс Директ</span>
+              <span class="status-chip">VK API</span>
+              <span class="status-chip">CRM</span>
+              <span class="status-chip">Call Tracking</span>
+            </div>
+            <h3 class="report-title">Полный отчет после подключения данных</h3>
+            <p class="report-lead">Клиент видит не “посетителей”, а деньги: какие каналы дают заявки, где растет стоимость лида, какие страницы теряют бюджет и что нужно сделать первым.</p>
+          </div>
+          <div class="money-signal">
+            <span>Найдено потенциальных потерь за 30 дней</span>
+            <strong>184 000 ₽</strong>
+            <b>AI советует начать с формы заявки, ретаргетинга VK и перераспределения бюджета из дорогих кампаний.</b>
+          </div>
         </article>
+
+        <div class="report-kpis">
+          <div class="kpi-card"><span>Выручка из маркетинга</span><strong>2,84 млн ₽</strong><b>+18% к прошлому периоду</b></div>
+          <div class="kpi-card"><span>Рекламные расходы</span><strong>486 тыс ₽</strong><b>под контролем</b></div>
+          <div class="kpi-card"><span>Заявки</span><strong>312</strong><b>+41 заявка</b></div>
+          <div class="kpi-card warning"><span>Средний CPL</span><strong>1 558 ₽</strong><b>2 кампании дороже нормы</b></div>
+          <div class="kpi-card"><span>ROAS</span><strong>5.8x</strong><b>окупается</b></div>
+          <div class="kpi-card warning"><span>Пропущенные звонки</span><strong>23</strong><b>риск потери продаж</b></div>
+        </div>
+
+        <div class="report-grid-2">
+          <article class="card">
+            <h3>Карта прибыли по каналам</h3>
+            <div class="channel-bars">
+              <div class="channel-row"><span>Google Ads</span><div class="bar-track"><div class="bar-fill" style="width: 88%"></div></div><b>920 тыс ₽</b></div>
+              <div class="channel-row"><span>Яндекс Директ</span><div class="bar-track"><div class="bar-fill" style="width: 76%"></div></div><b>740 тыс ₽</b></div>
+              <div class="channel-row"><span>SEO</span><div class="bar-track"><div class="bar-fill" style="width: 64%"></div></div><b>520 тыс ₽</b></div>
+              <div class="channel-row"><span>VK API</span><div class="bar-track"><div class="bar-fill" style="width: 48%"></div></div><b>310 тыс ₽</b></div>
+              <div class="channel-row"><span>TikTok Ads</span><div class="bar-track"><div class="bar-fill" style="width: 32%"></div></div><b>168 тыс ₽</b></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Что AI делает первым</h3>
+            <div class="report-actions">
+              <div class="action-row"><span class="priority">01</span><div><strong>Исправить форму заявки</strong><span>На мобильных часть пользователей не доходит до отправки. Это влияет на заявки уже сегодня.</span></div><b class="impact">+19 лидов</b></div>
+              <div class="action-row"><span class="priority">02</span><div><strong>Снизить бюджет дорогой кампании</strong><span>Кампания тратит 22% бюджета, но дает CPL выше среднего почти в 2 раза.</span></div><b class="impact">-38 тыс ₽</b></div>
+              <div class="action-row"><span class="priority">03</span><div><strong>Запустить ретаргетинг VK</strong><span>Есть аудитория, которая смотрела цены, но не оставила заявку. Ее можно вернуть дешевле холодного трафика.</span></div><b class="impact">+11%</b></div>
+            </div>
+          </article>
+        </div>
+
         <article class="card">
-          <h3>Главные выводы отчета</h3>
-          <div class="insight-list">
-            <div class="insight"><span class="dot"></span><div><strong>Что уже видно</strong><span>Сайт работает, коммерческие блоки есть, формы и контакты на месте. Значит, первый поток заявок уже можно усиливать.</span></div></div>
-            <div class="insight"><span class="dot"></span><div><strong>Где риск</strong><span>Без целей и CRM бизнес не видит, откуда приходят заявки, а значит может платить за трафик, который не приносит денег.</span></div></div>
-            <div class="insight"><span class="dot"></span><div><strong>Что сделать первым</strong><span>Настроить цели, проверить форму, добавить UTM и подключить источник заявок, чтобы перестать работать вслепую.</span></div></div>
-            <div class="insight"><span class="dot"></span><div><strong>Что изменится после подключений</strong><span>Появятся реальные CPL, ROAS, источники выручки, качество лидов и понятная динамика роста.</span></div></div>
+          <h3>Путь клиента от визита до продажи</h3>
+          <div class="funnel">
+            <div class="funnel-step"><span>Визиты</span><b>18 420</b><span>GA4 + Метрика</span></div>
+            <div class="funnel-step"><span>Лиды</span><b>312</b><span>формы, звонки, мессенджеры</span></div>
+            <div class="funnel-step"><span>Сделки</span><b>96</b><span>CRM и call tracking</span></div>
+            <div class="funnel-step"><span>Продажи</span><b>41</b><span>выручка и ROAS</span></div>
           </div>
         </article>
       </div>
