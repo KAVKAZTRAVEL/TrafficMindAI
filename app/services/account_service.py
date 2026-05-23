@@ -1,7 +1,17 @@
+from datetime import timedelta
+from random import SystemRandom
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.models import IntegrationAccount, Subscription, User, UserWorkspaceSettings, Website
+from app.models import IntegrationAccount, Subscription, TelegramLinkCode, User, UserWorkspaceSettings, Website
 from app.schemas.account import WorkspaceSettingsIn
+
+
+LINK_CODE_TTL_MINUTES = 15
+_random = SystemRandom()
+
+
+def _new_link_code() -> str:
+    return f"{_random.randrange(100000, 1000000)}"
 
 
 async def get_or_create_workspace_settings(session: AsyncSession, user: User) -> UserWorkspaceSettings:
@@ -44,6 +54,42 @@ async def update_workspace_settings(session: AsyncSession, payload: WorkspaceSet
     await session.commit()
     await session.refresh(settings)
     return settings
+
+
+async def create_telegram_link_code(session: AsyncSession, user: User) -> TelegramLinkCode:
+    for _ in range(6):
+        code = _new_link_code()
+        existing = await session.scalar(select(TelegramLinkCode).where(TelegramLinkCode.code == code))
+        if existing:
+            continue
+        link = TelegramLinkCode(
+            code=code,
+            user_id=user.id,
+            expires_at=utcnow_plus(minutes=LINK_CODE_TTL_MINUTES),
+        )
+        session.add(link)
+        await session.commit()
+        await session.refresh(link)
+        return link
+    raise RuntimeError("Не удалось создать код связки Telegram.")
+
+
+async def link_account_by_code(session: AsyncSession, link_code: str) -> User:
+    code = "".join(ch for ch in link_code if ch.isdigit())
+    link = await session.scalar(select(TelegramLinkCode).where(TelegramLinkCode.code == code))
+    if not link:
+        raise ValueError("Код не найден. Получите новый код в Telegram-боте.")
+    if link.used:
+        raise ValueError("Этот код уже использован. Получите новый код в Telegram-боте.")
+    if link.expires_at < utcnow_plus(minutes=0):
+        raise ValueError("Код истек. Получите новый код в Telegram-боте.")
+    user = await session.scalar(select(User).where(User.id == link.user_id))
+    if not user:
+        raise ValueError("Telegram-пользователь для этого кода не найден.")
+    link.used = True
+    await get_or_create_workspace_settings(session, user)
+    await session.commit()
+    return user
 
 
 async def account_payload(session: AsyncSession, user: User) -> dict:
@@ -99,3 +145,9 @@ def settings_to_dict(settings: UserWorkspaceSettings) -> dict:
         "onboarding_completed": settings.onboarding_completed,
         "preferences": settings.preferences or {},
     }
+
+
+def utcnow_plus(minutes: int):
+    from app.models.core import utcnow
+
+    return utcnow() + timedelta(minutes=minutes)

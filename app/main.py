@@ -7,7 +7,7 @@ from app.config import get_settings
 from app.database import get_db, init_db
 from app.models import Event, IntegrationAccount, Report, Subscription, User, Website
 from app.schemas.account import TelegramLinkIn, WorkspaceSettingsIn
-from app.services.account_service import account_payload, update_workspace_settings
+from app.services.account_service import account_payload, link_account_by_code, update_workspace_settings
 from app.services.growth_intelligence_service import (
     build_profit_map,
     demo_metrics,
@@ -33,6 +33,7 @@ app.add_middleware(
 
 app.include_router(tracker_router, prefix="/tracker", tags=["tracker"])
 app.mount("/static", StaticFiles(directory="app/tracker"), name="static")
+app.mount("/demo", StaticFiles(directory="demo", html=True), name="demo")
 
 
 @app.on_event("startup")
@@ -181,25 +182,18 @@ async def account_settings_save(payload: WorkspaceSettingsIn, db: AsyncSession =
 
 @app.post("/api/account/telegram-link")
 async def account_telegram_link(payload: TelegramLinkIn, db: AsyncSession = Depends(get_db)) -> dict:
-    user = await db.scalar(select(User).where(User.telegram_id == payload.telegram_id))
-    if not user:
-        user = User(
-            telegram_id=payload.telegram_id,
-            username=None,
-            first_name=None,
-            avatar=None,
-            subscription_status="trial",
-            max_websites=1,
-            is_admin=False,
-        )
-        db.add(user)
-        await db.flush()
-    await db.commit()
+    try:
+        user = await link_account_by_code(db, payload.link_code)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
     return {
         "ok": True,
         "telegram_id": user.telegram_id,
-        "link_status": "ready_for_bot_sync",
+        "username": user.username,
+        "first_name": user.first_name,
+        "link_status": "linked",
         "source": payload.source,
+        "account": await account_payload(db, user),
     }
 
 

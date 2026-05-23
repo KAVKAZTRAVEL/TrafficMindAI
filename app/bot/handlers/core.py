@@ -16,6 +16,7 @@ from app.database import SessionLocal
 from app.models import Report, TrafficSource, Website
 from app.integrations.registry import CATEGORY_TITLES, get_integration
 from app.services.ai_service import explain_sources, recommendations_from_audit
+from app.services.account_service import create_telegram_link_code
 from app.services.audit_service import audit_domain
 from app.services.growth_intelligence_service import (
     build_profit_map,
@@ -73,6 +74,35 @@ async def dashboard_handler(query: CallbackQuery) -> None:
         "Следующий шаг: откройте «Что делать сегодня», чтобы увидеть приоритетные действия.",
         reply_markup=main_menu(),
     )
+    await query.answer()
+
+
+async def send_account_link(message: Message, telegram_user) -> None:
+    async with SessionLocal() as session:
+        user = await get_or_create_user(session, telegram_user, get_settings().admin_ids)
+        link = await create_telegram_link_code(session, user)
+    account_url = f"{get_settings().public_base_url.rstrip('/')}/demo/account.html"
+    await message.answer(
+        "Личный кабинет\n\n"
+        f"Ваш код входа: <code>{link.code}</code>\n\n"
+        "1. Откройте личный кабинет.\n"
+        "2. Вставьте этот код в поле входа.\n"
+        "3. Кабинет подтянет ваш Telegram ID и будет сохранять настройки для отчетов бота.\n\n"
+        f"Ссылка: {account_url}\n"
+        "Код действует 15 минут.",
+        parse_mode="HTML",
+        reply_markup=main_menu(),
+    )
+
+
+@router.message(Command("account"))
+async def account_link_command(message: Message) -> None:
+    await send_account_link(message, message.from_user)
+
+
+@router.callback_query(F.data == "account_link")
+async def account_link_callback(query: CallbackQuery) -> None:
+    await send_account_link(query.message, query.from_user)
     await query.answer()
 
 
@@ -406,6 +436,6 @@ async def check_all_handler(query: CallbackQuery) -> None:
 @router.message(Command("help"))
 async def help_handler(message: Message) -> None:
     await message.answer(
-        "/add_site, /audit, /connect, /traffic_map, /report, /link_report, /recommendations, /subscription",
+        "/add_site, /audit, /connect, /account, /traffic_map, /report, /link_report, /recommendations, /subscription",
         reply_markup=main_menu(),
     )

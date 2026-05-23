@@ -20,6 +20,6 @@ class WorkspaceSettingsOut(BaseModel):
 
 
 class TelegramLinkIn(BaseModel):
-    telegram_id: int
-    link_code: str | None = None
+    telegram_id: int | None = None
+    link_code: str
     source: str = "web_account"

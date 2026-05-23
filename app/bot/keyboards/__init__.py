@@ -21,6 +21,7 @@ def main_menu() -> InlineKeyboardMarkup:
         ],
         [
             InlineKeyboardButton(text="Отчет по ссылке", callback_data="link_only_report"),
+            InlineKeyboardButton(text="Личный кабинет", callback_data="account_link"),
         ],
         [
             InlineKeyboardButton(text="Интеграции", callback_data="integrations"),
