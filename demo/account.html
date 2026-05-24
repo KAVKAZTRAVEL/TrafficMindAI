@@ -605,19 +605,19 @@
     <section class="hero">
       <div>
         <span class="eyebrow">личный кабинет клиента</span>
-        <h1>Один раз настроили. Дальше бот помнит.</h1>
-        <p>Клиент сохраняет сайт, цель бизнеса, нишу и Telegram-связку. После этого TrafficMind AI использует эти данные в отчетах и рекомендациях.</p>
+        <h1>Сначала сайт. Telegram можно подключить позже.</h1>
+        <p>Клиент сохраняет сайт, цель бизнеса, нишу, тариф и каналы прямо в личном кабинете. Когда Telegram-бот будет запущен, он просто подтянет эти настройки и начнет отправлять отчеты в чат.</p>
       </div>
       <aside class="login-card">
         <span class="eyebrow">вход</span>
-        <h2>Войти по Telegram</h2>
-        <p>Откройте Telegram-бота, нажмите “Личный кабинет” или отправьте /account. Бот выдаст одноразовый код, а кабинет привяжется к вашему Telegram аккаунту.</p>
+        <h2>Войти в кабинет</h2>
+        <p>На первом этапе можно работать с сайтом без Telegram: настройки сохраняются локально в демо и через backend в production. Telegram-код понадобится позже, когда ты запустишь бота.</p>
         <form id="login-form">
-          <label>Код из Telegram-бота
+          <label>Код доступа или Telegram-код
             <input id="login-code" value="100001" inputmode="numeric" autocomplete="one-time-code">
           </label>
           <button class="button primary" type="submit">Войти в кабинет</button>
-          <div class="status" id="login-status">Код действует 15 минут. После входа настройки кабинета будут сохраняться для вашего Telegram ID.</div>
+          <div class="status" id="login-status">Для запуска сайта сейчас подойдет демо-код. После запуска Telegram-бота это же поле будет принимать одноразовый код из команды /account.</div>
         </form>
       </aside>
     </section>
@@ -625,7 +625,7 @@
     <section class="grid">
       <article class="card stat"><b id="site-stat">example.com</b><span>основной сайт клиента</span></article>
       <article class="card stat"><b>64/100</b><span>последний предварительный отчет</span></article>
-      <article class="card stat"><b id="sync-stat">Telegram готов</b><span>связка с ботом через ID или код</span></article>
+      <article class="card stat"><b id="sync-stat">Сайт готов</b><span>Telegram подключается отдельным этапом</span></article>
     </section>
 
     <section class="card" id="plans">
@@ -883,12 +883,12 @@
       </article>
 
       <article class="card" id="telegram-sync">
-        <h2>Синхронизация с Telegram</h2>
-        <p class="muted">Когда ты создашь Telegram-бота, он сможет связать пользователя с этим кабинетом и подтягивать сохраненные настройки.</p>
+        <h2>Telegram как следующий этап</h2>
+        <p class="muted">Сайт, личный кабинет, тарифы, отчеты и настройки можно запустить первыми. Telegram-бот подключается позже как дополнительный канал доставки отчетов и алертов.</p>
         <div class="sync-steps">
-          <div class="step"><span class="number">01</span><div><strong>Клиент получает код в Telegram</strong><p class="muted">Команда /account или кнопка “Личный кабинет” создает одноразовый код на 15 минут.</p></div></div>
-          <div class="step"><span class="number">02</span><div><strong>Кабинет подтверждает связку</strong><p class="muted">Endpoint `/api/account/telegram-link` проверяет код, находит Telegram-пользователя и возвращает его профиль.</p></div></div>
-          <div class="step"><span class="number">03</span><div><strong>Отчеты становятся персональными</strong><p class="muted">Бот знает сайт, цель, нишу, частоту отчетов и подключенные сервисы клиента.</p></div></div>
+          <div class="step"><span class="number">01</span><div><strong>Сначала работает web-кабинет</strong><p class="muted">Клиент выбирает тариф, сохраняет сайт, цели, каналы, конкурентов и настройки отчетов.</p></div></div>
+          <div class="step"><span class="number">02</span><div><strong>Потом запускается Telegram-бот</strong><p class="muted">Команда /account или кнопка “Личный кабинет” создает одноразовый код на 15 минут.</p></div></div>
+          <div class="step"><span class="number">03</span><div><strong>Кабинет и бот синхронизируются</strong><p class="muted">Endpoint `/api/account/telegram-link` связывает Telegram-профиль с уже настроенным клиентским кабинетом.</p></div></div>
         </div>
         <div class="pill-list">
           <span class="pill">Telegram ID</span>

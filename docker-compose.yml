@@ -43,6 +43,8 @@ services:
     build: .
     command: python -m app.bot.main
     env_file: .env
+    profiles:
+      - telegram
     depends_on:
       - api
     volumes:

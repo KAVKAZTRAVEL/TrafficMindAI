@@ -1,5 +1,27 @@
 # TrafficMind AI
 
+## Site-first launch mode
+
+Проект разделен на два этапа запуска:
+
+- **Сначала сайт и web-кабинет**: главная страница, тарифы, личный кабинет, demo-отчеты, API, интеграции и AI Growth Council работают без Telegram-токена.
+- **Потом Telegram-бот**: запускается отдельно, когда будет готов `TELEGRAM_BOT_TOKEN`.
+
+Команды:
+
+```bash
+# сайт + API без Telegram-бота
+docker compose up --build
+
+# сайт + API + Telegram-бот
+docker compose --profile telegram up --build
+
+# статический просмотр сайта
+node demo/demo_server.js
+```
+
+Подробнее: [`docs/SITE_FIRST_LAUNCH.md`](docs/SITE_FIRST_LAUNCH.md)
+
 TrafficMind AI - AI-платформа роста для бизнеса в формате Telegram-бота и будущего web dashboard. Проект развивается от MVP аналитического бота к enterprise SaaS между HubSpot, SimilarWeb, Google Analytics, SEMrush, Hotjar и AI-маркетологом.
 
 Главная идея: система не заставляет пользователя вручную анализировать цифры. Она сама отвечает:
