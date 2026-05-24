@@ -198,7 +198,7 @@
 
     <section class="section-title">
       <h2>Метрики отчета</h2>
-      <p>Закрытые показатели не исчезают: бот показывает, на каком тарифе они откроются и зачем они нужны бизнесу.</p>
+      <p>В бесплатной версии все показатели показаны как demo-preview, чтобы клиент сразу понял ценность продукта. Для постоянных реальных цифр нужны подключения и подходящий тариф.</p>
     </section>
     <section class="grid-4" id="metrics-grid"></section>
 
@@ -215,6 +215,19 @@
         <div class="pill-list" id="connections-list"></div>
       </article>
     </section>
+    <section class="two">
+      <article class="card">
+        <span class="eyebrow">AI Growth Council</span>
+        <h2>Что обсудили AI-агенты</h2>
+        <ul class="list" id="council-list"></ul>
+      </article>
+      <article class="card">
+        <span class="eyebrow">demo tools</span>
+        <h2>Что использовано в демонстрации</h2>
+        <p>Бесплатный отчет показывает demo-preview всех возможностей: так клиент сразу видит, какой результат даст продукт после реальных подключений.</p>
+        <div class="pill-list" id="tool-stack-list"></div>
+      </article>
+    </section>
   </main>
 
   <script>
@@ -229,10 +242,10 @@
       scale1999: "Scale 1999 ₽"
     };
     const planDescriptions = {
-      trial: "Бесплатный тариф показывает только предварительный аудит по открытому сайту. Проверка доступна раз в 7 дней.",
-      start299: "Старт открывает кабинет, историю отчетов, базовые каналы и регулярные рекомендации.",
-      pro799: "PRO открывает деньги, рекламу, CRM, звонки, AI Growth Council, потери денег и 3 конкурентов.",
-      scale1999: "Scale открывает командный режим, до 10 проектов, до 10 конкурентов и расширенные отчеты."
+      trial: "Бесплатная версия показывает полный demo-preview: все ключевые метрики, AI-выводы, план действий, подключения и ограничения. Реальные регулярные цифры появятся после подключения источников и выбора тарифа.",
+      start299: "Старт открывает личный кабинет, историю отчетов, базовые каналы и регулярные рекомендации по сайту.",
+      pro799: "PRO открывает реальные деньги, рекламу, CRM, звонки, AI Growth Council, потери денег и мониторинг 3 конкурентов.",
+      scale1999: "Scale открывает командный режим, до 10 проектов, до 10 конкурентов, расширенную атрибуцию и отчеты для роста."
     };
 
     const savedPlan = () => {
@@ -251,31 +264,37 @@
       { title: "Что видно / не видно", min: "trial", value: "2 блока", source: "публичный сайт", why: "Честно разделяет факты и данные, которые нельзя узнать без подключений.", locked: "" },
       { title: "План на сегодня", min: "trial", value: "3 действия", source: "AI demo", why: "Дает короткий список задач вместо ручного анализа.", locked: "" },
 
-      { title: "Пользователи", min: "start299", value: "демо", source: "GA4 / Метрика", why: "Показывает размер аудитории и динамику спроса.", locked: "Откроется на тарифе Старт: нужен доступ к аналитике сайта." },
-      { title: "Сессии", min: "start299", value: "демо", source: "GA4 / Метрика", why: "Помогает понять, сколько визитов реально происходит и как часто люди возвращаются.", locked: "Откроется на тарифе Старт: нужен счетчик аналитики." },
-      { title: "Каналы трафика", min: "start299", value: "SEO / ads / social", source: "GA4, Метрика, UTM", why: "Показывает, откуда приходят люди: поиск, реклама, соцсети, прямые переходы.", locked: "Откроется на тарифе Старт: нужны UTM и базовая аналитика." },
-      { title: "SEO клики и показы", min: "start299", value: "демо", source: "Search Console / Яндекс", why: "Показывает, какие запросы уже приводят спрос без рекламы.", locked: "Откроется на тарифе Старт: нужен Search Console или Яндекс.Вебмастер." },
-      { title: "UTM-источники", min: "start299", value: "демо", source: "UTM / yclid / gclid", why: "Позволяет понять, какая кампания привела заявку.", locked: "Откроется на тарифе Старт: нужны размеченные ссылки." },
+      { title: "Пользователи", min: "start299", value: "12 480", source: "GA4 / Метрика", why: "Показывает размер аудитории и динамику спроса.", locked: "Откроется на тарифе Старт: нужен доступ к аналитике сайта." },
+      { title: "Сессии", min: "start299", value: "18 930", source: "GA4 / Метрика", why: "Помогает понять, сколько визитов реально происходит и как часто люди возвращаются.", locked: "Откроется на тарифе Старт: нужен счетчик аналитики." },
+      { title: "Каналы трафика", min: "start299", value: "SEO 34% / Ads 41%", source: "GA4, Метрика, UTM", why: "Показывает, откуда приходят люди: поиск, реклама, соцсети, прямые переходы.", locked: "Откроется на тарифе Старт: нужны UTM и базовая аналитика." },
+      { title: "SEO клики и показы", min: "start299", value: "1 840 / 42 300", source: "Search Console / Яндекс", why: "Показывает, какие запросы уже приводят спрос без рекламы.", locked: "Откроется на тарифе Старт: нужен Search Console или Яндекс.Вебмастер." },
+      { title: "UTM-источники", min: "start299", value: "87% размечено", source: "UTM / yclid / gclid", why: "Позволяет понять, какая кампания привела заявку.", locked: "Откроется на тарифе Старт: нужны размеченные ссылки." },
 
-      { title: "Конверсии", min: "pro799", value: "демо", source: "GA4 / GTM / CRM", why: "Показывает, сколько посетителей стало заявками или покупателями.", locked: "Откроется на PRO: нужны цели, события или CRM." },
-      { title: "CPL / CPA / CAC", min: "pro799", value: "демо", source: "Ads + CRM", why: "Показывает стоимость заявки, действия или клиента.", locked: "Откроется на PRO: нужны рекламные расходы и заявки." },
-      { title: "ROAS / ROI", min: "pro799", value: "демо", source: "Ads + CRM + revenue", why: "Показывает, окупается ли реклама и какие каналы дают прибыль.", locked: "Откроется на PRO: нужны расходы и выручка." },
-      { title: "CTR / CPC / CPM", min: "pro799", value: "демо", source: "Google Ads / Директ / Meta / VK", why: "Помогает понять качество объявлений и стоимость внимания.", locked: "Откроется на PRO: нужны рекламные кабинеты." },
-      { title: "Качество лидов", min: "pro799", value: "демо", source: "CRM stages", why: "Показывает не только количество заявок, но и их ценность.", locked: "Откроется на PRO: нужны стадии CRM." },
-      { title: "Звонки", min: "pro799", value: "демо", source: "Call Tracking", why: "Добавляет обращения по телефону в общую картину маркетинга.", locked: "Откроется на PRO: нужен call tracking." },
+      { title: "Конверсии", min: "pro799", value: "3.8%", source: "GA4 / GTM / CRM", why: "Показывает, сколько посетителей стало заявками или покупателями.", locked: "Откроется на PRO: нужны цели, события или CRM." },
+      { title: "CPL / CPA / CAC", min: "pro799", value: "940 ₽ / 1 320 ₽", source: "Ads + CRM", why: "Показывает стоимость заявки, действия или клиента.", locked: "Откроется на PRO: нужны рекламные расходы и заявки." },
+      { title: "ROAS / ROI", min: "pro799", value: "3.2x / 218%", source: "Ads + CRM + revenue", why: "Показывает, окупается ли реклама и какие каналы дают прибыль.", locked: "Откроется на PRO: нужны расходы и выручка." },
+      { title: "CTR / CPC / CPM", min: "pro799", value: "2.9% / 38 ₽", source: "Google Ads / Директ / Meta / VK", why: "Помогает понять качество объявлений и стоимость внимания.", locked: "Откроется на PRO: нужны рекламные кабинеты." },
+      { title: "Качество лидов", min: "pro799", value: "41% теплые", source: "CRM stages", why: "Показывает не только количество заявок, но и их ценность.", locked: "Откроется на PRO: нужны стадии CRM." },
+      { title: "Звонки", min: "pro799", value: "126 звонков", source: "Call Tracking", why: "Добавляет обращения по телефону в общую картину маркетинга.", locked: "Откроется на PRO: нужен call tracking." },
       { title: "Потери денег", min: "pro799", value: "35-120 тыс. ₽", source: "AI + расходы + CRM", why: "Показывает, где бизнес теряет бюджет, лиды и продажи.", locked: "Откроется на PRO: нужны деньги, лиды и источники." },
       { title: "AI Growth Council", min: "pro799", value: "3 агента", source: "AI-модели", why: "Несколько AI-ролей спорят и собирают финальный план роста.", locked: "Откроется на PRO: нужен расширенный AI-анализ." },
-      { title: "3 конкурента", min: "pro799", value: "до 3", source: "сайт, контент, активность", why: "Помогает видеть, кто растет быстрее и какие идеи можно забрать.", locked: "Откроется на PRO: мониторинг 3 конкурентов включен." },
+      { title: "3 конкурента", min: "pro799", value: "3 в демо", source: "сайт, контент, активность", why: "Помогает видеть, кто растет быстрее и какие идеи можно забрать.", locked: "Откроется на PRO: мониторинг 3 конкурентов включен." },
 
-      { title: "Multi-touch attribution", min: "scale1999", value: "расширенно", source: "каналы + CRM", why: "Показывает несколько касаний до покупки, а не только последний клик.", locked: "Откроется на Scale: нужна расширенная атрибуция." },
-      { title: "10 конкурентов", min: "scale1999", value: "до 10", source: "динамика рынка", why: "Подходит для агентств и команд, которым важно следить за рынком шире.", locked: "Откроется на Scale: больше конкурентов и история изменений." },
+      { title: "Multi-touch attribution", min: "scale1999", value: "5 касаний", source: "каналы + CRM", why: "Показывает несколько касаний до покупки, а не только последний клик.", locked: "Откроется на Scale: нужна расширенная атрибуция." },
+      { title: "10 конкурентов", min: "scale1999", value: "10 в демо", source: "динамика рынка", why: "Подходит для агентств и команд, которым важно следить за рынком шире.", locked: "Откроется на Scale: больше конкурентов и история изменений." },
       { title: "Командные отчеты", min: "scale1999", value: "PDF / HTML", source: "workspace", why: "Позволяет отдавать отчеты владельцу, маркетологу и команде.", locked: "Откроется на Scale: нужны командные отчеты." },
-      { title: "Несколько проектов", min: "scale1999", value: "до 10", source: "workspace", why: "Нужно, если у бизнеса несколько сайтов или у агентства несколько клиентов.", locked: "Откроется на Scale: лимит проектов выше." }
+      { title: "Несколько проектов", min: "scale1999", value: "10 demo", source: "workspace", why: "Нужно, если у бизнеса несколько сайтов или у агентства несколько клиентов.", locked: "Откроется на Scale: лимит проектов выше." }
     ];
 
-    const canView = (metric) => currentLevel >= levels[metric.min];
+    const isFreeDemo = currentPlan === "trial";
+    const canView = (metric) => isFreeDemo || currentLevel >= levels[metric.min];
+    const isDemoMetric = (metric) => isFreeDemo && metric.min !== "trial";
     const minLabel = (metric) => planLabels[metric.min] || "платном тарифе";
     const metricValue = (metric) => canView(metric) ? metric.value : "закрыто";
+    const metricStatus = (metric) => {
+      if (isDemoMetric(metric)) return "demo preview";
+      return canView(metric) ? "доступно" : minLabel(metric);
+    };
 
     function renderPlanLinks() {
       const container = document.querySelector("#plan-links");
@@ -288,33 +307,81 @@
       const grid = document.querySelector("#metrics-grid");
       grid.innerHTML = metrics.map((metric) => {
         const open = canView(metric);
+        const demo = isDemoMetric(metric);
         return `
           <article class="card metric-card ${open ? "" : "locked"}">
             <div>
               <div class="metric-top">
                 <span class="metric-title">${metric.title}</span>
-                <span class="status">${open ? "доступно" : minLabel(metric)}</span>
+                <span class="status">${metricStatus(metric)}</span>
               </div>
               <div class="metric-value">${metricValue(metric)}</div>
               <div class="metric-source">${metric.source}</div>
             </div>
             <p>${metric.why}</p>
-            ${open ? "" : `<div class="locked-note">${metric.locked} Эта метрика нужна, чтобы принимать решения не по ощущениям, а по данным.</div>`}
+            ${demo ? `<div class="locked-note">Показано бесплатно в демо. Для реальных регулярных цифр нужен тариф ${minLabel(metric)} и подключение источников.</div>` : ""}
+            ${!open ? `<div class="locked-note">${metric.locked} Эта метрика нужна, чтобы принимать решения не по ощущениям, а по данным.</div>` : ""}
           </article>
         `;
       }).join("");
     }
 
-    function renderActions(report) {
-      const actions = report.today_actions || [];
+    function renderActions(report, growth, council) {
+      const reportActions = report.today_actions || [];
+      const growthActions = growth.today_actions || [];
+      const councilActions = council.action_plan || [];
+      const actions = [
+        ...reportActions,
+        ...growthActions.map((action) => ({
+          title: action.title,
+          effect: action.expected_effect || action.effect
+        })),
+        ...councilActions.map((action) => ({
+          title: action.title,
+          effect: action.expected_effect || action.why
+        }))
+      ].slice(0, 6);
+      if (!actions.length) {
+        actions.push(
+          { title: "Проверить первый экран и форму", effect: "+5-12% к конверсии первого касания" },
+          { title: "Подключить CRM и цели", effect: "бот начнет связывать заявки с источниками и деньгами" },
+          { title: "Сравнить каналы по CPL и ROI", effect: "быстрее найти рекламу, которая съедает бюджет" }
+        );
+      }
       document.querySelector("#actions-list").innerHTML = actions.map((action) => (
         `<li><strong>${action.title}</strong><br>${action.effect || action.expected_effect || "ожидаемый эффект зависит от подключенных данных"}</li>`
       )).join("");
     }
 
-    function renderConnections(report) {
-      const connections = report.required_connections || ["GA4", "Яндекс Метрика", "CRM", "Google Ads", "Яндекс Директ", "Call Tracking", "GTM"];
+    function renderConnections(report, integrationsPayload) {
+      const apiConnections = (integrationsPayload.integrations || []).map((item) => item.title || item.name).slice(0, 18);
+      const connections = apiConnections.length ? apiConnections : (report.required_connections || ["GA4", "Яндекс Метрика", "CRM", "Google Ads", "Яндекс Директ", "Call Tracking", "GTM"]);
       document.querySelector("#connections-list").innerHTML = connections.map((item) => `<span class="pill">${item}</span>`).join("");
+    }
+
+    function renderCouncil(council) {
+      const items = [];
+      if (council.summary) items.push(`<strong>Итог:</strong> ${council.summary}`);
+      if (council.main_problem) items.push(`<strong>Главная проблема:</strong> ${council.main_problem}`);
+      (council.debate || []).slice(0, 3).forEach((message) => {
+        items.push(`<strong>${message.agent}:</strong> ${message.message}`);
+      });
+      if (council.confidence) items.push(`<strong>Уверенность:</strong> ${Math.round(council.confidence * 100)}%`);
+      document.querySelector("#council-list").innerHTML = (items.length ? items : [
+        "<strong>Итог:</strong> AI-агенты показывают демо-логику: стратегия, цифры, риски и единый план роста."
+      ]).map((item) => `<li>${item}</li>`).join("");
+    }
+
+    function renderToolStack(integrationsPayload) {
+      const tools = (integrationsPayload.integrations || []).map((item) => item.title || item.name);
+      const fallback = ["Google Analytics 4", "Google Search Console", "Яндекс Метрика", "Google Ads", "Яндекс Директ", "Meta Ads", "VK API", "TikTok Ads", "LinkedIn Ads", "CRM", "Call Tracking", "GTM", "AI Growth Council"];
+      document.querySelector("#tool-stack-list").innerHTML = (tools.length ? tools : fallback).map((item) => `<span class="pill">${item}</span>`).join("");
+    }
+
+    async function getJson(url) {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`${url} unavailable`);
+      return response.json();
     }
 
     async function loadReport() {
@@ -323,18 +390,18 @@
       document.querySelector("#hero-text").textContent = planDescriptions[currentPlan] || planDescriptions.trial;
       renderPlanLinks();
       renderMetrics();
-      try {
-        const response = await fetch(`/api/reports/link-only-demo?domain=${encodeURIComponent(domain)}`);
-        if (!response.ok) throw new Error("Demo API unavailable");
-        const report = await response.json();
-        document.querySelector("#score").textContent = report.confidence?.score || 64;
-        document.querySelector("#score-text").textContent = report.executive_summary?.headline || "Предварительная оценка сайта готова.";
-        renderActions(report);
-        renderConnections(report);
-      } catch {
-        renderActions({ today_actions: [{ title: "Проверить первый экран и форму", effect: "+5-12% к конверсии первого касания" }] });
-        renderConnections({});
-      }
+      const [report, growth, council, integrationsPayload] = await Promise.all([
+        getJson(`/api/reports/link-only-demo?domain=${encodeURIComponent(domain)}`).catch(() => ({})),
+        getJson("/api/growth/demo").catch(() => ({})),
+        getJson("/api/ai-council/demo").catch(() => ({})),
+        getJson("/api/integrations").catch(() => ({}))
+      ]);
+      document.querySelector("#score").textContent = report.confidence?.score || 64;
+      document.querySelector("#score-text").textContent = report.executive_summary?.headline || "Бесплатный demo-preview собран: видны все модули, которые станут точными после подключений.";
+      renderActions(report, growth, council);
+      renderConnections(report, integrationsPayload);
+      renderCouncil(council);
+      renderToolStack(integrationsPayload);
     }
 
     loadReport();
