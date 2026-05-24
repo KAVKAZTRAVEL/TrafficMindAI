@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TrafficMind AI - отчет по сайту</title>
+  <link rel="stylesheet" href="trafficmind_unified.css">
+  <style>
+    :root {
+      --ink: #f5f5f7;
+      --muted: rgba(245,245,247,.66);
+      --line: rgba(255,255,255,.13);
+      --cyan: #92e7ff;
+      --display: "Bahnschrift", "Aptos Display", "Segoe UI Variable Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      --read: "Aptos", "Segoe UI Variable Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      --tech: "Cascadia Code", "SF Mono", Consolas, monospace;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; color: var(--ink); font-family: var(--read); }
+    a { color: inherit; text-decoration: none; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      min-height: 56px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      padding: 0 clamp(16px, 4vw, 72px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.72);
+      backdrop-filter: blur(22px) saturate(180%);
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 14px; }
+    .logo { width: 22px; height: 22px; border-radius: 7px; }
+    .nav { display: flex; align-items: center; gap: clamp(12px, 2vw, 26px); color: rgba(245,245,247,.68); font-size: 13px; }
+    .nav a.active, .nav a:hover { color: var(--ink); }
+    .page { width: min(1220px, calc(100% - 32px)); margin: 0 auto; padding: clamp(34px, 6vw, 72px) 0 84px; display: grid; gap: 18px; }
+    .hero {
+      min-height: 430px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 430px);
+      gap: clamp(22px, 5vw, 64px);
+      align-items: center;
+    }
+    .eyebrow {
+      width: fit-content;
+      min-height: 34px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.07);
+      color: rgba(245,245,247,.74);
+      font-family: var(--tech);
+      font-size: 13px;
+    }
+    h1, h2, h3 { font-family: var(--display); }
+    h1 {
+      margin: 24px 0 0;
+      max-width: 840px;
+      font-size: clamp(48px, 6.6vw, 92px);
+      line-height: .98;
+      background: linear-gradient(92deg, #fff 0%, #dbe4ef 30%, var(--cyan) 58%, #8fa6b8 82%, #fff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p { max-width: 700px; margin: 20px 0 0; color: rgba(245,245,247,.80); font-size: clamp(18px, 2vw, 25px); line-height: 1.35; }
+    .card {
+      border-radius: 30px;
+      padding: clamp(22px, 3vw, 34px);
+      border: 1px solid var(--line);
+      background: rgba(16,18,24,.72);
+    }
+    .card h2 { margin: 0 0 14px; font-size: clamp(30px, 3.4vw, 48px); line-height: 1; }
+    .card h3 { margin: 0 0 10px; font-size: 24px; line-height: 1.08; }
+    .muted, .card p { color: var(--muted); line-height: 1.5; margin: 0; }
+    .score-card { min-height: 360px; display: grid; align-content: center; gap: 14px; }
+    .score { font-family: var(--display); font-size: clamp(70px, 8vw, 118px); line-height: .9; font-weight: 900; }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .section-title { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-top: 28px; }
+    .section-title h2 { margin: 0; font-size: clamp(34px, 4.8vw, 62px); line-height: 1; }
+    .section-title p { max-width: 580px; margin: 0; color: var(--muted); line-height: 1.5; }
+    .pill-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .pill, .plan-link {
+      min-height: 34px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: rgba(245,245,247,.72);
+      font-size: 13px;
+    }
+    .plan-link.active { color: #03111c; font-weight: 900; background: linear-gradient(90deg, #f5f5f7, #92e7ff); }
+    .metric-card {
+      min-height: 288px;
+      display: grid;
+      align-content: space-between;
+      gap: 16px;
+    }
+    .metric-top { display: flex; justify-content: space-between; gap: 14px; align-items: start; }
+    .metric-title { display: block; font-family: var(--display); font-size: 25px; line-height: 1.05; }
+    .metric-value { margin-top: 14px; font-family: var(--display); font-size: 34px; font-weight: 900; }
+    .metric-source { color: var(--muted); font-size: 13px; line-height: 1.35; }
+    .status {
+      flex: 0 0 auto;
+      min-height: 30px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-family: var(--tech);
+      font-size: 11px;
+      border: 1px solid rgba(146,231,255,.24);
+      color: rgba(216,246,255,.92);
+      background: rgba(146,231,255,.08);
+    }
+    .locked { opacity: .70; }
+    .locked .metric-value { color: rgba(245,245,247,.56); }
+    .locked-note {
+      padding: 12px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.09);
+      background: rgba(255,255,255,.045);
+      color: rgba(245,245,247,.78);
+      line-height: 1.4;
+    }
+    .list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .list li {
+      padding: 12px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.09);
+      background: rgba(255,255,255,.045);
+      color: rgba(245,245,247,.80);
+      line-height: 1.35;
+    }
+    @media (max-width: 1040px) {
+      .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 920px) {
+      .hero, .two, .grid { grid-template-columns: 1fr; }
+      .section-title { display: grid; }
+      .nav { gap: 14px; }
+    }
+    @media (max-width: 680px) {
+      .nav { display: none; }
+      .grid-4 { grid-template-columns: 1fr; }
+      h1 { font-size: 46px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="link_only_report.html"><span class="logo"></span><span>TrafficMind AI</span></a>
+    <nav class="nav" aria-label="Навигация">
+      <a href="link_only_report.html#home">Главная</a>
+      <a class="active" href="report.html">Отчет</a>
+      <a href="tariffs.html">Тарифы</a>
+      <a href="account.html">Кабинет</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div>
+        <span class="eyebrow" id="domain-label">отчет по сайту</span>
+        <h1>Все метрики: что видно сейчас и что откроется на тарифах.</h1>
+        <p id="hero-text">Собираю данные по сайту и показываю, какие показатели доступны на текущем тарифе.</p>
+        <div class="pill-list" id="plan-links"></div>
+      </div>
+
+      <aside class="card score-card">
+        <span class="eyebrow" id="plan-label">текущий тариф</span>
+        <div class="score" id="score">64</div>
+        <h2>Готовность к заявкам</h2>
+        <p id="score-text">Оценка показывает, насколько сайт готов превращать посетителей в обращения.</p>
+      </aside>
+    </section>
+
+    <section class="grid">
+      <article class="card"><h3>Что видно</h3><p>Публичные признаки сайта, формы, CTA, контакты, базовые SEO/UX-риски и счетчики.</p></article>
+      <article class="card"><h3>Что не видно</h3><p>Продажи, CPL, ROAS, качество лидов, звонки и точные потери без подключенных источников.</p></article>
+      <article class="card"><h3>Что делать</h3><p>Сначала исправить путь до заявки, затем подключить аналитику, рекламу, CRM и звонки.</p></article>
+    </section>
+
+    <section class="section-title">
+      <h2>Метрики отчета</h2>
+      <p>Закрытые показатели не исчезают: бот показывает, на каком тарифе они откроются и зачем они нужны бизнесу.</p>
+    </section>
+    <section class="grid-4" id="metrics-grid"></section>
+
+    <section class="two">
+      <article class="card">
+        <span class="eyebrow">план действий</span>
+        <h2>Что сделать первым</h2>
+        <ul class="list" id="actions-list"></ul>
+      </article>
+      <article class="card">
+        <span class="eyebrow">подключения</span>
+        <h2>Что даст точность</h2>
+        <p>Подключения превращают предварительный аудит в карту прибыли: бот видит не только сайт, но и деньги, заявки, рекламу, CRM и звонки.</p>
+        <div class="pill-list" id="connections-list"></div>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const domain = params.get("domain") || "example.com";
+    const planFromUrl = params.get("plan");
+    const levels = { trial: 0, start299: 1, pro799: 2, scale1999: 3 };
+    const planLabels = {
+      trial: "Пробный 0 ₽",
+      start299: "Старт 299 ₽",
+      pro799: "PRO 799 ₽",
+      scale1999: "Scale 1999 ₽"
+    };
+    const planDescriptions = {
+      trial: "Бесплатный тариф показывает только предварительный аудит по открытому сайту. Проверка доступна раз в 7 дней.",
+      start299: "Старт открывает кабинет, историю отчетов, базовые каналы и регулярные рекомендации.",
+      pro799: "PRO открывает деньги, рекламу, CRM, звонки, AI Growth Council, потери денег и 3 конкурентов.",
+      scale1999: "Scale открывает командный режим, до 10 проектов, до 10 конкурентов и расширенные отчеты."
+    };
+
+    const savedPlan = () => {
+      try {
+        return JSON.parse(localStorage.getItem("trafficmind_account_settings") || "{}").plan || "trial";
+      } catch {
+        return "trial";
+      }
+    };
+    const currentPlan = levels[planFromUrl] !== undefined ? planFromUrl : savedPlan();
+    const currentLevel = levels[currentPlan] ?? 0;
+
+    const metrics = [
+      { title: "Готовность к заявкам", min: "trial", value: "64/100", source: "link-only audit", why: "Показывает, насколько сайт готов принимать заявки уже сейчас.", locked: "" },
+      { title: "Видимые потери сайта", min: "trial", value: "3 риска", source: "страница, формы, CTA", why: "Помогает быстро найти, где посетитель может уйти до обращения.", locked: "" },
+      { title: "Что видно / не видно", min: "trial", value: "2 блока", source: "публичный сайт", why: "Честно разделяет факты и данные, которые нельзя узнать без подключений.", locked: "" },
+      { title: "План на сегодня", min: "trial", value: "3 действия", source: "AI demo", why: "Дает короткий список задач вместо ручного анализа.", locked: "" },
+
+      { title: "Пользователи", min: "start299", value: "демо", source: "GA4 / Метрика", why: "Показывает размер аудитории и динамику спроса.", locked: "Откроется на тарифе Старт: нужен доступ к аналитике сайта." },
+      { title: "Сессии", min: "start299", value: "демо", source: "GA4 / Метрика", why: "Помогает понять, сколько визитов реально происходит и как часто люди возвращаются.", locked: "Откроется на тарифе Старт: нужен счетчик аналитики." },
+      { title: "Каналы трафика", min: "start299", value: "SEO / ads / social", source: "GA4, Метрика, UTM", why: "Показывает, откуда приходят люди: поиск, реклама, соцсети, прямые переходы.", locked: "Откроется на тарифе Старт: нужны UTM и базовая аналитика." },
+      { title: "SEO клики и показы", min: "start299", value: "демо", source: "Search Console / Яндекс", why: "Показывает, какие запросы уже приводят спрос без рекламы.", locked: "Откроется на тарифе Старт: нужен Search Console или Яндекс.Вебмастер." },
+      { title: "UTM-источники", min: "start299", value: "демо", source: "UTM / yclid / gclid", why: "Позволяет понять, какая кампания привела заявку.", locked: "Откроется на тарифе Старт: нужны размеченные ссылки." },
+
+      { title: "Конверсии", min: "pro799", value: "демо", source: "GA4 / GTM / CRM", why: "Показывает, сколько посетителей стало заявками или покупателями.", locked: "Откроется на PRO: нужны цели, события или CRM." },
+      { title: "CPL / CPA / CAC", min: "pro799", value: "демо", source: "Ads + CRM", why: "Показывает стоимость заявки, действия или клиента.", locked: "Откроется на PRO: нужны рекламные расходы и заявки." },
+      { title: "ROAS / ROI", min: "pro799", value: "демо", source: "Ads + CRM + revenue", why: "Показывает, окупается ли реклама и какие каналы дают прибыль.", locked: "Откроется на PRO: нужны расходы и выручка." },
+      { title: "CTR / CPC / CPM", min: "pro799", value: "демо", source: "Google Ads / Директ / Meta / VK", why: "Помогает понять качество объявлений и стоимость внимания.", locked: "Откроется на PRO: нужны рекламные кабинеты." },
+      { title: "Качество лидов", min: "pro799", value: "демо", source: "CRM stages", why: "Показывает не только количество заявок, но и их ценность.", locked: "Откроется на PRO: нужны стадии CRM." },
+      { title: "Звонки", min: "pro799", value: "демо", source: "Call Tracking", why: "Добавляет обращения по телефону в общую картину маркетинга.", locked: "Откроется на PRO: нужен call tracking." },
+      { title: "Потери денег", min: "pro799", value: "35-120 тыс. ₽", source: "AI + расходы + CRM", why: "Показывает, где бизнес теряет бюджет, лиды и продажи.", locked: "Откроется на PRO: нужны деньги, лиды и источники." },
+      { title: "AI Growth Council", min: "pro799", value: "3 агента", source: "AI-модели", why: "Несколько AI-ролей спорят и собирают финальный план роста.", locked: "Откроется на PRO: нужен расширенный AI-анализ." },
+      { title: "3 конкурента", min: "pro799", value: "до 3", source: "сайт, контент, активность", why: "Помогает видеть, кто растет быстрее и какие идеи можно забрать.", locked: "Откроется на PRO: мониторинг 3 конкурентов включен." },
+
+      { title: "Multi-touch attribution", min: "scale1999", value: "расширенно", source: "каналы + CRM", why: "Показывает несколько касаний до покупки, а не только последний клик.", locked: "Откроется на Scale: нужна расширенная атрибуция." },
+      { title: "10 конкурентов", min: "scale1999", value: "до 10", source: "динамика рынка", why: "Подходит для агентств и команд, которым важно следить за рынком шире.", locked: "Откроется на Scale: больше конкурентов и история изменений." },
+      { title: "Командные отчеты", min: "scale1999", value: "PDF / HTML", source: "workspace", why: "Позволяет отдавать отчеты владельцу, маркетологу и команде.", locked: "Откроется на Scale: нужны командные отчеты." },
+      { title: "Несколько проектов", min: "scale1999", value: "до 10", source: "workspace", why: "Нужно, если у бизнеса несколько сайтов или у агентства несколько клиентов.", locked: "Откроется на Scale: лимит проектов выше." }
+    ];
+
+    const canView = (metric) => currentLevel >= levels[metric.min];
+    const minLabel = (metric) => planLabels[metric.min] || "платном тарифе";
+    const metricValue = (metric) => canView(metric) ? metric.value : "закрыто";
+
+    function renderPlanLinks() {
+      const container = document.querySelector("#plan-links");
+      container.innerHTML = Object.keys(planLabels).map((key) => (
+        `<a class="plan-link ${key === currentPlan ? "active" : ""}" href="report.html?domain=${encodeURIComponent(domain)}&plan=${key}">${planLabels[key]}</a>`
+      )).join("");
+    }
+
+    function renderMetrics() {
+      const grid = document.querySelector("#metrics-grid");
+      grid.innerHTML = metrics.map((metric) => {
+        const open = canView(metric);
+        return `
+          <article class="card metric-card ${open ? "" : "locked"}">
+            <div>
+              <div class="metric-top">
+                <span class="metric-title">${metric.title}</span>
+                <span class="status">${open ? "доступно" : minLabel(metric)}</span>
+              </div>
+              <div class="metric-value">${metricValue(metric)}</div>
+              <div class="metric-source">${metric.source}</div>
+            </div>
+            <p>${metric.why}</p>
+            ${open ? "" : `<div class="locked-note">${metric.locked} Эта метрика нужна, чтобы принимать решения не по ощущениям, а по данным.</div>`}
+          </article>
+        `;
+      }).join("");
+    }
+
+    function renderActions(report) {
+      const actions = report.today_actions || [];
+      document.querySelector("#actions-list").innerHTML = actions.map((action) => (
+        `<li><strong>${action.title}</strong><br>${action.effect || action.expected_effect || "ожидаемый эффект зависит от подключенных данных"}</li>`
+      )).join("");
+    }
+
+    function renderConnections(report) {
+      const connections = report.required_connections || ["GA4", "Яндекс Метрика", "CRM", "Google Ads", "Яндекс Директ", "Call Tracking", "GTM"];
+      document.querySelector("#connections-list").innerHTML = connections.map((item) => `<span class="pill">${item}</span>`).join("");
+    }
+
+    async function loadReport() {
+      document.querySelector("#domain-label").textContent = `отчет: ${domain}`;
+      document.querySelector("#plan-label").textContent = `тариф: ${planLabels[currentPlan] || "Пробный 0 ₽"}`;
+      document.querySelector("#hero-text").textContent = planDescriptions[currentPlan] || planDescriptions.trial;
+      renderPlanLinks();
+      renderMetrics();
+      try {
+        const response = await fetch(`/api/reports/link-only-demo?domain=${encodeURIComponent(domain)}`);
+        if (!response.ok) throw new Error("Demo API unavailable");
+        const report = await response.json();
+        document.querySelector("#score").textContent = report.confidence?.score || 64;
+        document.querySelector("#score-text").textContent = report.executive_summary?.headline || "Предварительная оценка сайта готова.";
+        renderActions(report);
+        renderConnections(report);
+      } catch {
+        renderActions({ today_actions: [{ title: "Проверить первый экран и форму", effect: "+5-12% к конверсии первого касания" }] });
+        renderConnections({});
+      }
+    }
+
+    loadReport();
+  </script>
+</body>
+</html>
