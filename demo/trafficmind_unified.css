@@ -13,6 +13,24 @@
   --tm-tech: "Cascadia Code", "SF Mono", Consolas, monospace;
 }
 
+@keyframes tmGlassDrift {
+  0% { background-position: 0% 0%, 100% 0%, 0% 50%, center; }
+  50% { background-position: 82% 20%, 8% 74%, 100% 50%, center; }
+  100% { background-position: 0% 0%, 100% 0%, 0% 50%, center; }
+}
+
+@keyframes tmAuroraSweep {
+  0% { transform: translateX(-42%) rotate(10deg); opacity: .10; }
+  45% { opacity: .32; }
+  100% { transform: translateX(42%) rotate(10deg); opacity: .12; }
+}
+
+@keyframes tmButtonFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 * {
   letter-spacing: 0;
 }
@@ -104,15 +122,24 @@ aside.glass,
 .report-card,
 .item,
 .action,
-.step {
-  border-color: rgba(255, 255, 255, .13) !important;
+.step,
+.plan-card,
+.settings-section,
+.access-item {
+  border-color: rgba(190, 239, 255, .18) !important;
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, .075), rgba(255, 255, 255, .024) 46%, rgba(0, 0, 0, .30)),
+    radial-gradient(circle at 16% 0%, rgba(178, 238, 255, .24), transparent 34%),
+    radial-gradient(circle at 86% 14%, rgba(89, 176, 255, .18), transparent 32%),
+    linear-gradient(132deg, rgba(255, 255, 255, .10), rgba(102, 198, 255, .075) 34%, rgba(0, 0, 0, .30) 72%),
     rgba(16, 18, 24, .72) !important;
+  background-size: 170% 170%, 160% 160%, 220% 220%, auto !important;
+  animation: tmGlassDrift 14s ease-in-out infinite;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .13),
-    0 24px 80px rgba(0, 0, 0, .48) !important;
-  backdrop-filter: blur(22px);
+    inset 0 1px 0 rgba(255, 255, 255, .18),
+    inset 0 -1px 0 rgba(146, 231, 255, .10),
+    0 24px 80px rgba(0, 0, 0, .48),
+    0 0 42px rgba(102, 198, 255, .10) !important;
+  backdrop-filter: blur(24px) saturate(170%);
 }
 
 .card,
@@ -123,7 +150,10 @@ aside.glass,
 .report-card,
 .item,
 .action,
-.step {
+.step,
+.plan-card,
+.settings-section,
+.access-item {
   position: relative;
   overflow: hidden;
 }
@@ -133,7 +163,10 @@ aside.glass,
 .glass:before,
 .stat:before,
 .phone:before,
-.report-card:before {
+.report-card:before,
+.plan-card:before,
+.settings-section:before,
+.access-item:before {
   content: "";
   position: absolute;
   inset: 0;
@@ -146,12 +179,34 @@ aside.glass,
   pointer-events: none;
 }
 
+.card:after,
+.panel:after,
+.glass:after,
+.stat:after,
+.phone:after,
+.report-card:after,
+.plan-card:after,
+.settings-section:after,
+.access-item:after {
+  content: "";
+  position: absolute;
+  inset: -32% -62%;
+  background:
+    linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, .18) 47%, rgba(146, 231, 255, .16) 52%, transparent 64%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: tmAuroraSweep 9s ease-in-out infinite;
+}
+
 .card > *,
 .panel > *,
 .glass > *,
 .stat > *,
 .phone > *,
-.report-card > * {
+.report-card > *,
+.plan-card > *,
+.settings-section > *,
+.access-item > * {
   position: relative;
   z-index: 1;
 }
@@ -160,10 +215,75 @@ aside.glass,
 .avatar,
 .send {
   background:
-    linear-gradient(135deg, var(--tm-silver), var(--tm-cyan) 34%, #0c3151 68%, #02070d) !important;
+    linear-gradient(135deg, #f7fbff, var(--tm-cyan) 32%, #2b9cff 62%, #061521) !important;
+  background-size: 180% 180% !important;
+  animation: tmButtonFlow 7s ease-in-out infinite;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, .42),
     0 0 32px rgba(102, 198, 255, .28) !important;
+}
+
+.eyebrow,
+.pill,
+.badge,
+.chip,
+.plan-badge,
+.status-chip {
+  border-color: rgba(190, 239, 255, .24) !important;
+  background:
+    linear-gradient(115deg, rgba(255, 255, 255, .12), rgba(146, 231, 255, .12) 48%, rgba(5, 16, 27, .34)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .16),
+    0 10px 30px rgba(0, 0, 0, .18),
+    0 0 20px rgba(102, 198, 255, .08) !important;
+  backdrop-filter: blur(16px) saturate(150%);
+}
+
+.button,
+.cta,
+.plan-button,
+.tg-button {
+  border-color: rgba(190, 239, 255, .22) !important;
+  background:
+    linear-gradient(115deg, rgba(255, 255, 255, .12), rgba(146, 231, 255, .14) 48%, rgba(5, 16, 27, .34)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .18),
+    0 14px 34px rgba(0, 0, 0, .22),
+    0 0 24px rgba(102, 198, 255, .10) !important;
+  backdrop-filter: blur(16px) saturate(150%);
+}
+
+.button.primary,
+button.primary,
+.primary,
+.featured .plan-button {
+  color: #03111c !important;
+  border-color: rgba(222, 248, 255, .58) !important;
+  background:
+    linear-gradient(105deg, #f7fbff 0%, #bfeeff 26%, #6ecfff 52%, #d9f8ff 76%, #8be8ff 100%) !important;
+  background-size: 240% 240% !important;
+  animation: tmButtonFlow 6s ease-in-out infinite;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .75),
+    inset 0 -1px 0 rgba(7, 58, 97, .18),
+    0 18px 44px rgba(102, 198, 255, .25),
+    0 0 0 1px rgba(255, 255, 255, .08) !important;
+}
+
+input,
+select,
+textarea,
+.custom-select-button,
+.list li,
+.result-list li,
+.hero-list li,
+.mini-list li {
+  border-color: rgba(190, 239, 255, .15) !important;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, .075), rgba(146, 231, 255, .055) 48%, rgba(0, 0, 0, .18)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .10),
+    0 10px 28px rgba(0, 0, 0, .16) !important;
 }
 
 nav a,
@@ -197,6 +317,33 @@ nav a.active,
   background:
     linear-gradient(90deg, rgba(102, 198, 255, .20), rgba(255, 255, 255, .055)) !important;
   box-shadow: 0 0 28px rgba(102, 198, 255, .12) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topbar,
+  aside.glass,
+  .sidebar,
+  .glass,
+  .card,
+  .panel,
+  .stat,
+  .phone,
+  .report-card,
+  .item,
+  .action,
+  .step,
+  .plan-card,
+  .settings-section,
+  .access-item,
+  .logo,
+  .avatar,
+  .send,
+  .button.primary,
+  button.primary,
+  .primary,
+  .featured .plan-button {
+    animation: none !important;
+  }
 }
 
 .tm-signature,
