@@ -593,11 +593,9 @@
   <header class="topbar">
     <a class="brand" href="link_only_report.html"><span class="logo"></span><span>TrafficMind AI</span></a>
     <nav class="nav" aria-label="Навигация">
-      <a href="link_only_report.html">Сайт</a>
-      <a class="active" href="account.html">Личный кабинет</a>
+      <a href="link_only_report.html#try">Проверить сайт</a>
       <a href="tariffs.html">Тарифы</a>
-      <a href="#telegram-sync">Telegram-связка</a>
-      <a href="#settings">Настройки</a>
+      <a class="active" href="account.html">Кабинет</a>
     </nav>
   </header>
 
@@ -635,26 +633,26 @@
       <div class="pricing-grid">
         <button class="plan-card" type="button" data-plan="trial" aria-pressed="false">
           <div>
-            <div class="plan-topline"><span class="plan-name">Пробный</span><span class="plan-badge">1 раз</span></div>
-            <div class="plan-price">0 ₽<span>первый отчет</span></div>
-            <p>Для клиента, который хочет быстро понять потенциал бота без подключений и сложной настройки.</p>
+            <div class="plan-topline"><span class="plan-name">Бесплатный</span><span class="plan-badge">раз в 7 дней</span></div>
+            <div class="plan-price">0 ₽<span>проверка сайта</span></div>
+            <p>Для клиента, который хочет быстро проверить сайт без подключений и сложной настройки.</p>
             <ul class="plan-list">
-              <li>один отчет по ссылке на сайт</li>
-              <li>демо возможностей тарифа 299</li>
+              <li>проверка сайта бесплатно раз в 7 дней</li>
+              <li>без подключения внешних сервисов</li>
               <li>базовые выводы по сайту, офферу и точкам потерь</li>
-              <li>после отчета часть функций закрывается до оплаты</li>
+              <li>расширенная статистика открывается на платных тарифах</li>
             </ul>
           </div>
-          <span class="plan-button">Выбрать пробный</span>
+          <span class="plan-button">Выбрать бесплатный</span>
         </button>
 
         <button class="plan-card featured active" type="button" data-plan="start299" aria-pressed="true">
           <div>
             <div class="plan-topline"><span class="plan-name">Старт</span><span class="plan-badge">легкий вход</span></div>
             <div class="plan-price">299 ₽<span>в месяц</span></div>
-            <p>Для малого бизнеса и маркетолога: бот уже запоминает настройки, ведет регулярные отчеты и показывает, что делать первым.</p>
+            <p>Для малого бизнеса: сайт запоминает настройки, ведет регулярные отчеты и показывает, что делать первым.</p>
             <ul class="plan-list">
-              <li>личный кабинет и Telegram-синхронизация</li>
+              <li>личный кабинет и сохранение настроек</li>
               <li>отчеты по сайту, SEO, рекламе и соцсетям</li>
               <li>AI-рекомендации, приоритеты и недельный итог</li>
               <li>один раз показывает часть функций топ-тарифа как демо</li>
@@ -842,7 +840,7 @@
                 <label class="check-card"><input type="checkbox" name="notify_ads_spike" checked> Рост CPL</label>
                 <label class="check-card" data-min-plan="pro799"><input type="checkbox" name="notify_competitors"> Конкуренты<span class="lock-note">Откроется на тарифе “PRO”: до 3 конкурентов с динамикой.</span></label>
                 <label class="check-card" data-min-plan="start299"><input type="checkbox" name="weekly_digest" checked> Недельный итог<span class="lock-note">Откроется на тарифе “Старт”: регулярный дайджест по действиям и результатам.</span></label>
-                <label class="check-card"><input type="checkbox" name="telegram_sync" checked> Telegram-связка</label>
+                <label class="check-card"><input type="checkbox" name="telegram_sync" checked> Telegram-уведомления позже</label>
               </div>
             </div>
 
@@ -883,7 +881,7 @@
       </article>
 
       <article class="card" id="telegram-sync">
-        <h2>Telegram как следующий этап</h2>
+        <h2>Telegram подключим позже</h2>
         <p class="muted">Сайт, личный кабинет, тарифы, отчеты и настройки можно запустить первыми. Telegram-бот подключается позже как дополнительный канал доставки отчетов и алертов.</p>
         <div class="sync-steps">
           <div class="step"><span class="number">01</span><div><strong>Сначала работает web-кабинет</strong><p class="muted">Клиент выбирает тариф, сохраняет сайт, цели, каналы, конкурентов и настройки отчетов.</p></div></div>
@@ -937,11 +935,11 @@
     const planCopy = {
       trial: {
         title: "Активен пробный доступ",
-        text: "Клиент получает один сильный первый отчет по ссылке и видит, как бот помогает находить слабые места сайта. Регулярные отчеты, рекламные каналы, CRM и конкуренты показываются как следующий шаг."
+        text: "Клиент может бесплатно проверить сайт 1 раз в 7 дней. Без подключения сервисов: GA4, реклама, CRM, звонки и расширенная статистика открываются только на платных тарифах."
       },
       start299: {
         title: "Активен тариф “Старт”",
-        text: "Открыты личный кабинет, Telegram-связка, регулярные отчеты по одному сайту, SEO, базовая реклама, соцсети, UTM и недельные AI-рекомендации. Глубокие источники, AI Growth Council, CRM и конкуренты открываются на PRO."
+        text: "Открыты личный кабинет, сохранение настроек, регулярные отчеты по одному сайту, SEO, базовая реклама, соцсети, UTM и недельные AI-рекомендации. Глубокие источники, AI Growth Council, CRM и конкуренты открываются на PRO."
       },
       pro799: {
         title: "Активен тариф “PRO”",

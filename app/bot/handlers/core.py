@@ -462,7 +462,7 @@ async def subscription_handler(event) -> None:
     message = event.message if isinstance(event, CallbackQuery) else event
     lines = ["Тарифы TrafficMind AI\n"]
     for plan in PLANS.values():
-        price = "бесплатно, 1 раз" if plan.price == 0 else f"{plan.price} ₽/мес"
+        price = "бесплатно, 1 раз в 7 дней" if plan.price == 0 else f"{plan.price} ₽/мес"
         features = "\n".join(f"• {feature}" for feature in plan.features[:5])
         lines.append(
             f"{plan.title} — {price}\n"
