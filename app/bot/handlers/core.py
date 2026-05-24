@@ -16,6 +16,7 @@ from app.database import SessionLocal
 from app.models import Report, TrafficSource, Website
 from app.integrations.registry import CATEGORY_TITLES, get_integration
 from app.services.ai_service import explain_sources, recommendations_from_audit
+from app.services.ai_council_service import AIGrowthCouncil
 from app.services.account_service import create_telegram_link_code
 from app.services.audit_service import audit_domain
 from app.services.growth_intelligence_service import (
@@ -346,6 +347,44 @@ async def ai_handler(event, state: FSMContext | None = None) -> None:
         await event.answer()
 
 
+@router.message(Command("council"))
+@router.callback_query(F.data == "ai_council")
+async def ai_council_handler(event) -> None:
+    message = event.message if isinstance(event, CallbackQuery) else event
+    metrics = demo_metrics()
+    context = {
+        "metrics": [item.__dict__ for item in metrics],
+        "profit_map": build_profit_map(metrics),
+        "insights": [item.__dict__ for item in detect_insights(metrics)],
+        "today_actions": [item.__dict__ for item in generate_today_actions(metrics)],
+        "forecast": forecast_revenue(metrics).__dict__,
+    }
+    result = await AIGrowthCouncil().run_council(context)
+    debate = "\n".join(
+        f"- {item.agent}: {item.message}" + (" [fallback]" if item.fallback else "")
+        for item in result.debate
+    )
+    plan = "\n\n".join(
+        f"{item.step}. {item.title}\n"
+        f"Почему: {item.why}\n"
+        f"Как: {item.how}\n"
+        f"Эффект: {item.expected_effect}\n"
+        f"Приоритет: {item.priority}"
+        for item in result.action_plan
+    )
+    await message.answer(
+        "AI Growth Council\n\n"
+        f"Итог: {result.summary}\n\n"
+        f"Главная проблема: {result.main_problem}\n\n"
+        f"Что обсудили модели:\n{debate}\n\n"
+        f"Финальный план:\n{plan}\n\n"
+        f"Уверенность: {result.confidence:.0%}",
+        reply_markup=main_menu(),
+    )
+    if isinstance(event, CallbackQuery):
+        await event.answer()
+
+
 @router.message(Command("report"))
 @router.callback_query(F.data == "report")
 async def report_handler(event) -> None:
@@ -436,6 +475,6 @@ async def check_all_handler(query: CallbackQuery) -> None:
 @router.message(Command("help"))
 async def help_handler(message: Message) -> None:
     await message.answer(
-        "/add_site, /audit, /connect, /account, /traffic_map, /report, /link_report, /recommendations, /subscription",
+        "/add_site, /audit, /connect, /account, /traffic_map, /report, /link_report, /recommendations, /council, /subscription",
         reply_markup=main_menu(),
     )

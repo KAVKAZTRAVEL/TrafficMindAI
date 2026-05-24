@@ -1,5 +1,7 @@
 import os
+import secrets
 from dataclasses import dataclass
+from datetime import datetime, timedelta
 import httpx
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -11,7 +13,7 @@ from app.integrations.registry import (
     integrations_by_category,
     required_env_vars,
 )
-from app.models import IntegrationAccount, User
+from app.models import IntegrationAccount, OAuthState, User
 
 
 @dataclass(frozen=True)
@@ -80,7 +82,16 @@ async def prepare_integration_setup(session: AsyncSession, user: User, code: str
         missing = [name for name in required if not env_value(name)]
         client_id, redirect_uri = oauth_env(item)
         if not missing:
-            connect_url = build_oauth_url(item, client_id, redirect_uri, state=f"{user.id}:{item.code}")
+            state = OAuthState(
+                state=secrets.token_urlsafe(32),
+                user_id=user.id,
+                integration_code=item.code,
+                provider=item.env_prefix.lower(),
+                expires_at=datetime.utcnow() + timedelta(minutes=15),
+            )
+            session.add(state)
+            await session.commit()
+            connect_url = build_oauth_url(item, client_id, redirect_uri, state=state.state)
 
     text = setup_text(item, bool(connect_url), missing)
     return IntegrationSetup(item.title, text, connect_url, item.docs_url, account.status)
@@ -153,6 +164,20 @@ async def exchange_oauth_code(item, code: str) -> dict:
     if "access_token" not in token_payload:
         raise ValueError("Сервис не вернул access_token.")
     return token_payload
+
+
+async def validate_oauth_state(session: AsyncSession, state_value: str) -> OAuthState:
+    state = await session.scalar(select(OAuthState).where(OAuthState.state == state_value))
+    if not state:
+        raise ValueError("OAuth state not found.")
+    if state.used:
+        raise ValueError("OAuth state already used.")
+    if state.expires_at < datetime.utcnow():
+        raise ValueError("OAuth state expired.")
+    state.used = True
+    await session.commit()
+    await session.refresh(state)
+    return state
 
 
 def catalog_payload() -> dict:

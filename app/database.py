@@ -21,5 +21,8 @@ async def get_db() -> AsyncGenerator[AsyncSession, None]:
 async def init_db() -> None:
     from app import models  # noqa: F401
 
+    if settings.is_production:
+        return
+
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)

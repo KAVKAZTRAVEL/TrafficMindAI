@@ -16,6 +16,9 @@ def main_menu() -> InlineKeyboardMarkup:
             InlineKeyboardButton(text="Content AI", callback_data="content_ai"),
         ],
         [
+            InlineKeyboardButton(text="AI Growth Council", callback_data="ai_council"),
+        ],
+        [
             InlineKeyboardButton(text="Конкуренты", callback_data="competitors"),
             InlineKeyboardButton(text="Отчеты", callback_data="report"),
         ],
