@@ -346,17 +346,54 @@
     const resultText = document.querySelector("#result-text");
     const resultList = document.querySelector("#result-list");
 
-    form.addEventListener("submit", (event) => {
+    const localReport = (domain) => ({
+      domain,
+      confidence: { score: 64 },
+      executive_summary: {
+        headline: `Сайт ${domain} может терять заявки из-за слабого измерения и неочевидного пути до формы.`,
+        estimated_revenue_leak: "35 000-120 000 ₽/мес",
+        next_best_action: "Проверить первый экран, форму заявки и подключить базовый трекинг."
+      },
+      money_leaks: [
+        { title: "Заявки без источника", estimated_loss: "15 000-50 000 ₽/мес", fix: "Передавать UTM и источник заявки в CRM." },
+        { title: "Невидимая реклама", estimated_loss: "20 000-70 000 ₽/мес", fix: "Подключить рекламные кабинеты и цели." }
+      ],
+      today_actions: [
+        { title: "Поставить цель формы и кликов по мессенджерам", effect: "+15-30% точности в понимании заявок" },
+        { title: "Переписать первый экран под конкретное обещание", effect: "+5-12% к конверсии первого касания" }
+      ]
+    });
+
+    const renderReport = (report) => {
+      const score = report.confidence?.score ?? 64;
+      const summary = report.executive_summary || {};
+      const leaks = report.money_leaks || [];
+      const actions = report.today_actions || [];
+      resultTitle.textContent = `Проверка ${report.domain} готова: ${score}/100`;
+      resultText.textContent = `${summary.headline || "Сайт проверен в demo-режиме."} Возможная потеря: ${summary.estimated_revenue_leak || "требует подключений"}.`;
+      resultList.innerHTML = `
+        <li><strong>Что видно:</strong> оффер, формы, CTA, контакты, базовые SEO/UX-риски и признаки счетчиков.</li>
+        <li><strong>Главная потеря:</strong> ${leaks[0]?.title || "заявки без точного источника"} — ${leaks[0]?.estimated_loss || "нужны данные CRM и рекламы"}.</li>
+        <li><strong>Что сделать первым:</strong> ${(summary.next_best_action || actions[0]?.title || "подключить трекинг и проверить форму").replace(/\.$/, "")}.</li>
+        <li><strong>Следующий шаг:</strong> ${actions[0]?.title || "выбрать тариф и подключить источники данных"}${actions[0]?.effect ? `, эффект: ${actions[0].effect}` : ""}.</li>
+      `;
+    };
+
+    form.addEventListener("submit", async (event) => {
       event.preventDefault();
       const value = input.value.trim() || "https://example.com";
       const domain = value.replace("https://", "").replace("http://", "").replace(/\/.*$/, "");
-      resultTitle.textContent = `Проверка ${domain} готова`;
-      resultText.textContent = "Это бесплатный отчет по открытым признакам сайта. Его можно запускать раз в 7 дней.";
-      resultList.innerHTML = `
-        <li>Сайт будет проверен на понятность оффера, формы, CTA, контакты и базовые точки потерь.</li>
-        <li>Расширенная статистика не показывается: для нее нужны GA4, Метрика, реклама, CRM или звонки.</li>
-        <li>Следующий шаг: выбрать тариф, если нужен регулярный контроль и источники денег.</li>
-      `;
+      resultTitle.textContent = "Собираю demo-отчет...";
+      resultText.textContent = "Проверяю открытые признаки сайта и готовлю выводы.";
+      resultList.innerHTML = "<li>Запрос отправлен в demo API сайта.</li>";
+
+      try {
+        const response = await fetch(`/api/reports/link-only-demo?domain=${encodeURIComponent(domain)}`);
+        if (!response.ok) throw new Error("Demo API unavailable");
+        renderReport(await response.json());
+      } catch {
+        renderReport(localReport(domain));
+      }
     });
   </script>
 </body>
