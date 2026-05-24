@@ -8,11 +8,9 @@
   <style>
     :root {
       --ink: #f5f5f7;
-      --muted: rgba(245,245,247,.68);
-      --line: rgba(255,255,255,.14);
-      --blue: #66c6ff;
+      --muted: rgba(245,245,247,.66);
+      --line: rgba(255,255,255,.13);
       --cyan: #92e7ff;
-      --glass: rgba(15,18,26,.74);
       --display: "Bahnschrift", "Aptos Display", "Segoe UI Variable Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
       --read: "Aptos", "Segoe UI Variable Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
       --tech: "Cascadia Code", "SF Mono", Consolas, monospace;
@@ -21,76 +19,190 @@
     body { margin: 0; min-height: 100vh; color: var(--ink); font-family: var(--read); }
     a { color: inherit; text-decoration: none; }
     .topbar {
-      position: sticky; top: 0; z-index: 10; min-height: 56px;
-      display: flex; justify-content: space-between; align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      min-height: 56px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
       padding: 0 clamp(16px, 4vw, 72px);
-      border-bottom: 1px solid rgba(255,255,255,.09);
-      background: rgba(0,0,0,.72); backdrop-filter: blur(24px) saturate(180%);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.72);
+      backdrop-filter: blur(22px) saturate(180%);
     }
-    .brand { display: flex; align-items: center; gap: 10px; font-weight: 900; font-size: 14px; }
-    .logo { width: 22px; height: 22px; border-radius: 7px; background: linear-gradient(135deg, #dff7ff, #118cff 58%, #041626); }
-    .nav { display: flex; gap: clamp(12px, 2vw, 26px); color: rgba(245,245,247,.7); font-size: 13px; }
-    .nav a:hover, .nav .active { color: #fff; }
-    .page { width: min(1240px, calc(100% - 32px)); margin: 0 auto; padding: 72px 0 96px; display: grid; gap: 22px; }
-    .hero { min-height: 520px; display: grid; align-items: end; position: relative; overflow: hidden; border-radius: 42px; padding: clamp(28px, 5vw, 64px); border: 1px solid rgba(255,255,255,.12); background: linear-gradient(145deg, rgba(10,15,24,.92), rgba(4,9,16,.96)); }
-    .hero:before {
-      content: ""; position: absolute; inset: -24%;
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 14px; }
+    .logo { width: 22px; height: 22px; border-radius: 7px; }
+    .nav { display: flex; align-items: center; gap: clamp(12px, 2vw, 26px); color: rgba(245,245,247,.68); font-size: 13px; }
+    .nav a.active, .nav a:hover { color: var(--ink); }
+    .page { width: min(1220px, calc(100% - 32px)); margin: 0 auto; padding: clamp(34px, 6vw, 72px) 0 84px; display: grid; gap: 18px; }
+    .hero {
+      min-height: 500px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 430px);
+      gap: clamp(22px, 5vw, 64px);
+      align-items: center;
+    }
+    .eyebrow {
+      width: fit-content;
+      min-height: 34px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.07);
+      color: rgba(245,245,247,.74);
+      font-family: var(--tech);
+      font-size: 13px;
+    }
+    h1, h2, h3 { font-family: var(--display); }
+    h1 {
+      margin: 24px 0 0;
+      max-width: 820px;
+      font-size: clamp(54px, 7vw, 98px);
+      line-height: .98;
+      background: linear-gradient(92deg, #fff 0%, #dbe4ef 30%, var(--cyan) 58%, #8fa6b8 82%, #fff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      max-width: 700px;
+      margin: 20px 0 0;
+      color: rgba(245,245,247,.80);
+      font-size: clamp(19px, 2vw, 27px);
+      line-height: 1.32;
+    }
+    .card {
+      border-radius: 30px;
+      padding: clamp(22px, 3vw, 34px);
+      border: 1px solid var(--line);
+      background: rgba(16,18,24,.72);
+    }
+    .card h2 { margin: 0 0 14px; font-size: clamp(30px, 3.4vw, 48px); line-height: 1; }
+    .card h3 { margin: 0 0 10px; font-size: 24px; line-height: 1.08; }
+    .muted, .card p { color: var(--muted); line-height: 1.5; margin: 0; }
+    .hero-card { min-height: 400px; display: grid; gap: 16px; align-content: center; }
+    .hero-list, .plan-list, .mini-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .hero-list li, .mini-list li {
+      padding: 12px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.09);
+      background: rgba(255,255,255,.045);
+      color: rgba(245,245,247,.80);
+      line-height: 1.35;
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .plan-card {
+      min-height: 520px;
+      display: grid;
+      align-content: space-between;
+      gap: 18px;
+      padding: 22px;
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,.12);
+      color: var(--ink);
       background:
-        radial-gradient(circle at 18% 12%, rgba(146,231,255,.32), transparent 24%),
-        radial-gradient(circle at 78% 24%, rgba(31,142,255,.26), transparent 26%),
-        linear-gradient(120deg, transparent 22%, rgba(255,255,255,.16), transparent 42%);
-      filter: blur(4px); opacity: .9;
+        radial-gradient(circle at 24% 0%, rgba(146,231,255,.20), transparent 34%),
+        linear-gradient(145deg, rgba(255,255,255,.085), rgba(255,255,255,.035));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 24px 60px rgba(0,0,0,.22);
+      overflow: hidden;
     }
-    .hero:after {
-      content: "AI"; position: absolute; right: -2vw; bottom: -10vw;
-      font: 900 clamp(180px, 32vw, 420px)/.8 var(--display);
-      color: rgba(146,231,255,.045); letter-spacing: 0;
-    }
-    .hero-inner { position: relative; z-index: 1; max-width: 880px; }
-    .eyebrow { display: inline-flex; padding: 9px 14px; border-radius: 999px; border: 1px solid var(--line); color: var(--cyan); background: rgba(146,231,255,.08); font: 700 12px var(--tech); text-transform: uppercase; }
-    h1 { margin: 22px 0 0; font: 900 clamp(52px, 8vw, 108px)/.96 var(--display); letter-spacing: 0; background: linear-gradient(92deg, #fff, #dbe4ef 34%, var(--cyan) 64%, #fff); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-    .lead { max-width: 760px; margin: 20px 0 0; font-size: clamp(20px, 2.2vw, 29px); line-height: 1.28; color: rgba(245,245,247,.82); }
-    .pricing { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
-    .plan {
-      min-height: 620px; display: flex; flex-direction: column; justify-content: space-between; gap: 22px;
-      padding: 24px; border-radius: 30px; border: 1px solid rgba(255,255,255,.12);
+    .plan-card.featured {
+      border-color: rgba(146,231,255,.42);
       background:
-        linear-gradient(145deg, rgba(255,255,255,.10), rgba(255,255,255,.03)),
-        radial-gradient(circle at 20% 0%, rgba(146,231,255,.16), transparent 34%),
-        var(--glass);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 26px 70px rgba(0,0,0,.26);
-      position: relative; overflow: hidden;
+        radial-gradient(circle at 16% 0%, rgba(146,231,255,.30), transparent 36%),
+        radial-gradient(circle at 88% 12%, rgba(255,255,255,.18), transparent 30%),
+        linear-gradient(145deg, rgba(20,64,88,.70), rgba(255,255,255,.045));
     }
-    .plan:before { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent, rgba(255,255,255,.12), transparent); transform: translateX(-80%); opacity: .65; }
-    .plan.featured {
-      border-color: rgba(146,231,255,.46);
-      background:
-        radial-gradient(circle at 30% 0%, rgba(146,231,255,.28), transparent 34%),
-        linear-gradient(150deg, rgba(17,140,255,.28), rgba(14,17,25,.88) 55%, rgba(255,255,255,.08));
-      box-shadow: 0 0 0 1px rgba(102,198,255,.24), 0 34px 90px rgba(17,140,255,.22);
+    .plan-topline { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+    .plan-name { font-family: var(--display); font-size: 25px; font-weight: 800; }
+    .plan-badge {
+      min-height: 30px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(146,231,255,.30);
+      background: rgba(146,231,255,.09);
+      color: rgba(216,246,255,.92);
+      font-family: var(--tech);
+      font-size: 11px;
+      text-transform: uppercase;
+      white-space: nowrap;
     }
-    .plan.enterprise { border-color: rgba(255,255,255,.26); }
-    .plan-content, .plan-cta { position: relative; z-index: 1; }
-    .tag { display: inline-flex; width: fit-content; padding: 7px 11px; border-radius: 999px; background: rgba(255,255,255,.09); color: rgba(245,245,247,.72); font: 800 11px var(--tech); text-transform: uppercase; }
-    h2 { margin: 18px 0 0; font: 900 30px/1.05 var(--display); }
-    .price { margin-top: 12px; font: 900 46px/1 var(--display); }
-    .price span { display: block; margin-top: 8px; color: var(--muted); font: 700 14px var(--read); }
-    .plan p { margin: 18px 0 0; color: rgba(245,245,247,.74); line-height: 1.45; }
-    ul { list-style: none; margin: 20px 0 0; padding: 0; display: grid; gap: 12px; }
-    li { position: relative; padding-left: 22px; color: rgba(245,245,247,.78); line-height: 1.35; }
-    li:before { content: ""; position: absolute; left: 0; top: .48em; width: 8px; height: 8px; border-radius: 999px; background: linear-gradient(135deg, #fff, var(--cyan)); box-shadow: 0 0 18px rgba(146,231,255,.6); }
-    .cta { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; width: 100%; border-radius: 999px; border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.08); color: #fff; font-weight: 900; }
-    .featured .cta { border: 0; color: #02070c; background: linear-gradient(90deg, #fff, var(--cyan)); }
-    .compare { display: grid; grid-template-columns: 1.2fr repeat(4, 1fr); border: 1px solid rgba(255,255,255,.12); border-radius: 30px; overflow: hidden; background: rgba(255,255,255,.05); }
-    .cell { min-height: 58px; padding: 16px; border-right: 1px solid rgba(255,255,255,.09); border-bottom: 1px solid rgba(255,255,255,.09); color: rgba(245,245,247,.78); }
-    .cell:nth-child(5n) { border-right: 0; }
-    .head { color: #fff; font-weight: 900; background: rgba(255,255,255,.07); }
-    .yes { color: var(--cyan); font-weight: 900; }
-    .section-title { margin: 38px 0 0; display: flex; justify-content: space-between; gap: 24px; align-items: end; }
-    .section-title h2 { margin: 0; font-size: clamp(34px, 5vw, 64px); }
-    .section-title p { margin: 0; max-width: 560px; color: var(--muted); line-height: 1.5; }
-    @media (max-width: 1080px) { .pricing { grid-template-columns: repeat(2, minmax(0, 1fr)); } .compare { grid-template-columns: 1fr; } .cell { border-right: 0; } }
-    @media (max-width: 720px) { .nav { display: none; } .pricing { grid-template-columns: 1fr; } .hero { border-radius: 30px; } .section-title { display: block; } }
+    .plan-price {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      margin-top: 14px;
+      font-family: var(--display);
+      font-size: 46px;
+      font-weight: 900;
+    }
+    .plan-price span {
+      padding-bottom: 8px;
+      color: var(--muted);
+      font-family: var(--read);
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .plan-card p { margin: 12px 0 0; color: rgba(245,245,247,.72); line-height: 1.45; }
+    .plan-list { margin-top: 18px; font-size: 14px; line-height: 1.35; }
+    .plan-list li { position: relative; padding-left: 20px; color: rgba(245,245,247,.80); }
+    .plan-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .48em;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #fff, var(--cyan));
+      box-shadow: 0 0 18px rgba(146,231,255,.6);
+    }
+    .plan-button {
+      min-height: 46px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      font-weight: 800;
+    }
+    .featured .plan-button {
+      border: 0;
+      color: #02070c;
+      background: linear-gradient(90deg, #fff, var(--cyan));
+    }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 1120px) {
+      .pricing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 920px) {
+      .hero, .two { grid-template-columns: 1fr; }
+      .nav { gap: 14px; }
+    }
+    @media (max-width: 680px) {
+      .nav { display: none; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 48px; }
+    }
   </style>
 </head>
 <body>
@@ -105,100 +217,100 @@
 
   <main class="page">
     <section class="hero">
-      <div class="hero-inner">
-        <span class="eyebrow">pricing / growth engine</span>
-        <h1>4 тарифа, один понятный путь к росту.</h1>
-        <p class="lead">Сначала клиент бесплатно проверяет сайт раз в 7 дней. Когда нужны подключения, расширенная статистика, реклама, CRM, конкуренты и AI Growth Council, он выбирает платный тариф.</p>
+      <div>
+        <span class="eyebrow">4 тарифа без лишней сложности</span>
+        <h1>Выберите, насколько глубоко бот видит ваш маркетинг.</h1>
+        <p>Бесплатно можно проверить сайт по ссылке раз в 7 дней. Платные тарифы открывают кабинет, источники данных, расширенную статистику, конкурентов и AI Growth Council.</p>
       </div>
+      <aside class="card hero-card">
+        <span class="eyebrow">простая логика</span>
+        <h2>Как выбрать</h2>
+        <ul class="hero-list">
+          <li><strong>0 ₽</strong> - быстро понять, есть ли риск потери заявок.</li>
+          <li><strong>299 ₽</strong> - вести сайт и получать регулярные рекомендации.</li>
+          <li><strong>799 ₽</strong> - видеть деньги, рекламу, CRM, звонки и конкурентов.</li>
+          <li><strong>1999 ₽</strong> - управлять несколькими проектами и командой.</li>
+        </ul>
+      </aside>
     </section>
 
-    <section class="pricing" aria-label="Тарифы TrafficMind AI">
-      <article class="plan">
-        <div class="plan-content">
-          <span class="tag">раз в 7 дней</span>
-          <h2>Бесплатная</h2>
-          <div class="price">0 ₽<span>проверка сайта</span></div>
-          <p>Для первого знакомства: клиент отправляет ссылку и видит, где сайт может терять заявки. Подключение сервисов и расширенная статистика недоступны.</p>
-          <ul>
-            <li>1 проверка сайта раз в 7 дней</li>
-            <li>оценка готовности сайта к заявкам</li>
-            <li>видимые проблемы формы, CTA и оффера</li>
-            <li>демо плана действий</li>
-            <li>без GA4, рекламы, CRM, звонков и расширенной статистики</li>
+    <section class="pricing-grid" aria-label="Тарифы TrafficMind AI">
+      <article class="plan-card">
+        <div>
+          <div class="plan-topline"><span class="plan-name">Пробный</span><span class="plan-badge">раз в 7 дней</span></div>
+          <div class="plan-price">0 ₽<span>по ссылке</span></div>
+          <p>Для первого касания: клиент вставляет сайт и получает честный быстрый аудит без подключений.</p>
+          <ul class="plan-list">
+            <li>1 бесплатная проверка сайта раз в 7 дней</li>
+            <li>оценка оффера, формы, CTA и контактов</li>
+            <li>видимые точки потери заявок</li>
+            <li>без подключения GA4, рекламы, CRM и звонков</li>
           </ul>
         </div>
-        <div class="plan-cta"><a class="cta" href="link_only_report.html#try">Попробовать</a></div>
+        <a class="plan-button" href="link_only_report.html#try">Проверить сайт</a>
       </article>
 
-      <article class="plan">
-        <div class="plan-content">
-          <span class="tag">легкий старт</span>
-          <h2>Старт</h2>
-          <div class="price">299 ₽<span>в месяц</span></div>
-          <p>Для малого бизнеса: регулярные отчеты, кабинет и базовая аналитика без сложных подключений.</p>
-          <ul>
-            <li>1 сайт и личный кабинет</li>
-            <li>сохранение настроек и истории проверок</li>
-            <li>регулярные отчеты по сайту</li>
+      <article class="plan-card">
+        <div>
+          <div class="plan-topline"><span class="plan-name">Старт</span><span class="plan-badge">299 ₽</span></div>
+          <div class="plan-price">299 ₽<span>в месяц</span></div>
+          <p>Для малого бизнеса, которому нужен понятный кабинет и регулярный контроль сайта.</p>
+          <ul class="plan-list">
+            <li>1 сайт и сохранение настроек</li>
+            <li>история отчетов и недельные выводы</li>
             <li>SEO, соцсети, UTM и базовая реклама</li>
-            <li>AI-рекомендации и недельный итог</li>
+            <li>демо части функций топ-тарифа 1 раз</li>
           </ul>
         </div>
-        <div class="plan-cta"><a class="cta" href="account.html#plans">Выбрать Старт</a></div>
+        <a class="plan-button" href="account.html#plans">Выбрать Старт</a>
       </article>
 
-      <article class="plan featured">
-        <div class="plan-content">
-          <span class="tag">лучший выбор</span>
-          <h2>PRO</h2>
-          <div class="price">799 ₽<span>в месяц</span></div>
-          <p>Главный тариф для бизнеса: подключает ключевые сервисы, показывает источники денег и выдает план через AI Growth Council.</p>
-          <ul>
+      <article class="plan-card featured">
+        <div>
+          <div class="plan-topline"><span class="plan-name">PRO</span><span class="plan-badge">выгоднее</span></div>
+          <div class="plan-price">799 ₽<span>в месяц</span></div>
+          <p>Главный тариф для роста: бот связывает каналы, расходы, заявки и деньги в одну картину.</p>
+          <ul class="plan-list">
             <li>до 3 сайтов</li>
-            <li>все из тарифа Старт</li>
-            <li>GA4, Метрика, Ads, VK, TikTok, CRM, звонки и email</li>
-            <li>AI Growth Council: стратег, аналитик и критик</li>
-            <li>модуль Потери денег и owner alerts</li>
-            <li>до 3 конкурентов с динамикой</li>
+            <li>GA4, Метрика, Ads, VK, TikTok, CRM, звонки, email</li>
+            <li>модуль потерь денег и owner alerts</li>
+            <li>AI Growth Council и до 3 конкурентов</li>
           </ul>
         </div>
-        <div class="plan-cta"><a class="cta" href="account.html#plans">Выбрать PRO</a></div>
+        <a class="plan-button" href="account.html#plans">Выбрать PRO</a>
       </article>
 
-      <article class="plan enterprise">
-        <div class="plan-content">
-          <span class="tag">максимум контроля</span>
-          <h2>Scale</h2>
-          <div class="price">1999 ₽<span>в месяц</span></div>
-          <p>Для команд, агентств и проектов, где цена одной ошибки в рекламе выше стоимости подписки.</p>
-          <ul>
+      <article class="plan-card">
+        <div>
+          <div class="plan-topline"><span class="plan-name">Scale</span><span class="plan-badge">1999 ₽</span></div>
+          <div class="plan-price">1999 ₽<span>в месяц</span></div>
+          <p>Для команды, агентства или владельца нескольких проектов, где важны контроль и скорость решений.</p>
+          <ul class="plan-list">
             <li>до 10 сайтов или проектов</li>
-            <li>все из тарифа PRO</li>
-            <li>до 10 конкурентов и история изменений</li>
-            <li>расширенные PDF/HTML-отчеты</li>
-            <li>мультиканальная атрибуция и прогнозы по доходу</li>
-            <li>приоритетные алерты владельцу и команде</li>
+            <li>все функции PRO</li>
+            <li>до 10 конкурентов с динамикой</li>
+            <li>расширенные отчеты и приоритетные алерты</li>
           </ul>
         </div>
-        <div class="plan-cta"><a class="cta" href="account.html#plans">Выбрать Scale</a></div>
+        <a class="plan-button" href="account.html#plans">Выбрать Scale</a>
       </article>
     </section>
 
-    <section class="section-title">
-      <h2>Почему выгоднее брать выше?</h2>
-      <p>Бесплатный тариф показывает проблему. 299 ₽ помогает регулярно следить за сайтом. 799 ₽ открывает источники денег. 1999 ₽ нужен для нескольких проектов и команды.</p>
-    </section>
-
-    <section class="compare" aria-label="Сравнение тарифов">
-      <div class="cell head">Функция</div><div class="cell head">Бесплатная</div><div class="cell head">299</div><div class="cell head">799</div><div class="cell head">1999</div>
-      <div class="cell">Проверка сайта</div><div class="cell yes">1 раз в 7 дней</div><div class="cell yes">да</div><div class="cell yes">да</div><div class="cell yes">да</div>
-      <div class="cell">Личный кабинет</div><div class="cell">демо</div><div class="cell yes">да</div><div class="cell yes">да</div><div class="cell yes">да</div>
-      <div class="cell">Подключение сервисов</div><div class="cell">нет</div><div class="cell">частично</div><div class="cell yes">да</div><div class="cell yes">да</div>
-      <div class="cell">Реклама, SEO, соцсети</div><div class="cell">ограниченно</div><div class="cell yes">база</div><div class="cell yes">глубоко</div><div class="cell yes">глубоко</div>
-      <div class="cell">CRM, звонки, email, пиксели</div><div class="cell">нет</div><div class="cell">нет</div><div class="cell yes">да</div><div class="cell yes">да</div>
-      <div class="cell">AI Growth Council</div><div class="cell">нет</div><div class="cell">демо</div><div class="cell yes">да</div><div class="cell yes">расширенно</div>
-      <div class="cell">Конкуренты</div><div class="cell">нет</div><div class="cell">нет</div><div class="cell yes">3</div><div class="cell yes">10</div>
-      <div class="cell">Отчеты для команды</div><div class="cell">нет</div><div class="cell">нет</div><div class="cell">база</div><div class="cell yes">расширенно</div>
+    <section class="two">
+      <article class="card">
+        <span class="eyebrow">почему PRO</span>
+        <h2>Самый логичный тариф для бизнеса</h2>
+        <p>Пробный тариф показывает проблему. Старт помогает не забывать про сайт. PRO уже показывает, откуда приходят заявки, где сгорает бюджет и какие действия дадут эффект быстрее всего.</p>
+      </article>
+      <article class="card">
+        <span class="eyebrow">что откроется</span>
+        <h2>Больше данных, меньше догадок</h2>
+        <ul class="mini-list">
+          <li>Расходы и заявки из рекламы сопоставляются с CRM.</li>
+          <li>Звонки, формы и email попадают в общий отчет.</li>
+          <li>Конкуренты отслеживаются по изменениям сайта, контента и видимой активности.</li>
+        </ul>
+      </article>
     </section>
   </main>
 </body>
