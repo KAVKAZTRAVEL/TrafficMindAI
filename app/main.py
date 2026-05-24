@@ -200,14 +200,14 @@ async def account_demo() -> dict:
             "telegram_id": "demo",
             "role": "owner",
             "trial_days_left": 7,
-            "plan": "BUSINESS",
+            "plan": "PRO",
         },
         "websites": [
             {"domain": "example.com", "status": "active", "health_score": 82, "tracking": "TrafficMind Script"},
         ],
         "subscription": {
-            "plan": "BUSINESS",
-            "price": 399,
+            "plan": "PRO",
+            "price": 799,
             "max_websites": 3,
             "used_websites": 1,
             "status": "trial",
@@ -287,7 +287,7 @@ async def account_telegram_link(payload: TelegramLinkIn, db: AsyncSession = Depe
 
 
 @app.post("/billing/stripe/checkout")
-async def billing_stripe_checkout(plan: str = Query(default="BUSINESS"), telegram_id: int = Query(...)) -> dict:
+async def billing_stripe_checkout(plan: str = Query(default="PRO"), telegram_id: int = Query(...)) -> dict:
     try:
         session = await create_checkout_session(plan, telegram_id)
     except (KeyError, ValueError) as exc:

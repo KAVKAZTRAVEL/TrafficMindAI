@@ -595,7 +595,7 @@
     <nav class="nav" aria-label="Навигация">
       <a href="link_only_report.html">Сайт</a>
       <a class="active" href="account.html">Личный кабинет</a>
-      <a href="#plans">Тарифы</a>
+      <a href="tariffs.html">Тарифы</a>
       <a href="#telegram-sync">Telegram-связка</a>
       <a href="#settings">Настройки</a>
     </nav>
@@ -640,7 +640,7 @@
             <p>Для клиента, который хочет быстро понять потенциал бота без подключений и сложной настройки.</p>
             <ul class="plan-list">
               <li>один отчет по ссылке на сайт</li>
-              <li>демо возможностей тарифа 399</li>
+              <li>демо возможностей тарифа 299</li>
               <li>базовые выводы по сайту, офферу и точкам потерь</li>
               <li>после отчета часть функций закрывается до оплаты</li>
             </ul>
@@ -648,10 +648,10 @@
           <span class="plan-button">Выбрать пробный</span>
         </button>
 
-        <button class="plan-card featured active" type="button" data-plan="growth399" aria-pressed="true">
+        <button class="plan-card featured active" type="button" data-plan="start299" aria-pressed="true">
           <div>
-            <div class="plan-topline"><span class="plan-name">Рост</span><span class="plan-badge">популярный</span></div>
-            <div class="plan-price">399 ₽<span>в месяц</span></div>
+            <div class="plan-topline"><span class="plan-name">Старт</span><span class="plan-badge">легкий вход</span></div>
+            <div class="plan-price">299 ₽<span>в месяц</span></div>
             <p>Для малого бизнеса и маркетолога: бот уже запоминает настройки, ведет регулярные отчеты и показывает, что делать первым.</p>
             <ul class="plan-list">
               <li>личный кабинет и Telegram-синхронизация</li>
@@ -660,12 +660,12 @@
               <li>один раз показывает часть функций топ-тарифа как демо</li>
             </ul>
           </div>
-          <span class="plan-button">Выбрать Рост</span>
+          <span class="plan-button">Выбрать Старт</span>
         </button>
 
         <button class="plan-card" type="button" data-plan="pro799" aria-pressed="false">
           <div>
-            <div class="plan-topline"><span class="plan-name">Максимум</span><span class="plan-badge">все инструменты</span></div>
+            <div class="plan-topline"><span class="plan-name">PRO</span><span class="plan-badge">лучший выбор</span></div>
             <div class="plan-price">799 ₽<span>в месяц</span></div>
             <p>Для бизнеса, который хочет видеть деньги, источники роста, риски и действия конкурентов в одной системе.</p>
             <ul class="plan-list">
@@ -675,12 +675,27 @@
               <li>горячие алерты владельцу и подробные AI-выводы</li>
             </ul>
           </div>
-          <span class="plan-button">Выбрать Максимум</span>
+          <span class="plan-button">Выбрать PRO</span>
+        </button>
+
+        <button class="plan-card" type="button" data-plan="scale1999" aria-pressed="false">
+          <div>
+            <div class="plan-topline"><span class="plan-name">Scale</span><span class="plan-badge">для команды</span></div>
+            <div class="plan-price">1999 ₽<span>в месяц</span></div>
+            <p>Для агентств, e-commerce и владельцев нескольких проектов: бот превращается в центр контроля маркетинга, конкурентов и отчетов для команды.</p>
+            <ul class="plan-list">
+              <li>до 10 сайтов или проектов</li>
+              <li>все возможности PRO</li>
+              <li>до 10 конкурентов и история изменений</li>
+              <li>расширенные PDF/HTML-отчеты и приоритетные алерты</li>
+            </ul>
+          </div>
+          <span class="plan-button">Выбрать Scale</span>
         </button>
       </div>
       <div class="plan-summary" id="plan-summary">
-        <strong>Активен тариф “Рост”</strong>
-        <span>Открыты регулярные отчеты, личный кабинет, Telegram-связка, базовые каналы и AI-рекомендации. CRM, звонки, email и 3 конкурента отмечены как возможности тарифа “Максимум”.</span>
+        <strong>Активен тариф “PRO”</strong>
+        <span>Открыты все ключевые источники данных, AI Growth Council, модуль потерь денег, CRM, звонки, email, пиксели, owner alerts и мониторинг до 3 конкурентов.</span>
       </div>
     </section>
 
@@ -689,7 +704,7 @@
         <h2>Настройки бизнеса</h2>
         <p class="muted">Кабинет работает как пульт управления ботом: клиент задает цель, ценность лида, каналы и уровень уведомлений, а TrafficMind AI подстраивает отчеты под выбранный тариф.</p>
         <form id="settings-form">
-          <input type="hidden" name="plan" value="growth399">
+          <input type="hidden" name="plan" value="pro799">
           <div class="settings-stack">
             <div class="settings-section">
               <div class="section-kicker"><strong>Доступ по тарифу</strong><span>что бот может использовать прямо сейчас</span></div>
@@ -789,13 +804,13 @@
                 <label>Как часто присылать отчет
                   <select name="report_frequency">
                     <optgroup label="Регулярно">
-                      <option value="daily" data-min-plan="growth399">Каждый день</option>
-                      <option value="weekdays" data-min-plan="growth399">По будням</option>
+                      <option value="daily" data-min-plan="start299">Каждый день</option>
+                      <option value="weekdays" data-min-plan="start299">По будням</option>
                       <option value="weekly">Раз в неделю</option>
                       <option value="monthly">Раз в месяц</option>
                     </optgroup>
                     <optgroup label="По событию">
-                      <option value="critical_only" data-min-plan="growth399">Только при критичных изменениях</option>
+                      <option value="critical_only" data-min-plan="start299">Только при критичных изменениях</option>
                       <option value="budget_spike" data-min-plan="pro799">Когда резко растет расход</option>
                       <option value="lead_drop" data-min-plan="pro799">Когда падают заявки</option>
                     </optgroup>
@@ -804,8 +819,8 @@
                 <label>Уровень уведомлений
                   <select name="alert_level">
                     <option value="critical">Только критичное</option>
-                    <option value="important" data-min-plan="growth399">Только важное</option>
-                    <option value="growth" data-min-plan="growth399">Важное + возможности роста</option>
+                    <option value="important" data-min-plan="start299">Только важное</option>
+                    <option value="growth" data-min-plan="start299">Важное + возможности роста</option>
                     <option value="all" data-min-plan="pro799">Все события</option>
                     <option value="quiet">Тихий режим</option>
                   </select>
@@ -822,11 +837,11 @@
                 </label>
               </div>
               <div class="check-grid">
-                <label class="check-card" data-min-plan="pro799"><input type="checkbox" name="notify_money_loss" checked> Потери денег<span class="lock-note">Откроется на тарифе “Максимум”: бот будет считать потери бюджета, лидов и продаж.</span></label>
+                <label class="check-card" data-min-plan="pro799"><input type="checkbox" name="notify_money_loss" checked> Потери денег<span class="lock-note">Откроется на тарифе “PRO”: бот будет считать потери бюджета, лидов и продаж.</span></label>
                 <label class="check-card"><input type="checkbox" name="notify_leads_drop" checked> Просадка заявок</label>
                 <label class="check-card"><input type="checkbox" name="notify_ads_spike" checked> Рост CPL</label>
-                <label class="check-card" data-min-plan="pro799"><input type="checkbox" name="notify_competitors"> Конкуренты<span class="lock-note">Откроется на тарифе “Максимум”: до 3 конкурентов с динамикой.</span></label>
-                <label class="check-card" data-min-plan="growth399"><input type="checkbox" name="weekly_digest" checked> Недельный итог<span class="lock-note">Откроется на тарифе “Рост”: регулярный дайджест по действиям и результатам.</span></label>
+                <label class="check-card" data-min-plan="pro799"><input type="checkbox" name="notify_competitors"> Конкуренты<span class="lock-note">Откроется на тарифе “PRO”: до 3 конкурентов с динамикой.</span></label>
+                <label class="check-card" data-min-plan="start299"><input type="checkbox" name="weekly_digest" checked> Недельный итог<span class="lock-note">Откроется на тарифе “Старт”: регулярный дайджест по действиям и результатам.</span></label>
                 <label class="check-card"><input type="checkbox" name="telegram_sync" checked> Telegram-связка</label>
               </div>
             </div>
@@ -835,18 +850,18 @@
               <div class="section-kicker"><strong>Каналы и конкуренты</strong><span>что учитывать в анализе</span></div>
               <div class="check-grid">
                 <label class="check-card"><input type="checkbox" name="channel_seo" checked> SEO</label>
-                <label class="check-card" data-min-plan="growth399"><input type="checkbox" name="channel_ads" checked> Реклама<span class="lock-note">Откроется на тарифе “Рост”: анализ расходов, CPL и качества трафика.</span></label>
-                <label class="check-card" data-min-plan="growth399"><input type="checkbox" name="channel_yandex_direct" checked> Яндекс Директ<span class="lock-note">Откроется на тарифе “Рост”: расходы, клики, конверсии и CPL из Директа.</span></label>
-                <label class="check-card" data-min-plan="growth399"><input type="checkbox" name="channel_social" checked> Соцсети<span class="lock-note">Откроется на тарифе “Рост”: контент, вовлечение и заявки из соцсетей.</span></label>
-                <label class="check-card" data-min-plan="growth399"><input type="checkbox" name="channel_vk" checked> VK API<span class="lock-note">Откроется на тарифе “Рост”: сообщества, охваты, публикации и рекламные сигналы VK.</span></label>
-                <label class="check-card" data-min-plan="pro799"><input type="checkbox" name="channel_email"> Email<span class="lock-note">Откроется на тарифе “Максимум”: email-воронки и кампании.</span></label>
-                <label class="check-card" data-min-plan="pro799"><input type="checkbox" name="channel_calls" checked> Звонки<span class="lock-note">Откроется на тарифе “Максимум”: call tracking и качество обращений.</span></label>
-                <label class="check-card" data-min-plan="pro799"><input type="checkbox" name="channel_crm" checked> CRM<span class="lock-note">Откроется на тарифе “Максимум”: продажи, статусы сделок и выручка.</span></label>
+                <label class="check-card" data-min-plan="start299"><input type="checkbox" name="channel_ads" checked> Реклама<span class="lock-note">Откроется на тарифе “Старт”: анализ расходов, CPL и качества трафика.</span></label>
+                <label class="check-card" data-min-plan="start299"><input type="checkbox" name="channel_yandex_direct" checked> Яндекс Директ<span class="lock-note">Откроется на тарифе “Старт”: расходы, клики, конверсии и CPL из Директа.</span></label>
+                <label class="check-card" data-min-plan="start299"><input type="checkbox" name="channel_social" checked> Соцсети<span class="lock-note">Откроется на тарифе “Старт”: контент, вовлечение и заявки из соцсетей.</span></label>
+                <label class="check-card" data-min-plan="start299"><input type="checkbox" name="channel_vk" checked> VK API<span class="lock-note">Откроется на тарифе “Старт”: сообщества, охваты, публикации и рекламные сигналы VK.</span></label>
+                <label class="check-card" data-min-plan="pro799"><input type="checkbox" name="channel_email"> Email<span class="lock-note">Откроется на тарифе “PRO”: email-воронки и кампании.</span></label>
+                <label class="check-card" data-min-plan="pro799"><input type="checkbox" name="channel_calls" checked> Звонки<span class="lock-note">Откроется на тарифе “PRO”: call tracking и качество обращений.</span></label>
+                <label class="check-card" data-min-plan="pro799"><input type="checkbox" name="channel_crm" checked> CRM<span class="lock-note">Откроется на тарифе “PRO”: продажи, статусы сделок и выручка.</span></label>
               </div>
               <div class="compact-grid">
                 <label data-min-plan="pro799">Конкурент 1
                   <input name="competitor_1" value="competitor-one.ru">
-                  <span class="lock-note">3 конкурента доступны на тарифе “Максимум”.</span>
+                  <span class="lock-note">3 конкурента доступны на тарифе “PRO”, до 10 конкурентов - на Scale.</span>
                 </label>
                 <label data-min-plan="pro799">Конкурент 2
                   <input name="competitor_2" value="">
@@ -918,25 +933,29 @@
     const syncStat = document.querySelector("#sync-stat");
     const storageKey = "trafficmind_account_settings";
     const planInput = settingsForm.elements.plan;
-    const planOrder = { trial: 0, growth399: 1, pro799: 2 };
+    const planOrder = { trial: 0, start299: 1, pro799: 2, scale1999: 3 };
     const planCopy = {
       trial: {
         title: "Активен пробный доступ",
         text: "Клиент получает один сильный первый отчет по ссылке и видит, как бот помогает находить слабые места сайта. Регулярные отчеты, рекламные каналы, CRM и конкуренты показываются как следующий шаг."
       },
-      growth399: {
-        title: "Активен тариф “Рост”",
-        text: "Открыты регулярные отчеты, личный кабинет, Telegram-связка, базовые каналы и AI-рекомендации. CRM, звонки, email и 3 конкурента отмечены как возможности тарифа “Максимум”."
+      start299: {
+        title: "Активен тариф “Старт”",
+        text: "Открыты личный кабинет, Telegram-связка, регулярные отчеты по одному сайту, SEO, базовая реклама, соцсети, UTM и недельные AI-рекомендации. Глубокие источники, AI Growth Council, CRM и конкуренты открываются на PRO."
       },
       pro799: {
-        title: "Активен тариф “Максимум”",
-        text: "Бот использует все доступные инструменты: глубокие источники, потери денег, CRM, звонки, email, пиксели, горячие алерты и мониторинг до 3 конкурентов."
+        title: "Активен тариф “PRO”",
+        text: "Открыты все ключевые источники данных, AI Growth Council, модуль потерь денег, CRM, звонки, email, пиксели, owner alerts и мониторинг до 3 конкурентов."
+      },
+      scale1999: {
+        title: "Активен тариф “Scale”",
+        text: "Открыты максимум контроля: до 10 проектов, расширенные отчеты для команды, до 10 конкурентов, прогнозы по доходу, приоритетные алерты и готовность к агентскому режиму."
       }
     };
     const featurePlans = {
       link_report: "trial",
-      saved_account: "growth399",
-      ai_actions: "growth399",
+      saved_account: "start299",
+      ai_actions: "start299",
       money_loss: "pro799",
       deep_sources: "pro799",
       competitors: "pro799"
@@ -1043,7 +1062,7 @@
     };
 
     const setPlan = (plan) => {
-      const currentPlan = planCopy[plan] ? plan : "growth399";
+      const currentPlan = planCopy[plan] ? plan : "pro799";
       planInput.value = currentPlan;
 
       document.querySelectorAll(".plan-card").forEach((card) => {
@@ -1123,7 +1142,7 @@
     document.querySelectorAll(".plan-card").forEach((card) => {
       card.addEventListener("click", () => setPlan(card.dataset.plan));
     });
-    setPlan(saved.plan || planInput.value || "growth399");
+    setPlan(saved.plan || planInput.value || "pro799");
 
     loginForm.addEventListener("submit", async (event) => {
       event.preventDefault();

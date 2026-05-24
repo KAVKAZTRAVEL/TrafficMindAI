@@ -41,8 +41,9 @@ def main_menu() -> InlineKeyboardMarkup:
 def subscription_keyboard() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(
         inline_keyboard=[
-            [InlineKeyboardButton(text="START 199 ₽", callback_data="plan_START")],
-            [InlineKeyboardButton(text="BUSINESS 299 ₽", callback_data="plan_BUSINESS")],
-            [InlineKeyboardButton(text="AGENCY 999 ₽", callback_data="plan_AGENCY")],
+            [InlineKeyboardButton(text="Пробная 0 ₽", callback_data="plan_TRIAL")],
+            [InlineKeyboardButton(text="Старт 299 ₽", callback_data="plan_START")],
+            [InlineKeyboardButton(text="PRO 799 ₽", callback_data="plan_PRO")],
+            [InlineKeyboardButton(text="Scale 1999 ₽", callback_data="plan_SCALE")],
         ]
     )

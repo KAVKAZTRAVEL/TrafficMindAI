@@ -460,7 +460,18 @@ async def link_only_report_handler(event) -> None:
 @router.callback_query(F.data == "subscription")
 async def subscription_handler(event) -> None:
     message = event.message if isinstance(event, CallbackQuery) else event
-    text = "\n".join(f"{plan.title}: {plan.price} ₽/мес, сайтов: {plan.max_websites}" for plan in PLANS.values())
+    lines = ["Тарифы TrafficMind AI\n"]
+    for plan in PLANS.values():
+        price = "бесплатно, 1 раз" if plan.price == 0 else f"{plan.price} ₽/мес"
+        features = "\n".join(f"• {feature}" for feature in plan.features[:5])
+        lines.append(
+            f"{plan.title} — {price}\n"
+            f"Для кого: {plan.best_for}\n"
+            f"Сайтов: {plan.max_websites}\n"
+            f"{plan.description}\n"
+            f"{features}"
+        )
+    text = "\n\n".join(lines)
     await message.answer(text, reply_markup=subscription_keyboard())
     if isinstance(event, CallbackQuery):
         await event.answer()

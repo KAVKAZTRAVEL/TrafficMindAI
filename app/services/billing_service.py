@@ -65,7 +65,7 @@ async def _activate_subscription_from_checkout(session: AsyncSession, event: dic
     checkout = event.get("data", {}).get("object", {})
     metadata = checkout.get("metadata") or {}
     telegram_id = metadata.get("telegram_id") or checkout.get("client_reference_id")
-    plan_code = metadata.get("plan", "BUSINESS")
+    plan_code = metadata.get("plan", "PRO")
     if not telegram_id or not str(telegram_id).isdigit():
         raise ValueError("Stripe checkout session has no telegram_id metadata.")
     if plan_code not in PLANS:

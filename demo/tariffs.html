@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TrafficMind AI - тарифы</title>
+  <link rel="stylesheet" href="trafficmind_unified.css">
+  <style>
+    :root {
+      --ink: #f5f5f7;
+      --muted: rgba(245,245,247,.68);
+      --line: rgba(255,255,255,.14);
+      --blue: #66c6ff;
+      --cyan: #92e7ff;
+      --glass: rgba(15,18,26,.74);
+      --display: "Bahnschrift", "Aptos Display", "Segoe UI Variable Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      --read: "Aptos", "Segoe UI Variable Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      --tech: "Cascadia Code", "SF Mono", Consolas, monospace;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; color: var(--ink); font-family: var(--read); }
+    a { color: inherit; text-decoration: none; }
+    .topbar {
+      position: sticky; top: 0; z-index: 10; min-height: 56px;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 clamp(16px, 4vw, 72px);
+      border-bottom: 1px solid rgba(255,255,255,.09);
+      background: rgba(0,0,0,.72); backdrop-filter: blur(24px) saturate(180%);
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 900; font-size: 14px; }
+    .logo { width: 22px; height: 22px; border-radius: 7px; background: linear-gradient(135deg, #dff7ff, #118cff 58%, #041626); }
+    .nav { display: flex; gap: clamp(12px, 2vw, 26px); color: rgba(245,245,247,.7); font-size: 13px; }
+    .nav a:hover, .nav .active { color: #fff; }
+    .page { width: min(1240px, calc(100% - 32px)); margin: 0 auto; padding: 72px 0 96px; display: grid; gap: 22px; }
+    .hero { min-height: 520px; display: grid; align-items: end; position: relative; overflow: hidden; border-radius: 42px; padding: clamp(28px, 5vw, 64px); border: 1px solid rgba(255,255,255,.12); background: linear-gradient(145deg, rgba(10,15,24,.92), rgba(4,9,16,.96)); }
+    .hero:before {
+      content: ""; position: absolute; inset: -24%;
+      background:
+        radial-gradient(circle at 18% 12%, rgba(146,231,255,.32), transparent 24%),
+        radial-gradient(circle at 78% 24%, rgba(31,142,255,.26), transparent 26%),
+        linear-gradient(120deg, transparent 22%, rgba(255,255,255,.16), transparent 42%);
+      filter: blur(4px); opacity: .9;
+    }
+    .hero:after {
+      content: "AI"; position: absolute; right: -2vw; bottom: -10vw;
+      font: 900 clamp(180px, 32vw, 420px)/.8 var(--display);
+      color: rgba(146,231,255,.045); letter-spacing: 0;
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 880px; }
+    .eyebrow { display: inline-flex; padding: 9px 14px; border-radius: 999px; border: 1px solid var(--line); color: var(--cyan); background: rgba(146,231,255,.08); font: 700 12px var(--tech); text-transform: uppercase; }
+    h1 { margin: 22px 0 0; font: 900 clamp(52px, 8vw, 108px)/.96 var(--display); letter-spacing: 0; background: linear-gradient(92deg, #fff, #dbe4ef 34%, var(--cyan) 64%, #fff); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .lead { max-width: 760px; margin: 20px 0 0; font-size: clamp(20px, 2.2vw, 29px); line-height: 1.28; color: rgba(245,245,247,.82); }
+    .pricing { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
+    .plan {
+      min-height: 620px; display: flex; flex-direction: column; justify-content: space-between; gap: 22px;
+      padding: 24px; border-radius: 30px; border: 1px solid rgba(255,255,255,.12);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.10), rgba(255,255,255,.03)),
+        radial-gradient(circle at 20% 0%, rgba(146,231,255,.16), transparent 34%),
+        var(--glass);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 26px 70px rgba(0,0,0,.26);
+      position: relative; overflow: hidden;
+    }
+    .plan:before { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent, rgba(255,255,255,.12), transparent); transform: translateX(-80%); opacity: .65; }
+    .plan.featured {
+      border-color: rgba(146,231,255,.46);
+      background:
+        radial-gradient(circle at 30% 0%, rgba(146,231,255,.28), transparent 34%),
+        linear-gradient(150deg, rgba(17,140,255,.28), rgba(14,17,25,.88) 55%, rgba(255,255,255,.08));
+      box-shadow: 0 0 0 1px rgba(102,198,255,.24), 0 34px 90px rgba(17,140,255,.22);
+    }
+    .plan.enterprise { border-color: rgba(255,255,255,.26); }
+    .plan-content, .plan-cta { position: relative; z-index: 1; }
+    .tag { display: inline-flex; width: fit-content; padding: 7px 11px; border-radius: 999px; background: rgba(255,255,255,.09); color: rgba(245,245,247,.72); font: 800 11px var(--tech); text-transform: uppercase; }
+    h2 { margin: 18px 0 0; font: 900 30px/1.05 var(--display); }
+    .price { margin-top: 12px; font: 900 46px/1 var(--display); }
+    .price span { display: block; margin-top: 8px; color: var(--muted); font: 700 14px var(--read); }
+    .plan p { margin: 18px 0 0; color: rgba(245,245,247,.74); line-height: 1.45; }
+    ul { list-style: none; margin: 20px 0 0; padding: 0; display: grid; gap: 12px; }
+    li { position: relative; padding-left: 22px; color: rgba(245,245,247,.78); line-height: 1.35; }
+    li:before { content: ""; position: absolute; left: 0; top: .48em; width: 8px; height: 8px; border-radius: 999px; background: linear-gradient(135deg, #fff, var(--cyan)); box-shadow: 0 0 18px rgba(146,231,255,.6); }
+    .cta { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; width: 100%; border-radius: 999px; border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.08); color: #fff; font-weight: 900; }
+    .featured .cta { border: 0; color: #02070c; background: linear-gradient(90deg, #fff, var(--cyan)); }
+    .compare { display: grid; grid-template-columns: 1.2fr repeat(4, 1fr); border: 1px solid rgba(255,255,255,.12); border-radius: 30px; overflow: hidden; background: rgba(255,255,255,.05); }
+    .cell { min-height: 58px; padding: 16px; border-right: 1px solid rgba(255,255,255,.09); border-bottom: 1px solid rgba(255,255,255,.09); color: rgba(245,245,247,.78); }
+    .cell:nth-child(5n) { border-right: 0; }
+    .head { color: #fff; font-weight: 900; background: rgba(255,255,255,.07); }
+    .yes { color: var(--cyan); font-weight: 900; }
+    .section-title { margin: 38px 0 0; display: flex; justify-content: space-between; gap: 24px; align-items: end; }
+    .section-title h2 { margin: 0; font-size: clamp(34px, 5vw, 64px); }
+    .section-title p { margin: 0; max-width: 560px; color: var(--muted); line-height: 1.5; }
+    @media (max-width: 1080px) { .pricing { grid-template-columns: repeat(2, minmax(0, 1fr)); } .compare { grid-template-columns: 1fr; } .cell { border-right: 0; } }
+    @media (max-width: 720px) { .nav { display: none; } .pricing { grid-template-columns: 1fr; } .hero { border-radius: 30px; } .section-title { display: block; } }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="link_only_report.html"><span class="logo"></span><span>TrafficMind AI</span></a>
+    <nav class="nav" aria-label="Навигация">
+      <a href="link_only_report.html">Главная</a>
+      <a class="active" href="tariffs.html">Тарифы</a>
+      <a href="account.html">Личный кабинет</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div class="hero-inner">
+        <span class="eyebrow">pricing / growth engine</span>
+        <h1>4 тарифа, один понятный путь к росту.</h1>
+        <p class="lead">Клиент начинает с бесплатного отчета, быстро видит потери и естественно переходит на тариф выше, когда хочет видеть не просто проблемы, а деньги, прогнозы, конкурентов и конкретные действия.</p>
+      </div>
+    </section>
+
+    <section class="pricing" aria-label="Тарифы TrafficMind AI">
+      <article class="plan">
+        <div class="plan-content">
+          <span class="tag">1 раз</span>
+          <h2>Пробная</h2>
+          <div class="price">0 ₽<span>первый отчет</span></div>
+          <p>Для первого знакомства: клиент отправляет ссылку и видит, где сайт может терять заявки.</p>
+          <ul>
+            <li>1 отчет по ссылке на сайт</li>
+            <li>оценка готовности сайта к заявкам</li>
+            <li>видимые проблемы формы, CTA и оффера</li>
+            <li>демо плана действий</li>
+            <li>после отчета часть функций закрывается до оплаты</li>
+          </ul>
+        </div>
+        <div class="plan-cta"><a class="cta" href="link_only_report.html#try">Попробовать</a></div>
+      </article>
+
+      <article class="plan">
+        <div class="plan-content">
+          <span class="tag">легкий старт</span>
+          <h2>Старт</h2>
+          <div class="price">299 ₽<span>в месяц</span></div>
+          <p>Для малого бизнеса, которому нужно перестать гадать и получать регулярные подсказки от бота.</p>
+          <ul>
+            <li>1 сайт и личный кабинет</li>
+            <li>Telegram-синхронизация</li>
+            <li>регулярные отчеты по сайту</li>
+            <li>SEO, соцсети, базовая реклама и UTM</li>
+            <li>AI-рекомендации и недельный итог</li>
+          </ul>
+        </div>
+        <div class="plan-cta"><a class="cta" href="account.html#plans">Выбрать Старт</a></div>
+      </article>
+
+      <article class="plan featured">
+        <div class="plan-content">
+          <span class="tag">лучший выбор</span>
+          <h2>PRO</h2>
+          <div class="price">799 ₽<span>в месяц</span></div>
+          <p>Главный платный тариф: бот видит источники денег, спорит несколькими AI-агентами и показывает, что делать первым.</p>
+          <ul>
+            <li>до 3 сайтов</li>
+            <li>все из тарифа Старт</li>
+            <li>GA4, Метрика, Ads, VK, TikTok, CRM, звонки и email</li>
+            <li>AI Growth Council: стратег, аналитик и критик</li>
+            <li>модуль Потери денег и owner alerts</li>
+            <li>до 3 конкурентов с динамикой</li>
+          </ul>
+        </div>
+        <div class="plan-cta"><a class="cta" href="account.html#plans">Выбрать PRO</a></div>
+      </article>
+
+      <article class="plan enterprise">
+        <div class="plan-content">
+          <span class="tag">максимум контроля</span>
+          <h2>Scale</h2>
+          <div class="price">1999 ₽<span>в месяц</span></div>
+          <p>Для команд, агентств и проектов, где цена одной ошибки в рекламе выше стоимости подписки.</p>
+          <ul>
+            <li>до 10 сайтов или проектов</li>
+            <li>все из тарифа PRO</li>
+            <li>до 10 конкурентов и история изменений</li>
+            <li>расширенные PDF/HTML-отчеты</li>
+            <li>мультиканальная атрибуция и прогнозы по доходу</li>
+            <li>приоритетные алерты владельцу и команде</li>
+          </ul>
+        </div>
+        <div class="plan-cta"><a class="cta" href="account.html#plans">Выбрать Scale</a></div>
+      </article>
+    </section>
+
+    <section class="section-title">
+      <h2>Почему выгоднее брать выше?</h2>
+      <p>299 ₽ помогает не забывать про аналитику. 799 ₽ уже показывает, где деньги. 1999 ₽ превращает TrafficMind AI в управленческий центр для нескольких проектов и команды.</p>
+    </section>
+
+    <section class="compare" aria-label="Сравнение тарифов">
+      <div class="cell head">Функция</div><div class="cell head">Пробная</div><div class="cell head">299</div><div class="cell head">799</div><div class="cell head">1999</div>
+      <div class="cell">Отчет по ссылке</div><div class="cell yes">1 раз</div><div class="cell yes">да</div><div class="cell yes">да</div><div class="cell yes">да</div>
+      <div class="cell">Личный кабинет и Telegram</div><div class="cell">демо</div><div class="cell yes">да</div><div class="cell yes">да</div><div class="cell yes">да</div>
+      <div class="cell">Реклама, SEO, соцсети</div><div class="cell">ограниченно</div><div class="cell yes">база</div><div class="cell yes">глубоко</div><div class="cell yes">глубоко</div>
+      <div class="cell">CRM, звонки, email, пиксели</div><div class="cell">нет</div><div class="cell">нет</div><div class="cell yes">да</div><div class="cell yes">да</div>
+      <div class="cell">AI Growth Council</div><div class="cell">нет</div><div class="cell">демо</div><div class="cell yes">да</div><div class="cell yes">расширенно</div>
+      <div class="cell">Конкуренты</div><div class="cell">нет</div><div class="cell">нет</div><div class="cell yes">3</div><div class="cell yes">10</div>
+      <div class="cell">Отчеты для команды</div><div class="cell">нет</div><div class="cell">нет</div><div class="cell">база</div><div class="cell yes">расширенно</div>
+    </section>
+  </main>
+</body>
+</html>
