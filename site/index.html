@@ -240,25 +240,21 @@
 
     <section class="section-title" id="plans">
       <h2>Тарифы кратко</h2>
-      <p>Можно начать бесплатно, увидеть ценность отчета и перейти на тариф, когда понадобится точная статистика, история, конкуренты и регулярный контроль.</p>
+      <p>Сейчас все максимально просто: бесплатная проверка показывает первые риски сайта, платный тариф открывает подключения и реальные метрики, а третий уровень готовится как собственная AI-система анализа.</p>
     </section>
 
     <section class="grid-4">
       <article class="card mini-card">
         <div><strong>Пробный</strong><div class="price">0 ₽<small>раз в 7 дней</small></div></div>
-        <span>Проверка сайта по ссылке раз в 7 дней. Подходит, чтобы быстро увидеть первые риски и точки роста.</span>
-      </article>
-      <article class="card mini-card">
-        <div><strong>Старт</strong><div class="price">299 ₽<small>в месяц</small></div></div>
-        <span>Кабинет, сохранение настроек, история отчетов и понятные рекомендации по сайту.</span>
+        <span>Бесплатная проверка по открытым данным: сайт, оффер, формы, CTA, контакты и первые точки потери заявок. Подключения сервисов недоступны.</span>
       </article>
       <article class="card mini-card featured">
-        <div><strong>PRO</strong><div class="price">799 ₽<small>в месяц</small></div></div>
-        <span>Главный тариф для роста: реклама, CRM, звонки, потери денег, AI Growth Council и 3 конкурента.</span>
+        <div><strong>Платный</strong><div class="price">399 ₽<small>в месяц</small></div></div>
+        <span>Главный тариф: подключение аналитики, рекламы, CRM, звонков, пикселей и всех доступных метрик, чтобы видеть реальные деньги и заявки.</span>
       </article>
       <article class="card mini-card">
-        <div><strong>Scale</strong><div class="price">1999 ₽<small>в месяц</small></div></div>
-        <span>Для команды и нескольких проектов: больше сайтов, больше конкурентов, расширенные отчеты и контроль динамики.</span>
+        <div><strong>AI Intelligence</strong><div class="price">скоро<small>в разработке</small></div></div>
+        <span>Будущий уровень с собственной системой AI-анализа: глубже ищет закономерности, спорные гипотезы, прогнозы и скрытые точки роста.</span>
       </article>
     </section>
 
@@ -353,9 +349,10 @@
   <script>
     const form = document.querySelector("#domain-form");
     const input = document.querySelector("#domain-input");
+    const normalizePlan = (plan) => ({ start299: "pro399", pro799: "pro399", scale1999: "ai_future" }[plan] || plan || "trial");
     const getSavedPlan = () => {
       try {
-        return JSON.parse(localStorage.getItem("trafficmind_account_settings") || "{}").plan || "trial";
+        return normalizePlan(JSON.parse(localStorage.getItem("trafficmind_account_settings") || "{}").plan);
       } catch {
         return "trial";
       }

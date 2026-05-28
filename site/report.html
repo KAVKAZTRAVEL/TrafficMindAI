@@ -224,7 +224,7 @@
       <article class="card">
         <span class="eyebrow">инструменты роста</span>
         <h2>Какие источники усиливают отчет</h2>
-        <p>Бесплатный отчет показывает возможности продукта. Реальные подключения делают выводы точными и помогают видеть, откуда приходят деньги.</p>
+        <p>Бесплатный отчет показывает только открытые признаки сайта. Платный тариф за 399 ₽ подключает источники данных и делает выводы точными: от трафика и рекламы до CRM, звонков и денег.</p>
         <div class="pill-list" id="tool-stack-list"></div>
       </article>
     </section>
@@ -234,28 +234,28 @@
     const params = new URLSearchParams(window.location.search);
     const domain = params.get("domain") || "example.com";
     const planFromUrl = params.get("plan");
-    const levels = { trial: 0, start299: 1, pro799: 2, scale1999: 3 };
+    const levels = { trial: 0, pro399: 1, ai_future: 2 };
     const planLabels = {
-      trial: "Пробный 0 ₽",
-      start299: "Старт 299 ₽",
-      pro799: "PRO 799 ₽",
-      scale1999: "Scale 1999 ₽"
+      trial: "Бесплатный 0 ₽",
+      pro399: "Платный 399 ₽",
+      ai_future: "AI Intelligence — в разработке"
     };
     const planDescriptions = {
-      trial: "Бесплатная версия показывает полную демонстрацию отчета: метрики, AI-выводы, план действий и список подключений, которые сделают цифры точными.",
-      start299: "Старт подходит для регулярной работы с сайтом: кабинет, история отчетов, базовые каналы и понятные рекомендации.",
-      pro799: "PRO нужен, когда важны деньги: реклама, CRM, звонки, потери бюджета, AI Growth Council и мониторинг 3 конкурентов.",
-      scale1999: "Scale создан для команды и нескольких проектов: больше сайтов, больше конкурентов, расширенная атрибуция и отчеты для роста."
+      trial: "Бесплатная версия показывает только то, что можно честно оценить по ссылке: видимые риски сайта, форму, CTA, доверие и первый план действий. Подключения сервисов и расширенные метрики открываются на платном тарифе.",
+      pro399: "Платный тариф за 399 ₽ открывает подключение всех доступных источников: аналитику, рекламу, CRM, звонки, пиксели, email, AI Growth Council, потери денег и мониторинг 3 конкурентов.",
+      ai_future: "AI Intelligence находится в разработке: это будет собственная система глубокого AI-анализа, прогнозов, поиска аномалий и стратегических сценариев роста."
     };
 
+    const normalizePlan = (plan) => ({ start299: "pro399", pro799: "pro399", scale1999: "ai_future" }[plan] || plan || "trial");
     const savedPlan = () => {
       try {
-        return JSON.parse(localStorage.getItem("trafficmind_account_settings") || "{}").plan || "trial";
+        return normalizePlan(JSON.parse(localStorage.getItem("trafficmind_account_settings") || "{}").plan);
       } catch {
         return "trial";
       }
     };
-    const currentPlan = levels[planFromUrl] !== undefined ? planFromUrl : savedPlan();
+    const requestedPlan = normalizePlan(planFromUrl);
+    const currentPlan = levels[requestedPlan] !== undefined ? requestedPlan : savedPlan();
     const currentLevel = levels[currentPlan] ?? 0;
 
     const metrics = [
@@ -264,35 +264,32 @@
       { title: "Что видно / не видно", min: "trial", value: "2 блока", source: "публичный сайт", why: "Разделяет реальные факты и данные, которые требуют подключений.", locked: "" },
       { title: "План на сегодня", min: "trial", value: "3 действия", source: "AI-анализ", why: "Дает короткий список задач вместо ручного анализа.", locked: "" },
 
-      { title: "Пользователи", min: "start299", value: "12 480", source: "GA4 / Метрика", why: "Показывает размер аудитории и динамику спроса.", locked: "Откроется на тарифе Старт: нужен доступ к аналитике сайта." },
-      { title: "Сессии", min: "start299", value: "18 930", source: "GA4 / Метрика", why: "Помогает понять, сколько визитов реально происходит и как часто люди возвращаются.", locked: "Откроется на тарифе Старт: нужен счетчик аналитики." },
-      { title: "Каналы трафика", min: "start299", value: "SEO 34% / Ads 41%", source: "GA4, Метрика, UTM", why: "Показывает, откуда приходят люди: поиск, реклама, соцсети, прямые переходы.", locked: "Откроется на тарифе Старт: нужны UTM и базовая аналитика." },
-      { title: "SEO клики и показы", min: "start299", value: "1 840 / 42 300", source: "Search Console / Яндекс", why: "Показывает, какие запросы уже приводят спрос без рекламы.", locked: "Откроется на тарифе Старт: нужен Search Console или Яндекс.Вебмастер." },
-      { title: "UTM-источники", min: "start299", value: "87% размечено", source: "UTM / yclid / gclid", why: "Позволяет понять, какая кампания привела заявку.", locked: "Откроется на тарифе Старт: нужны размеченные ссылки." },
+      { title: "Пользователи", min: "pro399", value: "12 480", source: "GA4 / Метрика", why: "Показывает размер аудитории и динамику спроса.", locked: "Откроется на платном тарифе 399 ₽: нужен доступ к аналитике сайта." },
+      { title: "Сессии", min: "pro399", value: "18 930", source: "GA4 / Метрика", why: "Помогает понять, сколько визитов реально происходит и как часто люди возвращаются.", locked: "Откроется на платном тарифе 399 ₽: нужен счетчик аналитики." },
+      { title: "Каналы трафика", min: "pro399", value: "SEO 34% / Ads 41%", source: "GA4, Метрика, UTM", why: "Показывает, откуда приходят люди: поиск, реклама, соцсети, прямые переходы.", locked: "Откроется на платном тарифе 399 ₽: нужны UTM и базовая аналитика." },
+      { title: "SEO клики и показы", min: "pro399", value: "1 840 / 42 300", source: "Search Console / Яндекс", why: "Показывает, какие запросы уже приводят спрос без рекламы.", locked: "Откроется на платном тарифе 399 ₽: нужен Search Console или Яндекс.Вебмастер." },
+      { title: "UTM-источники", min: "pro399", value: "87% размечено", source: "UTM / yclid / gclid", why: "Позволяет понять, какая кампания привела заявку.", locked: "Откроется на платном тарифе 399 ₽: нужны размеченные ссылки." },
 
-      { title: "Конверсии", min: "pro799", value: "3.8%", source: "GA4 / GTM / CRM", why: "Показывает, сколько посетителей стало заявками или покупателями.", locked: "Откроется на PRO: нужны цели, события или CRM." },
-      { title: "CPL / CPA / CAC", min: "pro799", value: "940 ₽ / 1 320 ₽", source: "Ads + CRM", why: "Показывает стоимость заявки, действия или клиента.", locked: "Откроется на PRO: нужны рекламные расходы и заявки." },
-      { title: "ROAS / ROI", min: "pro799", value: "3.2x / 218%", source: "Ads + CRM + revenue", why: "Показывает, окупается ли реклама и какие каналы дают прибыль.", locked: "Откроется на PRO: нужны расходы и выручка." },
-      { title: "CTR / CPC / CPM", min: "pro799", value: "2.9% / 38 ₽", source: "Google Ads / Директ / Meta / VK", why: "Помогает понять качество объявлений и стоимость внимания.", locked: "Откроется на PRO: нужны рекламные кабинеты." },
-      { title: "Качество лидов", min: "pro799", value: "41% теплые", source: "CRM stages", why: "Показывает не только количество заявок, но и их ценность.", locked: "Откроется на PRO: нужны стадии CRM." },
-      { title: "Звонки", min: "pro799", value: "126 звонков", source: "Call Tracking", why: "Добавляет обращения по телефону в общую картину маркетинга.", locked: "Откроется на PRO: нужен call tracking." },
-      { title: "Потери денег", min: "pro799", value: "35-120 тыс. ₽", source: "AI + расходы + CRM", why: "Показывает, где бизнес теряет бюджет, лиды и продажи.", locked: "Откроется на PRO: нужны деньги, лиды и источники." },
-      { title: "AI Growth Council", min: "pro799", value: "3 агента", source: "AI-модели", why: "Несколько AI-ролей спорят и собирают финальный план роста.", locked: "Откроется на PRO: нужен расширенный AI-анализ." },
-      { title: "3 конкурента", min: "pro799", value: "3 примера", source: "сайт, контент, активность", why: "Помогает видеть, кто растет быстрее и какие идеи можно забрать.", locked: "Откроется на PRO: мониторинг 3 конкурентов включен." },
+      { title: "Конверсии", min: "pro399", value: "3.8%", source: "GA4 / GTM / CRM", why: "Показывает, сколько посетителей стало заявками или покупателями.", locked: "Откроется на платном тарифе 399 ₽: нужны цели, события или CRM." },
+      { title: "CPL / CPA / CAC", min: "pro399", value: "940 ₽ / 1 320 ₽", source: "Ads + CRM", why: "Показывает стоимость заявки, действия или клиента.", locked: "Откроется на платном тарифе 399 ₽: нужны рекламные расходы и заявки." },
+      { title: "ROAS / ROI", min: "pro399", value: "3.2x / 218%", source: "Ads + CRM + revenue", why: "Показывает, окупается ли реклама и какие каналы дают прибыль.", locked: "Откроется на платном тарифе 399 ₽: нужны расходы и выручка." },
+      { title: "CTR / CPC / CPM", min: "pro399", value: "2.9% / 38 ₽", source: "Google Ads / Директ / Meta / VK", why: "Помогает понять качество объявлений и стоимость внимания.", locked: "Откроется на платном тарифе 399 ₽: нужны рекламные кабинеты." },
+      { title: "Качество лидов", min: "pro399", value: "41% теплые", source: "CRM stages", why: "Показывает не только количество заявок, но и их ценность.", locked: "Откроется на платном тарифе 399 ₽: нужны стадии CRM." },
+      { title: "Звонки", min: "pro399", value: "126 звонков", source: "Call Tracking", why: "Добавляет обращения по телефону в общую картину маркетинга.", locked: "Откроется на платном тарифе 399 ₽: нужен call tracking." },
+      { title: "Потери денег", min: "pro399", value: "35-120 тыс. ₽", source: "AI + расходы + CRM", why: "Показывает, где бизнес теряет бюджет, лиды и продажи.", locked: "Откроется на платном тарифе 399 ₽: нужны деньги, лиды и источники." },
+      { title: "AI Growth Council", min: "pro399", value: "3 агента", source: "AI-модели", why: "Несколько AI-ролей спорят и собирают финальный план роста.", locked: "Откроется на платном тарифе 399 ₽: нужен расширенный AI-анализ." },
+      { title: "3 конкурента", min: "pro399", value: "3 примера", source: "сайт, контент, активность", why: "Помогает видеть, кто растет быстрее и какие идеи можно забрать.", locked: "Откроется на платном тарифе 399 ₽: мониторинг 3 конкурентов включен." },
 
-      { title: "Multi-touch attribution", min: "scale1999", value: "5 касаний", source: "каналы + CRM", why: "Показывает несколько касаний до покупки, а не только последний клик.", locked: "Откроется на Scale: нужна расширенная атрибуция." },
-      { title: "10 конкурентов", min: "scale1999", value: "10 примеров", source: "динамика рынка", why: "Подходит для агентств и команд, которым важно следить за рынком шире.", locked: "Откроется на Scale: больше конкурентов и история изменений." },
-      { title: "Командные отчеты", min: "scale1999", value: "PDF / HTML", source: "workspace", why: "Позволяет отдавать отчеты владельцу, маркетологу и команде.", locked: "Откроется на Scale: нужны командные отчеты." },
-      { title: "Несколько проектов", min: "scale1999", value: "до 10", source: "workspace", why: "Нужно, если у бизнеса несколько сайтов или у агентства несколько клиентов.", locked: "Откроется на Scale: лимит проектов выше." }
+      { title: "Multi-touch attribution", min: "ai_future", value: "5 касаний", source: "каналы + CRM", why: "Показывает несколько касаний до покупки, а не только последний клик.", locked: "Откроется в будущем AI Intelligence: нужна расширенная атрибуция." },
+      { title: "10 конкурентов", min: "ai_future", value: "10 примеров", source: "динамика рынка", why: "Подходит для агентств и команд, которым важно следить за рынком шире.", locked: "Откроется в будущем AI Intelligence: больше конкурентов и история изменений." },
+      { title: "Командные отчеты", min: "ai_future", value: "PDF / HTML", source: "workspace", why: "Позволяет отдавать отчеты владельцу, маркетологу и команде.", locked: "Откроется в будущем AI Intelligence: нужны командные отчеты." },
+      { title: "Несколько проектов", min: "ai_future", value: "до 10", source: "workspace", why: "Нужно, если у бизнеса несколько сайтов или у агентства несколько клиентов.", locked: "Откроется в будущем AI Intelligence: лимит проектов выше." }
     ];
 
-    const isFreeDemo = currentPlan === "trial";
-    const canView = (metric) => isFreeDemo || currentLevel >= levels[metric.min];
-    const isDemoMetric = (metric) => isFreeDemo && metric.min !== "trial";
+    const canView = (metric) => currentLevel >= levels[metric.min];
     const minLabel = (metric) => planLabels[metric.min] || "платном тарифе";
     const metricValue = (metric) => canView(metric) ? metric.value : "закрыто";
     const metricStatus = (metric) => {
-      if (isDemoMetric(metric)) return "пример отчета";
       return canView(metric) ? "доступно" : minLabel(metric);
     };
 
@@ -307,7 +304,6 @@
       const grid = document.querySelector("#metrics-grid");
       grid.innerHTML = metrics.map((metric) => {
         const open = canView(metric);
-        const demo = isDemoMetric(metric);
         return `
           <article class="card metric-card ${open ? "" : "locked"}">
             <div>
@@ -319,7 +315,6 @@
               <div class="metric-source">${metric.source}</div>
             </div>
             <p>${metric.why}</p>
-            ${demo ? `<div class="locked-note">Показано бесплатно как пример. Для регулярных реальных цифр нужен тариф ${minLabel(metric)} и подключение источников.</div>` : ""}
             ${!open ? `<div class="locked-note">${metric.locked} Эта метрика нужна, чтобы принимать решения не по ощущениям, а по данным.</div>` : ""}
           </article>
         `;
@@ -386,7 +381,7 @@
 
     async function loadReport() {
       document.querySelector("#domain-label").textContent = `отчет: ${domain}`;
-      document.querySelector("#plan-label").textContent = `тариф: ${planLabels[currentPlan] || "Пробный 0 ₽"}`;
+      document.querySelector("#plan-label").textContent = `тариф: ${planLabels[currentPlan] || "Бесплатный 0 ₽"}`;
       document.querySelector("#hero-text").textContent = planDescriptions[currentPlan] || planDescriptions.trial;
       renderPlanLinks();
       renderMetrics();

@@ -258,9 +258,9 @@ async function handleApi(req, res, pathname, searchParams) {
 
   if (pathname === "/api/account/demo") {
     sendJson(res, {
-      profile: { name: "Business owner", telegram_id: "100001", role: "owner", plan: "PRO" },
+      profile: { name: "Business owner", telegram_id: "100001", role: "owner", plan: "Платный" },
       websites: [{ domain: "example.com", status: "active", health_score: 82 }],
-      subscription: { plan: "PRO", price: 799, max_websites: 3, used_websites: 1, status: "demo" },
+      subscription: { plan: "Платный", price: 399, max_websites: 3, used_websites: 1, status: "preview" },
       growth: growthDemo(),
       integrations
     });
