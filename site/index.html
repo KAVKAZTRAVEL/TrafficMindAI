@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TrafficMind AI - AI-маркетолог для роста бизнеса</title>
+  <link rel="stylesheet" href="trafficmind_unified.css">
+  <style>
+    :root {
+      --ink: #f5f5f7;
+      --muted: rgba(245,245,247,.66);
+      --line: rgba(255,255,255,.13);
+      --cyan: #92e7ff;
+      --display: "Bahnschrift", "Aptos Display", "Segoe UI Variable Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      --read: "Aptos", "Segoe UI Variable Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      --tech: "Cascadia Code", "SF Mono", Consolas, monospace;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; color: var(--ink); font-family: var(--read); }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      min-height: 56px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      padding: 0 clamp(16px, 4vw, 72px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.72);
+      backdrop-filter: blur(22px) saturate(180%);
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 14px; }
+    .logo { width: 22px; height: 22px; border-radius: 7px; }
+    .nav { display: flex; align-items: center; gap: clamp(12px, 2vw, 26px); color: rgba(245,245,247,.68); font-size: 13px; }
+    .nav a.active, .nav a:hover { color: var(--ink); }
+    .page { width: min(1220px, calc(100% - 32px)); margin: 0 auto; padding: clamp(34px, 6vw, 72px) 0 84px; display: grid; gap: 18px; }
+    .hero {
+      min-height: 560px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(340px, 430px);
+      gap: clamp(22px, 5vw, 64px);
+      align-items: center;
+    }
+    .eyebrow {
+      width: fit-content;
+      min-height: 34px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.07);
+      color: rgba(245,245,247,.74);
+      font-family: var(--tech);
+      font-size: 13px;
+    }
+    h1, h2, h3 { font-family: var(--display); }
+    h1 {
+      margin: 24px 0 0;
+      max-width: 840px;
+      font-size: clamp(52px, 7vw, 98px);
+      line-height: .98;
+      background: linear-gradient(92deg, #fff 0%, #dbe4ef 30%, var(--cyan) 58%, #8fa6b8 82%, #fff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      max-width: 700px;
+      margin: 20px 0 0;
+      color: rgba(245,245,247,.80);
+      font-size: clamp(19px, 2vw, 27px);
+      line-height: 1.32;
+    }
+    .card {
+      border-radius: 30px;
+      padding: clamp(22px, 3vw, 34px);
+      border: 1px solid var(--line);
+      background: rgba(16,18,24,.72);
+    }
+    .card h2 { margin: 0 0 14px; font-size: clamp(30px, 3.4vw, 48px); line-height: 1; }
+    .card h3 { margin: 0 0 10px; font-size: 24px; line-height: 1.08; }
+    .muted, .card p { color: var(--muted); line-height: 1.5; margin: 0; }
+    .check-card { min-height: 430px; display: grid; gap: 16px; align-content: center; }
+    form { display: grid; gap: 12px; }
+    label { display: grid; gap: 8px; color: rgba(245,245,247,.76); font-size: 13px; }
+    input {
+      width: 100%;
+      min-height: 54px;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 18px;
+      padding: 0 16px;
+      color: #fff;
+      background: rgba(255,255,255,.065);
+      outline: none;
+    }
+    input:focus { border-color: rgba(146,231,255,.54); box-shadow: 0 0 0 4px rgba(146,231,255,.08); }
+    .button {
+      min-height: 50px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .button.primary { border: 0; color: #02070c; background: linear-gradient(90deg, #f5f5f7, #92e7ff); }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .section-title { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-top: 28px; }
+    .section-title h2 { margin: 0; font-size: clamp(34px, 4.8vw, 62px); line-height: 1; }
+    .section-title p { max-width: 560px; margin: 0; color: var(--muted); line-height: 1.5; }
+    .stat b { display: block; margin-bottom: 8px; font-size: 30px; }
+    .stat span { color: var(--muted); line-height: 1.35; }
+    .mini-card {
+      min-height: 220px;
+      display: grid;
+      align-content: space-between;
+      gap: 16px;
+    }
+    .mini-card strong {
+      display: block;
+      font-family: var(--display);
+      font-size: 25px;
+      line-height: 1.08;
+    }
+    .mini-card span { color: var(--muted); line-height: 1.4; }
+    .price {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      margin: 10px 0 12px;
+      font-family: var(--display);
+      font-size: 36px;
+      font-weight: 900;
+    }
+    .price small { padding-bottom: 6px; color: var(--muted); font: 600 13px var(--read); }
+    .featured { border-color: rgba(146,231,255,.42); }
+    .list, .result-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .list li, .result-list li {
+      padding: 12px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.09);
+      background: rgba(255,255,255,.045);
+      color: rgba(245,245,247,.80);
+      line-height: 1.35;
+    }
+    .pill-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .pill {
+      min-height: 34px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: rgba(245,245,247,.72);
+      font-size: 13px;
+    }
+    .result { display: grid; gap: 14px; border-color: rgba(146,231,255,.34); }
+    @media (max-width: 1040px) {
+      .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 920px) {
+      .hero, .two, .grid { grid-template-columns: 1fr; }
+      .section-title { display: grid; }
+      .nav { gap: 14px; }
+    }
+    @media (max-width: 680px) {
+      .nav { display: none; }
+      .grid-4 { grid-template-columns: 1fr; }
+      h1 { font-size: 48px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="logo"></span><span>TrafficMind AI</span></a>
+    <nav class="nav" aria-label="Навигация">
+      <a class="active" href="#home">Главная</a>
+      <a href="#try">Проверить сайт</a>
+      <a href="#plans">Тарифы</a>
+      <a href="account.html">Кабинет</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="hero" id="home">
+      <div>
+        <span class="eyebrow">AI-маркетолог + web-кабинет</span>
+        <h1>Показывает, где бизнес теряет заявки и деньги.</h1>
+        <p>TrafficMind AI проверяет сайт по ссылке, собирает понятный отчет, помогает подключить аналитику и превращает данные в план действий. Web-версию можно запустить первой, а Telegram подключить позже как канал отчетов и алертов.</p>
+      </div>
+
+      <aside class="card check-card" id="try">
+        <span class="eyebrow">бесплатная проверка раз в 7 дней</span>
+        <h2>Проверить сайт</h2>
+        <p>Вставьте ссылку. Без подключений сервис покажет только то, что видно по открытому сайту. Для точной статистики нужны сервисы аналитики, рекламы, CRM и звонков.</p>
+        <form id="domain-form">
+          <label>Ссылка на сайт
+            <input id="domain-input" value="https://example.com" aria-label="Ссылка на сайт">
+          </label>
+          <button class="button primary" type="submit">Получить отчет</button>
+        </form>
+      </aside>
+    </section>
+
+    <section class="grid">
+      <article class="card stat"><b>1 ссылка</b><span>быстрый первый аудит сайта без сложной настройки</span></article>
+      <article class="card stat"><b>1 кабинет</b><span>цели, тариф, сайт, каналы и история отчетов сохраняются</span></article>
+      <article class="card stat"><b>1 канал</b><span>Telegram можно подключить позже для отчетов, задач и важных алертов</span></article>
+    </section>
+
+    <section class="section-title">
+      <h2>Что умеет сервис</h2>
+      <p>Не просто показывает цифры, а объясняет, что происходит, где риск, что делать первым и какие данные нужны для точного вывода.</p>
+    </section>
+
+    <section class="grid-4">
+      <article class="card mini-card"><strong>Аудит сайта</strong><span>Оффер, формы, CTA, контакты, доверие, структура страницы и базовые точки потери заявок.</span></article>
+      <article class="card mini-card"><strong>AI-план роста</strong><span>Короткий список действий: что исправить сегодня, почему это важно и какой эффект ожидается.</span></article>
+      <article class="card mini-card"><strong>Личный кабинет</strong><span>Клиент один раз сохраняет сайт, цели, нишу, тариф, каналы и настройки отчетов.</span></article>
+      <article class="card mini-card"><strong>AI Growth Council</strong><span>Несколько AI-агентов анализируют данные, спорят и собирают единый план исправлений.</span></article>
+    </section>
+
+    <section class="section-title" id="plans">
+      <h2>Тарифы кратко</h2>
+      <p>Бесплатный тариф нужен, чтобы попробовать. Платные открывают кабинет, источники данных, конкурентов и более точную аналитику.</p>
+    </section>
+
+    <section class="grid-4">
+      <article class="card mini-card">
+        <div><strong>Пробный</strong><div class="price">0 ₽<small>раз в 7 дней</small></div></div>
+        <span>Проверка сайта по ссылке. Без подключения сервисов и расширенной статистики.</span>
+      </article>
+      <article class="card mini-card">
+        <div><strong>Старт</strong><div class="price">299 ₽<small>в месяц</small></div></div>
+        <span>Кабинет, сохранение настроек, история отчетов и регулярные рекомендации.</span>
+      </article>
+      <article class="card mini-card featured">
+        <div><strong>PRO</strong><div class="price">799 ₽<small>в месяц</small></div></div>
+        <span>Основной тариф: аналитика, реклама, CRM, звонки, потери денег, AI Growth Council и 3 конкурента.</span>
+      </article>
+      <article class="card mini-card">
+        <div><strong>Scale</strong><div class="price">1999 ₽<small>в месяц</small></div></div>
+        <span>Для команды и нескольких проектов: до 10 сайтов, до 10 конкурентов, расширенные отчеты и алерты.</span>
+      </article>
+    </section>
+
+    <section class="two">
+      <article class="card">
+        <span class="eyebrow">реальные метрики</span>
+        <h2>Что может показывать сервис</h2>
+        <p>Часть метрик появляется только после подключения источников данных. Без подключений отчет честно показывает ограничения.</p>
+        <div class="pill-list">
+          <span class="pill">Пользователи</span>
+          <span class="pill">Сессии</span>
+          <span class="pill">Каналы трафика</span>
+          <span class="pill">Конверсии</span>
+          <span class="pill">CPL / CPA / CAC</span>
+          <span class="pill">ROAS / ROI</span>
+          <span class="pill">CTR / CPC / CPM</span>
+          <span class="pill">SEO клики и показы</span>
+          <span class="pill">Качество лидов</span>
+          <span class="pill">Звонки</span>
+          <span class="pill">Потери денег</span>
+          <span class="pill">Динамика конкурентов</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <span class="eyebrow">точная статистика</span>
+        <h2>Что можно подключить</h2>
+        <p>Чем больше источников подключено, тем точнее сервис понимает, откуда приходят заявки, где теряется бюджет и какие каналы стоит масштабировать.</p>
+        <div class="pill-list">
+          <span class="pill">Google Analytics 4</span>
+          <span class="pill">Google Search Console</span>
+          <span class="pill">Яндекс Метрика</span>
+          <span class="pill">Google Ads</span>
+          <span class="pill">Яндекс Директ</span>
+          <span class="pill">Meta Ads</span>
+          <span class="pill">VK API</span>
+          <span class="pill">TikTok Ads</span>
+          <span class="pill">LinkedIn Ads</span>
+          <span class="pill">HubSpot</span>
+          <span class="pill">Bitrix24</span>
+          <span class="pill">AmoCRM</span>
+          <span class="pill">Instagram</span>
+          <span class="pill">TikTok</span>
+          <span class="pill">Facebook</span>
+          <span class="pill">LinkedIn</span>
+          <span class="pill">YouTube</span>
+          <span class="pill">Mailchimp</span>
+          <span class="pill">Brevo</span>
+          <span class="pill">Klaviyo</span>
+          <span class="pill">Meta Pixel</span>
+          <span class="pill">TikTok Pixel</span>
+          <span class="pill">Google Tag Manager</span>
+          <span class="pill">Call Tracking</span>
+        </div>
+      </article>
+    </section>
+
+    <section class="two">
+      <article class="card result" id="result-card">
+        <span class="eyebrow">результат проверки</span>
+        <h2 id="result-title">Отчет появится здесь</h2>
+        <p id="result-text">Введите ссылку и нажмите “Получить отчет”.</p>
+        <ul class="result-list" id="result-list">
+          <li>Что видно по сайту: структура, формы, CTA, контакты, базовые риски.</li>
+          <li>Что не видно бесплатно: реальные продажи, CPL, ROAS, CRM, звонки и рекламные расходы.</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <span class="eyebrow">как запустить</span>
+        <h2>Сайт сначала, Telegram потом</h2>
+        <ul class="list">
+          <li>Клиент проверяет сайт по ссылке и видит быстрый отчет.</li>
+          <li>В кабинете выбирает тариф, цели, каналы и нужные уведомления.</li>
+          <li>После запуска Telegram-бота кабинет синхронизируется с аккаунтом и присылает отчеты в чат.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="card">
+      <span class="eyebrow">релизная база</span>
+      <h2>Сайт готов к web-MVP</h2>
+      <p>TrafficMind AI можно запускать как самостоятельный сайт: клиент проверяет ссылку, смотрит демо-отчет, выбирает тариф и настраивает кабинет. Реальные подключения, платежи и Telegram добавляются поверх этой базы.</p>
+      <div class="pill-list">
+        <a class="pill" href="privacy.html">Конфиденциальность</a>
+        <a class="pill" href="terms.html">Условия</a>
+        <a class="pill" href="security.html">Безопасность</a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const form = document.querySelector("#domain-form");
+    const input = document.querySelector("#domain-input");
+    const getSavedPlan = () => {
+      try {
+        return JSON.parse(localStorage.getItem("trafficmind_account_settings") || "{}").plan || "trial";
+      } catch {
+        return "trial";
+      }
+    };
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const value = input.value.trim() || "https://example.com";
+      const domain = value.replace("https://", "").replace("http://", "").replace(/\/.*$/, "");
+      const plan = getSavedPlan();
+      window.location.href = `report.html?domain=${encodeURIComponent(domain)}&plan=${encodeURIComponent(plan)}`;
+    });
+  </script>
+</body>
+</html>

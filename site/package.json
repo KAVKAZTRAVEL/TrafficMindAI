@@ -1,0 +1,13 @@
+{
+  "name": "trafficmind-ai-site",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Standalone TrafficMind AI website and demo API. Telegram bot is developed separately and can be connected later.",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

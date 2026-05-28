@@ -1,117 +1,70 @@
-# TrafficMind AI: запуск сначала сайта, потом Telegram-бота
+# TrafficMind AI: запуск сначала сайта, потом Telegram
 
-## Цель разделения
+## Что изменилось
 
-Проект теперь можно запускать в два этапа:
+Сайт отделен в папку `site/`. Его можно запускать, тестировать и деплоить отдельно от Telegram-бота.
 
-1. **Сайт и web-кабинет** - запускаются первыми и не требуют Telegram-токена.
-2. **Telegram-бот** - подключается позже отдельным compose profile, когда будет готов BotFather token и сценарии сообщений.
+Telegram остается будущим каналом доставки отчетов и алертов, но не блокирует запуск web-продукта.
 
-Так можно быстрее вывести продукт наружу: показать сайт, тарифы, личный кабинет, отчет по ссылке, интеграции, AI Growth Council и демо-аналитику, а Telegram оставить как следующий канал доставки отчетов.
+## Что входит в первый web-запуск
 
-## Что входит в первый запуск сайта
+- `site/index.html` - главная страница продукта.
+- `site/report.html` - отчет после проверки ссылки.
+- `site/tariffs.html` - тарифы.
+- `site/account.html` - личный кабинет клиента.
+- `site/admin.html` - demo/internal панель владельца.
+- `site/server.js` - локальный demo API.
+- `site/privacy.html`, `site/terms.html`, `site/security.html` - базовые legal/security страницы.
+- `site/robots.txt`, `site/sitemap.xml` - базовая SEO-инфраструктура.
 
-- Главная продающая страница: `demo/link_only_report.html`.
-- Личный кабинет клиента: `demo/account.html`.
-- Тарифы: `demo/tariffs.html`.
-- Админ-демо: `demo/admin.html`.
-- API health checks.
-- Demo growth intelligence.
-- Demo AI Growth Council.
-- Каталог интеграций.
-- Отчет по ссылке.
-- Tracker endpoint.
-- Billing endpoints.
-
-Telegram при этом не стартует и не ломает запуск, даже если `TELEGRAM_BOT_TOKEN` пустой.
-
-## Локальный статический запуск сайта
-
-Подходит для просмотра дизайна, тарифов и клиентского сценария без backend:
+## Локальный запуск только сайта
 
 ```bash
-node demo/demo_server.js
+cd site
+node server.js
 ```
 
 Открыть:
 
 ```text
 http://127.0.0.1:4174/
-http://127.0.0.1:4174/account.html
-http://127.0.0.1:4174/tariffs.html
 ```
 
-## Запуск сайта с backend
+## GitHub Pages
 
-Подходит для проверки API, личного кабинета, отчетов, health checks и будущей production-инфраструктуры:
+Workflow `.github/workflows/pages.yml` публикует только папку `site/`.
 
-```bash
-docker compose up --build
-```
-
-Открыть:
+Онлайн-адрес после деплоя:
 
 ```text
-http://localhost:8000/demo/link_only_report.html
-http://localhost:8000/demo/account.html
-http://localhost:8000/demo/tariffs.html
-http://localhost:8000/health
-http://localhost:8000/api/ai-council/demo
-http://localhost:8000/api/integrations
+https://kavkaztravel.github.io/TrafficMindAI/
 ```
 
-## Запуск Telegram-бота позже
+## Что остается demo-режимом
 
-Когда будет создан бот в BotFather и заполнен `TELEGRAM_BOT_TOKEN`, запускай:
+- Проверка сайта по ссылке показывает demo-preview.
+- Интеграции перечислены, но реальные OAuth-подключения требуют backend.
+- Личный кабинет сохраняет часть данных локально в браузере.
+- Админка является demo/internal экраном, не production auth.
+- AI Growth Council работает в demo/fallback режиме без реальных model API ключей.
 
-```bash
-docker compose --profile telegram up --build
-```
+## Что нужно для коммерческого SaaS
 
-Этот профиль добавит сервис `bot`, но не меняет сайт и API.
+- Production backend hosting.
+- PostgreSQL.
+- Регистрация и вход пользователей.
+- Защищенная админка.
+- Биллинг и webhooks.
+- Реальные OAuth-интеграции.
+- Шифрование токенов.
+- Мониторинг ошибок и uptime.
 
-## Что нужно заполнить для первого запуска сайта
+## Telegram позже
 
-Минимально:
+Когда web-продукт стабилен:
 
-```env
-ENVIRONMENT=local
-PUBLIC_BASE_URL=http://localhost:8000
-DATABASE_URL=postgresql+asyncpg://trafficmind:trafficmind@postgres:5432/trafficmind
-SYNC_DATABASE_URL=postgresql://trafficmind:trafficmind@postgres:5432/trafficmind
-REDIS_URL=redis://redis:6379/0
-AI_COUNCIL_MODE=demo
-```
-
-Можно оставить пустыми на первом этапе:
-
-```env
-TELEGRAM_BOT_TOKEN=
-OPENAI_API_KEY=
-DEEPSEEK_API_KEY=
-GROK_API_KEY=
-STRIPE_SECRET_KEY=
-```
-
-## Что нужно для подключения Telegram позже
-
-```env
-TELEGRAM_BOT_TOKEN=token_from_botfather
-ADMIN_TELEGRAM_IDS=your_numeric_telegram_id
-PUBLIC_BASE_URL=https://your-domain.com
-```
-
-После этого:
-
-1. Пользователь нажимает `/account` в Telegram.
-2. Бот выдает одноразовый код.
-3. Пользователь вводит код в `account.html`.
-4. Кабинет и Telegram-профиль связываются.
-
-## Архитектурное разделение
-
-- `demo/*` - сайт, презентация, кабинет и demo UI.
-- `app/main.py` - web API, demo endpoints, billing, integrations, reports.
-- `app/services/*` - бизнес-логика, AI Growth Council, отчеты и тарифы.
-- `app/bot/*` - Telegram UX, запускается только через profile `telegram`.
-- `docker-compose.yml` - сайт/API по умолчанию, бот только по запросу.
+1. Создаем Telegram-бота в BotFather.
+2. Подключаем `TELEGRAM_BOT_TOKEN`.
+3. Добавляем команду `/account` для одноразового кода.
+4. Связываем Telegram ID с web-кабинетом.
+5. Отправляем отчеты и алерты в чат.

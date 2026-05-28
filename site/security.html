@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Безопасность - TrafficMind AI</title>
+  <link rel="stylesheet" href="trafficmind_unified.css">
+  <style>
+    body{margin:0;min-height:100vh;color:#f5f5f7;font-family:"Aptos","Segoe UI",Arial,sans-serif}.wrap{width:min(980px,calc(100% - 32px));margin:auto;padding:48px 0 80px;display:grid;gap:18px}.card{border-radius:30px;padding:clamp(22px,4vw,42px);border:1px solid rgba(255,255,255,.13);background:rgba(16,18,24,.72)}a{color:#92e7ff;text-decoration:none}h1{font-size:clamp(40px,6vw,72px);line-height:1;margin:0}h2{margin:26px 0 10px;font-size:26px}p,li{color:rgba(245,245,247,.72);line-height:1.55}.top{display:flex;justify-content:space-between;gap:16px;align-items:center}.brand{color:#fff;font-weight:850}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="top"><a class="brand" href="index.html">TrafficMind AI</a><a href="index.html">На сайт</a></div>
+    <section class="card">
+      <h1>Безопасность</h1>
+      <p>Эта страница фиксирует требования, которые должны быть включены перед коммерческим запуском TrafficMind AI.</p>
+      <h2>Production auth</h2>
+      <ul>
+        <li>Личный кабинет: email/password или magic link, восстановление доступа, защита сессий.</li>
+        <li>Админка: отдельная роль владельца, MFA, audit log и запрет публичного доступа.</li>
+        <li>API: rate limit, CORS whitelist, CSRF-защита для cookie-сессий.</li>
+      </ul>
+      <h2>Интеграции</h2>
+      <ul>
+        <li>OAuth-токены хранить только в зашифрованном token vault.</li>
+        <li>Подключения должны иметь отзыв доступа и журнал синхронизаций.</li>
+        <li>Ошибки внешних API не должны раскрывать секреты пользователю.</li>
+      </ul>
+      <h2>Мониторинг</h2>
+      <p>Для релиза нужны error tracking, health checks, uptime alerts, логирование платежей, логирование OAuth и ежедневная проверка фоновых задач.</p>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,5 +1,24 @@
 # TrafficMind AI
 
+## Standalone website package
+
+The website is now separated into `site/` so it can be launched and developed independently from the future Telegram bot.
+
+Run only the site:
+
+```bash
+cd site
+node server.js
+```
+
+Open:
+
+```text
+http://127.0.0.1:4174/
+```
+
+GitHub Pages deploys only the `site/` folder. The bot remains in `app/bot/` and can be connected later.
+
 ## Site-first launch mode
 
 Проект разделен на два этапа запуска:
@@ -16,8 +35,9 @@ docker compose up --build
 # сайт + API + Telegram-бот
 docker compose --profile telegram up --build
 
-# статический просмотр сайта
-node demo/demo_server.js
+# standalone сайт
+cd site
+node server.js
 ```
 
 Подробнее: [`docs/SITE_FIRST_LAUNCH.md`](docs/SITE_FIRST_LAUNCH.md)
@@ -37,16 +57,15 @@ TrafficMind AI - AI-платформа роста для бизнеса в фо�
 
 ## Онлайн-демо
 
-[https://kavkaztravel.github.io/TrafficMindAI/demo/traffic_map_demo.html](https://kavkaztravel.github.io/TrafficMindAI/demo/traffic_map_demo.html)
+[https://kavkaztravel.github.io/TrafficMindAI/](https://kavkaztravel.github.io/TrafficMindAI/)
 
 Дополнительные demo-экраны:
 
-- [Личный кабинет](https://kavkaztravel.github.io/TrafficMindAI/demo/account.html)
-- [Админ-панель](https://kavkaztravel.github.io/TrafficMindAI/demo/admin.html)
-- [Полный отчет по ссылке без подключений](https://kavkaztravel.github.io/TrafficMindAI/demo/link_only_report.html)
-- [Как отчет выглядит в Telegram](https://kavkaztravel.github.io/TrafficMindAI/demo/telegram_report_mockup.html)
-- [Имитация отчета по xnebo.com](https://kavkaztravel.github.io/TrafficMindAI/demo/xnebo_telegram_report.html)
-- [Продающий HTML/PDF-артефакт отчета](https://kavkaztravel.github.io/TrafficMindAI/demo/sales_report_artifact.html)
+- [Личный кабинет](https://kavkaztravel.github.io/TrafficMindAI/account.html)
+- [Тарифы](https://kavkaztravel.github.io/TrafficMindAI/tariffs.html)
+- [Полный demo-preview отчета](https://kavkaztravel.github.io/TrafficMindAI/report.html?domain=example.com&plan=trial)
+- [Политика конфиденциальности](https://kavkaztravel.github.io/TrafficMindAI/privacy.html)
+- [Условия использования](https://kavkaztravel.github.io/TrafficMindAI/terms.html)
 
 ## Новая структура продукта
 
