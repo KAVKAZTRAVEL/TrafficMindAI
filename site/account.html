@@ -603,44 +603,44 @@
     <section class="hero">
       <div>
         <span class="eyebrow">личный кабинет клиента</span>
-        <h1>Сначала сайт. Telegram можно подключить позже.</h1>
-        <p>Клиент сохраняет сайт, цель бизнеса, нишу, тариф и каналы прямо в личном кабинете. Когда Telegram-бот будет запущен, он просто подтянет эти настройки и начнет отправлять отчеты в чат.</p>
+        <h1>Настройте TrafficMind AI один раз. Дальше отчеты станут точнее.</h1>
+        <p>Сохраните сайт, цель бизнеса, нишу, тариф и каналы. Сервис будет подстраивать отчеты под вашу ситуацию и показывать, где быстрее всего вернуть заявки и деньги.</p>
       </div>
       <aside class="login-card">
         <span class="eyebrow">вход</span>
         <h2>Войти в кабинет</h2>
-        <p>На первом этапе можно работать с сайтом без Telegram: настройки сохраняются локально в демо и через backend в production. Telegram-код понадобится позже, когда ты запустишь бота.</p>
+        <p>Войдите в кабинет, чтобы сохранить настройки бизнеса, выбрать тариф и подготовить основу для регулярных отчетов.</p>
         <form id="login-form">
-          <label>Код доступа или Telegram-код
+          <label>Код доступа
             <input id="login-code" value="100001" inputmode="numeric" autocomplete="one-time-code">
           </label>
           <button class="button primary" type="submit">Войти в кабинет</button>
-          <div class="status" id="login-status">Для запуска сайта сейчас подойдет демо-код. После запуска Telegram-бота это же поле будет принимать одноразовый код из команды /account.</div>
+          <div class="status" id="login-status">Для теста можно оставить код по умолчанию. В рабочей версии здесь будет безопасный одноразовый код входа.</div>
         </form>
       </aside>
     </section>
 
     <section class="grid">
       <article class="card stat"><b id="site-stat">example.com</b><span>основной сайт клиента</span></article>
-      <article class="card stat"><b>64/100</b><span>последний предварительный отчет</span></article>
-      <article class="card stat"><b id="sync-stat">Сайт готов</b><span>Telegram подключается отдельным этапом</span></article>
+      <article class="card stat"><b>64/100</b><span>последняя оценка потенциала заявок</span></article>
+      <article class="card stat"><b id="sync-stat">Кабинет готов</b><span>настройки будут использоваться в отчетах</span></article>
     </section>
 
     <section class="card" id="plans">
       <span class="eyebrow">тарифы</span>
       <h2>Выберите глубину анализа</h2>
-      <p class="muted">TrafficMind AI можно попробовать с одной ссылки, а затем открыть больше данных, автоматических выводов и контроля конкурентов. Чем выше тариф, тем меньше ручной аналитики остается владельцу бизнеса.</p>
+      <p class="muted">Начните с быстрой проверки сайта, а затем откройте больше данных, автоматических выводов и контроля конкурентов. Чем выше тариф, тем меньше ручной аналитики остается владельцу бизнеса.</p>
       <div class="pricing-grid">
         <button class="plan-card" type="button" data-plan="trial" aria-pressed="false">
           <div>
             <div class="plan-topline"><span class="plan-name">Бесплатный</span><span class="plan-badge">раз в 7 дней</span></div>
             <div class="plan-price">0 ₽<span>проверка сайта</span></div>
-            <p>Для клиента, который хочет быстро проверить сайт без подключений и сложной настройки.</p>
+            <p>Для первого шага: быстро понять, где сайт может терять заявки, без подключений и сложной настройки.</p>
             <ul class="plan-list">
               <li>проверка сайта бесплатно раз в 7 дней</li>
-              <li>без подключения внешних сервисов</li>
-              <li>базовые выводы по сайту, офферу и точкам потерь</li>
-              <li>расширенная статистика открывается на платных тарифах</li>
+              <li>первые выводы по сайту, офферу и точкам потерь</li>
+              <li>пример расширенных метрик для понимания ценности продукта</li>
+              <li>реальная статистика открывается после подключений</li>
             </ul>
           </div>
           <span class="plan-button">Выбрать бесплатный</span>
@@ -650,12 +650,12 @@
           <div>
             <div class="plan-topline"><span class="plan-name">Старт</span><span class="plan-badge">легкий вход</span></div>
             <div class="plan-price">299 ₽<span>в месяц</span></div>
-            <p>Для малого бизнеса: сайт запоминает настройки, ведет регулярные отчеты и показывает, что делать первым.</p>
+            <p>Для малого бизнеса: кабинет запоминает настройки, ведет историю отчетов и показывает, что делать первым.</p>
             <ul class="plan-list">
               <li>личный кабинет и сохранение настроек</li>
               <li>отчеты по сайту, SEO, рекламе и соцсетям</li>
               <li>AI-рекомендации, приоритеты и недельный итог</li>
-              <li>один раз показывает часть функций топ-тарифа как демо</li>
+              <li>показывает, какие возможности откроет переход на PRO</li>
             </ul>
           </div>
           <span class="plan-button">Выбрать Старт</span>
@@ -680,7 +680,7 @@
           <div>
             <div class="plan-topline"><span class="plan-name">Scale</span><span class="plan-badge">для команды</span></div>
             <div class="plan-price">1999 ₽<span>в месяц</span></div>
-            <p>Для агентств, e-commerce и владельцев нескольких проектов: бот превращается в центр контроля маркетинга, конкурентов и отчетов для команды.</p>
+            <p>Для агентств, e-commerce и владельцев нескольких проектов: TrafficMind AI становится центром контроля маркетинга, конкурентов и отчетов для команды.</p>
             <ul class="plan-list">
               <li>до 10 сайтов или проектов</li>
               <li>все возможности PRO</li>
@@ -700,15 +700,15 @@
     <section class="two" id="settings">
       <article class="card">
         <h2>Настройки бизнеса</h2>
-        <p class="muted">Кабинет работает как пульт управления ботом: клиент задает цель, ценность лида, каналы и уровень уведомлений, а TrafficMind AI подстраивает отчеты под выбранный тариф.</p>
+        <p class="muted">Кабинет работает как пульт управления ростом: вы задаете цель, ценность лида, каналы и уровень уведомлений, а TrafficMind AI подстраивает отчеты под выбранный тариф.</p>
         <form id="settings-form">
           <input type="hidden" name="plan" value="pro799">
           <div class="settings-stack">
             <div class="settings-section">
-              <div class="section-kicker"><strong>Доступ по тарифу</strong><span>что бот может использовать прямо сейчас</span></div>
+              <div class="section-kicker"><strong>Доступ по тарифу</strong><span>что сервис может использовать прямо сейчас</span></div>
               <div class="access-panel">
                 <div class="access-item" data-feature="link_report"><strong>Отчет по ссылке</strong><span>быстрый аудит сайта, оффера, CTA и видимых точек потерь.</span></div>
-                <div class="access-item" data-feature="saved_account"><strong>Личный кабинет</strong><span>бот помнит цели, сайт, нишу и настройки клиента.</span></div>
+                <div class="access-item" data-feature="saved_account"><strong>Личный кабинет</strong><span>сервис помнит цели, сайт, нишу и настройки клиента.</span></div>
                 <div class="access-item" data-feature="ai_actions"><strong>Что делать сегодня</strong><span>приоритеты, ожидаемый эффект и понятный план действий.</span></div>
                 <div class="access-item" data-feature="money_loss"><strong>Потери денег</strong><span>поиск мест, где бизнес теряет заявки, бюджет или продажи.</span></div>
                 <div class="access-item" data-feature="deep_sources"><strong>Глубокие источники</strong><span>CRM, звонки, email, пиксели и расширенные рекламные данные.</span></div>
@@ -719,7 +719,7 @@
             <div class="settings-section">
               <div class="section-kicker"><strong>Профиль</strong><span>кто вы и что продвигаете</span></div>
               <div class="compact-grid">
-                <label>Telegram ID
+                <label>ID клиента
                   <input name="telegram_id" value="100001" inputmode="numeric">
                 </label>
                 <label class="wide-field">Сайт
@@ -738,7 +738,7 @@
             </div>
 
             <div class="settings-section">
-              <div class="section-kicker"><strong>Цели и деньги</strong><span>как бот будет считать приоритеты</span></div>
+              <div class="section-kicker"><strong>Цели и деньги</strong><span>как сервис будет считать приоритеты</span></div>
               <div class="compact-grid">
                 <label>Главная цель
                   <select name="goal">
@@ -835,12 +835,12 @@
                 </label>
               </div>
               <div class="check-grid">
-                <label class="check-card" data-min-plan="pro799"><input type="checkbox" name="notify_money_loss" checked> Потери денег<span class="lock-note">Откроется на тарифе “PRO”: бот будет считать потери бюджета, лидов и продаж.</span></label>
+                <label class="check-card" data-min-plan="pro799"><input type="checkbox" name="notify_money_loss" checked> Потери денег<span class="lock-note">Откроется на тарифе “PRO”: сервис будет считать потери бюджета, лидов и продаж.</span></label>
                 <label class="check-card"><input type="checkbox" name="notify_leads_drop" checked> Просадка заявок</label>
                 <label class="check-card"><input type="checkbox" name="notify_ads_spike" checked> Рост CPL</label>
                 <label class="check-card" data-min-plan="pro799"><input type="checkbox" name="notify_competitors"> Конкуренты<span class="lock-note">Откроется на тарифе “PRO”: до 3 конкурентов с динамикой.</span></label>
                 <label class="check-card" data-min-plan="start299"><input type="checkbox" name="weekly_digest" checked> Недельный итог<span class="lock-note">Откроется на тарифе “Старт”: регулярный дайджест по действиям и результатам.</span></label>
-                <label class="check-card"><input type="checkbox" name="telegram_sync" checked> Telegram-уведомления позже</label>
+                <label class="check-card"><input type="checkbox" name="telegram_sync" checked> Уведомления позже</label>
               </div>
             </div>
 
@@ -863,7 +863,7 @@
                 </label>
                 <label data-min-plan="pro799">Конкурент 2
                   <input name="competitor_2" value="">
-                  <span class="lock-note">Бот будет отслеживать изменения сайта, активности и видимого спроса.</span>
+                  <span class="lock-note">Сервис будет отслеживать изменения сайта, активности и видимого спроса.</span>
                 </label>
                 <label data-min-plan="pro799">Конкурент 3
                   <input name="competitor_3" value="">
@@ -881,16 +881,16 @@
       </article>
 
       <article class="card" id="telegram-sync">
-        <h2>Telegram подключим позже</h2>
-        <p class="muted">Сайт, личный кабинет, тарифы, отчеты и настройки можно запустить первыми. Telegram-бот подключается позже как дополнительный канал доставки отчетов и алертов.</p>
+        <h2>Каналы уведомлений подключим позже</h2>
+        <p class="muted">Сайт, кабинет, тарифы, отчеты и настройки можно запустить первыми. Telegram или email можно добавить позже как удобный канал доставки отчетов и алертов.</p>
         <div class="sync-steps">
           <div class="step"><span class="number">01</span><div><strong>Сначала работает web-кабинет</strong><p class="muted">Клиент выбирает тариф, сохраняет сайт, цели, каналы, конкурентов и настройки отчетов.</p></div></div>
-          <div class="step"><span class="number">02</span><div><strong>Потом запускается Telegram-бот</strong><p class="muted">Команда /account или кнопка “Личный кабинет” создает одноразовый код на 15 минут.</p></div></div>
-          <div class="step"><span class="number">03</span><div><strong>Кабинет и бот синхронизируются</strong><p class="muted">Endpoint `/api/account/telegram-link` связывает Telegram-профиль с уже настроенным клиентским кабинетом.</p></div></div>
+          <div class="step"><span class="number">02</span><div><strong>Потом добавляются уведомления</strong><p class="muted">Клиент выбирает, куда получать отчеты: в кабинет, Telegram, email или другой канал.</p></div></div>
+          <div class="step"><span class="number">03</span><div><strong>Все настройки остаются едиными</strong><p class="muted">Отчеты, цели, тариф и подключенные источники используются во всех каналах без повторной настройки.</p></div></div>
         </div>
         <div class="pill-list">
-          <span class="pill">Telegram ID</span>
-          <span class="pill">одноразовый код</span>
+          <span class="pill">ID клиента</span>
+          <span class="pill">безопасный вход</span>
           <span class="pill">история отчетов</span>
           <span class="pill">сохраненные настройки</span>
         </div>
@@ -903,13 +903,13 @@
         <div class="list">
           <div class="item"><strong>Сайты клиента</strong>Основной сайт, дополнительные проекты и статус последней проверки.</div>
           <div class="item"><strong>Подключения</strong>GA4, Метрика, Search Console, Google Ads, Яндекс Директ, VK API, CRM, пиксели и call tracking.</div>
-          <div class="item"><strong>История отчетов</strong>Все отчеты, которые бот уже собрал по ссылке или по подключенным данным.</div>
-          <div class="item"><strong>Задачи роста</strong>Короткий список действий, которые бот рекомендует сделать первыми.</div>
+          <div class="item"><strong>История отчетов</strong>Все отчеты, собранные по ссылке или по подключенным данным.</div>
+          <div class="item"><strong>Задачи роста</strong>Короткий список действий, которые сервис рекомендует сделать первыми.</div>
         </div>
       </article>
       <article class="card">
-        <h2>Что увидит бот</h2>
-        <p class="muted">После синхронизации бот сможет отвечать не как общий консультант, а как персональный AI-маркетолог конкретного клиента.</p>
+        <h2>Что будет знать сервис</h2>
+        <p class="muted">После настройки TrafficMind AI работает не как общий консультант, а как персональный AI-маркетолог конкретного бизнеса.</p>
         <div class="pill-list">
           <span class="pill">цель бизнеса</span>
           <span class="pill">сайт</span>
@@ -935,19 +935,19 @@
     const planCopy = {
       trial: {
         title: "Активен пробный доступ",
-        text: "Клиент может бесплатно проверить сайт 1 раз в 7 дней. Без подключения сервисов: GA4, реклама, CRM, звонки и расширенная статистика открываются только на платных тарифах."
+        text: "Можно бесплатно проверить сайт 1 раз в 7 дней и увидеть первые риски. Реальная статистика по GA4, рекламе, CRM, звонкам и продажам открывается после подключений на платных тарифах."
       },
       start299: {
         title: "Активен тариф “Старт”",
-        text: "Открыты личный кабинет, сохранение настроек, регулярные отчеты по одному сайту, SEO, базовая реклама, соцсети, UTM и недельные AI-рекомендации. Глубокие источники, AI Growth Council, CRM и конкуренты открываются на PRO."
+        text: "Открыты кабинет, сохранение настроек, регулярные отчеты по одному сайту, SEO, базовая реклама, соцсети, UTM и недельные AI-рекомендации. Деньги, CRM, AI Growth Council и конкуренты открываются на PRO."
       },
       pro799: {
         title: "Активен тариф “PRO”",
-        text: "Открыты все ключевые источники данных, AI Growth Council, модуль потерь денег, CRM, звонки, email, пиксели, owner alerts и мониторинг до 3 конкурентов."
+        text: "Открыты ключевые источники данных, AI Growth Council, потери денег, CRM, звонки, email, пиксели, алерты владельца и мониторинг до 3 конкурентов."
       },
       scale1999: {
         title: "Активен тариф “Scale”",
-        text: "Открыты максимум контроля: до 10 проектов, расширенные отчеты для команды, до 10 конкурентов, прогнозы по доходу, приоритетные алерты и готовность к агентскому режиму."
+        text: "Открыт максимум контроля: до 10 проектов, расширенные отчеты для команды, до 10 конкурентов, прогнозы по доходу и приоритетные алерты."
       }
     };
     const featurePlans = {
@@ -1134,7 +1134,7 @@
       Object.entries(merged).forEach(([name, value]) => setControlValue(name, value));
       siteStat.textContent = saved.website || "example.com";
       syncStat.textContent = "Связано";
-      loginStatus.textContent = `Вход выполнен как Telegram ID ${saved.telegram_id}`;
+      loginStatus.textContent = `Вход выполнен. ID клиента: ${saved.telegram_id}`;
     }
     enhanceSelects();
     document.querySelectorAll(".plan-card").forEach((card) => {
@@ -1145,7 +1145,7 @@
     loginForm.addEventListener("submit", async (event) => {
       event.preventDefault();
       const code = document.querySelector("#login-code").value.trim();
-      loginStatus.textContent = "Проверяю код Telegram...";
+      loginStatus.textContent = "Проверяю код доступа...";
       try {
         const response = await fetch("/api/account/telegram-link", {
           method: "POST",
@@ -1162,7 +1162,7 @@
         const result = await response.json();
         settingsForm.telegram_id.value = result.telegram_id;
         syncStat.textContent = "Связано";
-        loginStatus.textContent = `Кабинет связан с Telegram ID ${result.telegram_id}. Теперь бот будет использовать сохраненные настройки в отчетах.`;
+        loginStatus.textContent = `Кабинет активирован. ID клиента: ${result.telegram_id}. Сервис будет использовать сохраненные настройки в отчетах.`;
         const account = result.account || {};
         const savedPayload = {
           ...JSON.parse(localStorage.getItem(storageKey) || "{}"),
@@ -1176,8 +1176,8 @@
       } catch (error) {
         const fallbackId = code.replace(/\D/g, "") || "100001";
         settingsForm.telegram_id.value = fallbackId;
-        syncStat.textContent = "Демо-связка";
-        loginStatus.textContent = `${error.message || "Backend недоступен."} В статическом демо код сохранен локально; в production этот же ввод подтверждается через Telegram-бота.`;
+        syncStat.textContent = "Тестовый вход";
+        loginStatus.textContent = "Код принят для тестового режима. В рабочей версии вход будет подтверждаться безопасным одноразовым кодом.";
         localStorage.setItem(storageKey, JSON.stringify({
           ...JSON.parse(localStorage.getItem(storageKey) || "{}"),
           telegram_id: fallbackId,
@@ -1238,7 +1238,7 @@
 
       localStorage.setItem(storageKey, JSON.stringify(payload));
       siteStat.textContent = payload.website || "example.com";
-      saveStatus.textContent = "Настройки сохранены в кабинете. После запуска backend они будут сохраняться в базе и синхронизироваться с ботом.";
+      saveStatus.textContent = "Настройки сохранены в кабинете. После подключения базы данных они будут храниться в аккаунте клиента.";
 
       try {
         const response = await fetch("/api/account/settings", {
@@ -1247,10 +1247,10 @@
           body: JSON.stringify(payload)
         });
         if (response.ok) {
-          saveStatus.textContent = "Настройки сохранены и отправлены в backend.";
+          saveStatus.textContent = "Настройки сохранены и отправлены на сервер.";
         }
       } catch (error) {
-        // Static demo mode.
+        // Local preview mode.
       }
     });
   </script>
