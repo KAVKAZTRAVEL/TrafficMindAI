@@ -1,6 +1,7 @@
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
+const { appendSecurityHeaders, handleBackendApi } = require("./backend");
 
 const root = __dirname;
 const types = {
@@ -34,9 +35,10 @@ function readBody(req) {
 }
 
 function sendJson(res, payload, status = 200) {
+  const corsOrigin = process.env.CORS_ORIGIN;
   res.writeHead(status, {
     "Content-Type": "application/json; charset=utf-8",
-    "Access-Control-Allow-Origin": "*",
+    ...(corsOrigin ? { "Access-Control-Allow-Origin": corsOrigin } : {}),
     "Access-Control-Allow-Headers": "Content-Type, Authorization",
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS"
   });
@@ -155,9 +157,9 @@ const integrations = [
   title,
   category,
   purpose,
-  auth_type: ["pixels"].includes(category) ? "install_snippet" : "demo_connect",
+  auth_type: ["pixels"].includes(category) ? "install_snippet" : "oauth",
   setup_time: category === "calls" ? "5 минут" : "2-3 минуты",
-  status: "available_in_demo"
+  status: "configuration_required"
 }));
 
 function growthDemo() {
@@ -246,7 +248,7 @@ async function handleApi(req, res, pathname, searchParams) {
       title: item.title,
       auth_type: item.auth_type,
       setup_time: item.setup_time,
-      required_env: item.auth_type === "demo_connect" ? [`${item.code.toUpperCase()}_CLIENT_ID`, `${item.code.toUpperCase()}_CLIENT_SECRET`] : [],
+      required_env: item.auth_type === "oauth" ? [`${item.code.toUpperCase()}_CLIENT_ID`, `${item.code.toUpperCase()}_CLIENT_SECRET`] : [],
       instructions: [
         "В demo-режиме подключение имитируется без внешнего OAuth.",
         "В production нужно создать приложение у провайдера и добавить redirect URI.",
@@ -299,7 +301,7 @@ async function handleApi(req, res, pathname, searchParams) {
       ok: true,
       mode: "demo",
       checkout_url: "/account.html?billing=demo-success",
-      session_id: "demo_checkout_session"
+      session_id: "stripe_not_configured"
     });
     return true;
   }
@@ -308,9 +310,11 @@ async function handleApi(req, res, pathname, searchParams) {
 }
 
 http.createServer(async (req, res) => {
+  appendSecurityHeaders(res);
   const parsed = new URL(req.url, `http://127.0.0.1:${port}`);
   const pathname = decodeURIComponent(parsed.pathname);
 
+  if (await handleBackendApi(req, res, pathname, parsed.searchParams)) return;
   if (await handleApi(req, res, pathname, parsed.searchParams)) return;
 
   let urlPath = pathname;

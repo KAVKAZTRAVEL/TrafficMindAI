@@ -247,13 +247,7 @@
     };
 
     const normalizePlan = (plan) => ({ start299: "pro399", pro799: "pro399", scale1999: "ai_future" }[plan] || plan || "trial");
-    const savedPlan = () => {
-      try {
-        return normalizePlan(JSON.parse(localStorage.getItem("trafficmind_account_settings") || "{}").plan);
-      } catch {
-        return "trial";
-      }
-    };
+    const savedPlan = () => "trial";
     const requestedPlan = normalizePlan(planFromUrl);
     const currentPlan = levels[requestedPlan] !== undefined ? requestedPlan : savedPlan();
     const currentLevel = levels[currentPlan] ?? 0;
